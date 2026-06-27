@@ -1,0 +1,296 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Authentification des Protocoles de Routage – Vieux Alia Samb</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<style>
+			.project-meta { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 25px; }
+			.badge { background: #2c3e50; color: #1abc9c; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; border: 1px solid #1abc9c; }
+			.step-block { background: #f8f9fa; border-left: 4px solid #16a085; padding: 18px 20px; margin-bottom: 20px; border-radius: 0 6px 6px 0; }
+			.step-block h4 { color: #16a085; margin: 0 0 10px 0; font-size: 16px; }
+			.step-number { display: inline-block; background: #16a085; color: white; width: 28px; height: 28px; border-radius: 50%; text-align: center; line-height: 28px; font-weight: bold; margin-right: 10px; font-size: 14px; }
+			pre { background: #1a252f; color: #1abc9c; padding: 16px 20px; border-radius: 6px; font-size: 13px; overflow-x: auto; line-height: 1.6; }
+			pre .comment { color: #7f8c8d; }
+			pre .highlight { color: #f39c12; font-weight: bold; }
+			pre .danger { color: #e74c3c; font-weight: bold; }
+			pre .success { color: #2ecc71; font-weight: bold; }
+			.concept-box { background: #e8f8f5; border: 1px solid #16a085; border-radius: 8px; padding: 16px 20px; margin: 20px 0; }
+			.concept-box h4 { color: #0e6655; margin: 0 0 8px 0; }
+			.warning-box { background: #fef9e7; border: 1px solid #f39c12; border-radius: 8px; padding: 14px 18px; margin: 15px 0; font-size: 13px; }
+			.danger-box { background: #fdedec; border: 1px solid #e74c3c; border-radius: 8px; padding: 14px 18px; margin: 15px 0; font-size: 13px; }
+			.danger-box strong { color: #c0392b; }
+			.success-box { background: #eafaf1; border: 1px solid #27ae60; border-radius: 8px; padding: 14px 18px; margin: 15px 0; font-size: 13px; }
+			.success-box strong { color: #1e8449; }
+			.adj-msg { padding: 10px 16px; border-radius: 6px; font-family: monospace; font-size: 12px; margin: 10px 0; }
+			.adj-down { background: #1a252f; color: #e74c3c; }
+			.adj-up { background: #1a252f; color: #2ecc71; }
+			.img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 15px 0; }
+			.img-grid figure { margin: 0; }
+			figure { margin: 15px 0; }
+			figure img { width: 100%; border-radius: 6px; border: 1px solid #ddd; }
+			figcaption { text-align: center; font-size: 12px; color: #95a5a6; margin-top: 6px; font-style: italic; }
+			.keychain-flow { background: #2c3e50; color: #ecf0f1; border-radius: 8px; padding: 18px 20px; margin: 15px 0; font-size: 13px; line-height: 1.8; }
+			.keychain-flow .step { color: #1abc9c; font-weight: bold; }
+			.learned-box { background: #eafaf1; border: 1px solid #a9dfbf; border-radius: 8px; padding: 18px 20px; margin-top: 10px; }
+			.learned-box h4 { color: #1e8449; margin: 0 0 10px 0; }
+			.nav-pages { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ecf0f1; }
+			.nav-pages a { color: #2980b9; text-decoration: none; font-weight: bold; }
+			.debug-box { background: #1a252f; color: #bdc3c7; padding: 14px 18px; border-radius: 6px; font-family: monospace; font-size: 11.5px; line-height: 1.7; margin: 10px 0; }
+			.debug-box .key { color: #f39c12; }
+			.debug-box .hello { color: #3498db; }
+			.debug-box .send { color: #2ecc71; }
+		</style>
+	</head>
+	<body class="is-preload">
+		<div id="wrapper">
+			<div id="main">
+				<div class="inner">
+
+					<header id="header">
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/vieux-alia-samb-753a443ab" target="_blank" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://github.com/Sav2507" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</header>
+
+					<p style="color:#95a5a6; font-size:13px;">
+						<a href="index.html" style="color:#2980b9;">Accueil</a> &rsaquo;
+						Réseau &rsaquo; Routage &rsaquo;
+						<strong>Authentification des Protocoles de Routage</strong>
+					</p>
+
+					<header class="main">
+						<h1>Authentification MD5 sur EIGRP</h1>
+					</header>
+
+					<div class="project-meta">
+						<span class="badge">🔐 Sécurité Réseau</span>
+						<span class="badge">🔧 Cisco Packet Tracer</span>
+						<span class="badge">📡 EIGRP AS 100</span>
+						<span class="badge">🔑 MD5 / Key-Chain</span>
+						<span class="badge">2025 – 2026</span>
+					</div>
+
+					<!-- Objectif -->
+					<h2>Objectif</h2>
+					<p>Ce TP porte sur la mise en place de l'<strong>authentification MD5 pour EIGRP</strong>. Sans authentification, n'importe quel routeur peut rejoindre un domaine EIGRP et injecter de fausses routes — une attaque classique de type <em>route injection</em>. L'objectif est de configurer deux routeurs Cisco (<strong>Dakar</strong> et <strong>Thies</strong>) pour qu'ils authentifient mutuellement leurs messages EIGRP via un trousseau de clés partagé.</p>
+
+					<!-- Concept -->
+					<div class="concept-box">
+						<h4>📖 Pourquoi authentifier les protocoles de routage ?</h4>
+						<ul>
+							<li><strong>Menace sans auth</strong> : un attaquant peut connecter un routeur malveillant, établir une adjacence EIGRP et injecter de fausses routes → détournement de trafic</li>
+							<li><strong>MD5</strong> : chaque paquet EIGRP est signé avec un hash MD5 de la clé secrète — les routeurs sans la bonne clé ne peuvent pas former d'adjacence</li>
+							<li><strong>Key-chain</strong> : mécanisme Cisco permettant de regrouper plusieurs clés avec des plages de validité — facilite la rotation des clés</li>
+							<li><strong>Symétrie obligatoire</strong> : les deux routeurs doivent avoir exactement le même key-chain (même nom, même clé, même secret) — une configuration asymétrique coupe l'adjacence</li>
+						</ul>
+					</div>
+
+					<!-- Topologie -->
+					<h2>Topologie du réseau</h2>
+					<figure>
+						<img src="images/auth-topologie-initiale.png" alt="Topologie initiale" />
+						<figcaption>Topologie Packet Tracer – Routeurs Dakar (.1) et Thies (.2) reliés via 10.12.0.0/24, LAN 172.10.1.0/24 et 172.20.1.0/24</figcaption>
+					</figure>
+
+					<h2>Étapes de configuration</h2>
+
+					<!-- Étape 1 : Interfaces -->
+					<div class="step-block">
+						<h4><span class="step-number">1</span>Configuration des interfaces</h4>
+						<p>On commence par configurer les interfaces Serial entre Dakar et Thies pour établir la connectivité de base :</p>
+						<div class="img-grid">
+							<figure>
+								<img src="images/auth-dakar-iface.png" alt="Interface Dakar" />
+								<figcaption>Configuration Serial0/0/0 sur Dakar – IP 10.12.0.1/24</figcaption>
+							</figure>
+							<figure>
+								<img src="images/auth-thies-iface.png" alt="Interface Thies" />
+								<figcaption>Configuration Serial0/1/0 sur Thies – lien série opérationnel</figcaption>
+							</figure>
+						</div>
+					</div>
+
+					<!-- Étape 2 : EIGRP sans auth -->
+					<div class="step-block">
+						<h4><span class="step-number">2</span>Configuration EIGRP (sans authentification)</h4>
+						<p>On commence par établir EIGRP normalement avant d'ajouter l'authentification :</p>
+						<div class="img-grid">
+							<figure>
+								<img src="images/auth-dakar-eigrp.png" alt="EIGRP Dakar" />
+								<figcaption>EIGRP AS 100 sur Dakar avec <code>no auto-summary</code></figcaption>
+							</figure>
+							<figure>
+								<img src="images/auth-thies-eigrp.png" alt="EIGRP Thies" />
+								<figcaption>Adjacence établie sur Thies – <code>%DUAL-5-NBRCHANGE: Neighbor 10.12.0.1 is up</code></figcaption>
+							</figure>
+						</div>
+					</div>
+
+					<!-- Étape 3 : Key-chain -->
+					<div class="step-block">
+						<h4><span class="step-number">3</span>Création du trousseau de clés (Key-Chain) sur Dakar</h4>
+						<p>On crée un key-chain nommé <code>MYIPROSI</code> avec une clé d'identifiant 1 et le secret <code>iprosi2018</code> :</p>
+						<figure>
+							<img src="images/auth-dakar-keychain.png" alt="Key-chain Dakar" />
+							<figcaption>Création du key-chain MYIPROSI sur Dakar – clé 1 avec secret "iprosi2018". Note : les erreurs de frappe (<code>key-chain</code> vs <code>key chain</code>) illustrent la syntaxe exacte requise</figcaption>
+						</figure>
+					</div>
+
+					<!-- Étape 4 : Activation MD5 sur Dakar -->
+					<div class="step-block">
+						<h4><span class="step-number">4</span>Activation de l'authentification MD5 sur Dakar</h4>
+						<p>On associe le key-chain à l'interface série de Dakar pour EIGRP AS 100 :</p>
+						<div class="danger-box">
+							⚠️ <strong>Comportement attendu :</strong> dès l'activation MD5 sur Dakar, l'adjacence avec Thies <strong>tombe immédiatement</strong> — Thies n'a pas encore l'auth configurée. C'est une configuration asymétrique temporaire.
+						</div>
+						<div class="adj-msg adj-down">%DUAL-5-NBRCHANGE: IP-EIGRP(0) 100: Neighbor 10.12.0.2 (Serial0/0/0) is down: authentication mode changed</div>
+						<div class="img-grid">
+							<figure>
+								<img src="images/auth-dakar-md5-mode.png" alt="MD5 mode Dakar" />
+								<figcaption>Activation MD5 sur Dakar – adjacence coupée (comportement normal)</figcaption>
+							</figure>
+							<figure>
+								<img src="images/auth-dakar-keychain-apply.png" alt="Key-chain apply Dakar" />
+								<figcaption>Association du key-chain MYIPROSI à EIGRP sur l'interface de Dakar</figcaption>
+							</figure>
+						</div>
+					</div>
+
+					<!-- Étape 5 : Configuration Thies -->
+					<div class="step-block">
+						<h4><span class="step-number">5</span>Configuration complète de l'authentification sur Thies</h4>
+						<p>On reproduit exactement la même configuration sur Thies :</p>
+						<figure>
+							<img src="images/auth-thies-full.png" alt="Config complète Thies" />
+							<figcaption>Configuration complète sur Thies – l'adjacence se rétablit immédiatement avec MD5 actif des deux côtés</figcaption>
+						</figure>
+						<div class="adj-msg adj-up">%DUAL-5-NBRCHANGE: IP-EIGRP 100: Neighbor 10.12.0.1 (Serial0/1/0) is up: new adjacency</div>
+						<div class="success-box">
+							✅ <strong>Adjacence rétablie !</strong> Les deux routeurs s'authentifient mutuellement avec MD5. Tout routeur sans la clé <code>iprosi2018</code> sera rejeté.
+						</div>
+					</div>
+
+					<!-- Vérification -->
+					<div class="step-block">
+						<h4><span class="step-number">6</span>Tests de connectivité et vérification</h4>
+						<p>Ajout de PC0 (172.10.1.10) côté Dakar et PC1 (172.20.1.10) côté Thies pour valider le routage end-to-end :</p>
+						<figure>
+							<img src="images/auth-topologie-pc.png" alt="Topologie avec PCs" />
+							<figcaption>Topologie finale avec PC0 et PC1 pour les tests de connectivité</figcaption>
+						</figure>
+						<div class="img-grid">
+							<figure>
+								<img src="images/auth-ping-pc0.png" alt="Ping PC0" />
+								<figcaption>PC0 → PC1 (172.20.1.10) : 4/4 paquets reçus, 0% perte ✅</figcaption>
+							</figure>
+							<figure>
+								<img src="images/auth-ping-pc1.png" alt="Ping PC1" />
+								<figcaption>PC1 → PC0 (172.10.1.10) : 4/4 paquets reçus, 0% perte ✅</figcaption>
+							</figure>
+						</div>
+					</div>
+
+					<!-- Debug EIGRP -->
+					<div class="step-block">
+						<h4><span class="step-number">7</span>Analyse – Debug EIGRP packets</h4>
+						<p>La commande <code>debug eigrp packets</code> permet d'observer en temps réel les échanges EIGRP et de confirmer que l'authentification MD5 est active :</p>
+						<div class="img-grid">
+							<figure>
+								<img src="images/auth-debug-dakar.png" alt="Debug Dakar" />
+								<figcaption>Debug EIGRP sur Dakar – réception et envoi de HELLO avec MD5</figcaption>
+							</figure>
+							<figure>
+								<img src="images/auth-debug-thies.png" alt="Debug Thies" />
+								<figcaption>Debug EIGRP sur Thies – symétrique, MD5 actif des deux côtés</figcaption>
+							</figure>
+						</div>
+						<ul style="font-size:13px;">
+							<li><strong style="color:#f39c12;">Received packet with MD5 authentication, key id = 1</strong> → les paquets de Thies sont bien signés et validés</li>
+							<li><strong style="color:#3498db;">Received HELLO on Serial0/0/0 nbr 10.12.0.2</strong> → Dakar reçoit les HELLO de Thies</li>
+							<li><strong style="color:#2ecc71;">Sending HELLO on Serial0/0/0</strong> → Dakar envoie ses propres HELLO signés</li>
+						</ul>
+					</div>
+
+					<!-- Conclusion -->
+					<div class="learned-box">
+						<h4>✅ Ce que j'ai appris</h4>
+						<ul>
+							<li>Comprendre la menace de <strong>route injection</strong> et pourquoi l'authentification des protocoles de routage est essentielle en production</li>
+							<li>Créer un <strong>key-chain</strong> sur Cisco IOS : <code>key chain [nom]</code> → <code>key [id]</code> → <code>key-string [secret]</code></li>
+							<li>Activer l'authentification MD5 sur une interface EIGRP : <code>ip authentication mode eigrp [AS] md5</code> + <code>ip authentication key-chain eigrp [AS] [nom]</code></li>
+							<li>Comprendre la <strong>configuration asymétrique</strong> : activer l'auth sur un seul côté coupe l'adjacence — les deux routeurs doivent être configurés simultanément en prod</li>
+							<li>Utiliser <code>debug eigrp packets</code> pour vérifier que l'authentification MD5 est active sur les échanges HELLO</li>
+							<li>Distinguer la syntaxe : <code>key chain</code> (avec espace) est correct — <code>key-chain</code> génère une erreur sur certains IOS</li>
+						</ul>
+					</div>
+
+					<div class="nav-pages">
+						<a href="reseau-ripv2.html">← RIPv2</a>
+						<a href="reseau-hsrp.html">HSRP →</a>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- Sidebar -->
+			<div id="sidebar">
+				<div class="inner">
+					<section id="search" class="alt">
+						<form method="post" action="#"><input type="text" name="query" id="query" placeholder="Search" /></form>
+					</section>
+					<nav id="menu">
+						<header class="major"><h2>Menu</h2></header>
+						<ul>
+							<li><a href="index.html">Accueil</a></li>
+							<li>
+								<span class="opener">Réseau</span>
+								<ul>
+									<li>
+										<span class="opener">Routage</span>
+										<ul>
+											<li><a href="reseau-routage-statique.html">Routage Statique</a></li>
+											<li><a href="reseau-routage-defaut.html">Routage par Défaut</a></li>
+											<li><a href="reseau-ospf.html">OSPF (Dynamique)</a></li>
+											<li><a href="reseau-eigrp.html">EIGRP (Dynamique)</a></li>
+											<li><a href="reseau-ripv2.html">RIPv2 (Dynamique)</a></li>
+											<li><a href="reseau-auth-routage.html"><strong>Authentification des Protocoles</strong></a></li>
+										</ul>
+									</li>
+									<li><span class="opener">Haute Disponibilité</span><ul><li><a href="reseau-hsrp.html">HSRP</a></li></ul></li>
+									<li><span class="opener">Sécurité L2</span><ul><li><a href="reseau-dhcp-snooping.html">DHCP Snooping</a></li><li><a href="reseau-arp-spoofing.html">ARP Spoofing</a></li><li><a href="reseau-mac-flooding.html">MAC Flooding</a></li><li><a href="reseau-vlan.html">VLAN</a></li></ul></li>
+									<li><span class="opener">Services Réseau</span><ul><li><a href="reseau-nat.html">NAT</a></li><li><a href="reseau-dhcp.html">DHCP</a></li><li><a href="reseau-radius.html">RADIUS</a></li></ul></li>
+									<li><span class="opener">Audit Sans-Fil &amp; MITM</span><ul><li><a href="reseau-wifi-audit.html">Audit WPA2/WPA3</a></li><li><a href="reseau-mitm.html">MITM</a></li><li><a href="reseau-wireshark.html">Wireshark</a></li></ul></li>
+								</ul>
+							</li>
+							<li><span class="opener">Attaque / Défense</span><ul><li><span class="opener">Machines Vulnérables</span><ul><li><a href="#">ProFTPD</a></li><li><a href="#">Port 80</a></li></ul></li><li><span class="opener">SOC &amp; Défense</span><ul><li><a href="#">SOAR TheHive</a></li><li><a href="#">SIEM/XDR</a></li><li><a href="#">OSSEC</a></li></ul></li><li><span class="opener">CTF &amp; Compétitions</span><ul><li><a href="#">Root-Me</a></li><li><a href="#">ECOWAS CTF 2026</a></li></ul></li></ul></li>
+							<li><span class="opener">Forensics &amp; Investigation</span><ul><li><a href="#">FTK Imager</a></li><li><a href="#">Analyse SAM</a></li></ul></li>
+							<li><span class="opener">Développement</span><ul><li><a href="#">SenCadenas</a></li><li><a href="#">App Ordonnances</a></li></ul></li>
+							<li><span class="opener">Mon Mémoire</span><ul><li><a href="#">Chap. 1</a></li><li><a href="#">Chap. 2</a></li><li><a href="#">Chap. 3</a></li><li><a href="#">Chap. 4</a></li><li><a href="#">Chap. 5</a></li></ul></li>
+							<li><span class="opener">Gouvernance &amp; Management</span><ul><li><a href="#">ISO 27001</a></li><li><a href="#">Politiques</a></li></ul></li>
+							<li><span class="opener">Sécurité Cloud</span><ul><li><a href="#">IAM &amp; Moindre Privilège</a></li></ul></li>
+						</ul>
+					</nav>
+					<section>
+						<header class="major"><h2>Contact</h2></header>
+						<ul class="contact">
+							<li class="icon solid fa-envelope"><a href="mailto:vieuxdiene47@gmail.com">vieuxdiene47@gmail.com</a></li>
+							<li class="icon solid fa-phone">77 993 03 06</li>
+							<li class="icon solid fa-map-marker-alt">Yoff Tonghor, Dakar, Sénégal</li>
+						</ul>
+					</section>
+					<footer id="footer">
+						<p class="copyright">&copy; Vieux Alia Samb. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+					</footer>
+				</div>
+			</div>
+		</div>
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+	</body>
+</html>

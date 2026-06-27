@@ -1,0 +1,556 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>SenCadenas – Portfolio Vieux Alia Samb</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<ul class="icons">
+										<li><a href="https://www.linkedin.com/in/vieux-alia-samb-753a443ab" target="_blank" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+										<li><a href="https://github.com/Sav2507" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+									</ul>
+								</header>
+
+							<!-- Titre -->
+								<section>
+									<header class="main">
+										<h1>SenCadenas</h1>
+										<p>Gestionnaire de mots de passe sécurisé — Projet de groupe · Module Programmation Sécurisée · 2025–2026</p>
+									</header>
+
+									<!-- Badges -->
+									<div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:2em;">
+										<span style="background:#f56a6a; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">Django + DRF</span>
+										<span style="background:#444; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">HTML · CSS · JavaScript</span>
+										<span style="background:#2d8a4e; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">JWT Auth</span>
+										<span style="background:#1a6e9a; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">SQLite</span>
+										<span style="background:#7b4fa3; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">NIST SP 800-63B Rev.4</span>
+										<span style="background:#c97a1c; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">Architecture Zero-Knowledge</span>
+									</div>
+
+									<!-- Bloc intro -->
+									<div class="row">
+										<div class="col-8 col-12-medium">
+											<p>SenCadenas est un gestionnaire de mots de passe sécurisé conçu pour le contexte sénégalais. Le projet répond à un besoin réel de cybersécurité en Afrique de l'Ouest, où la gestion des identifiants numériques reste souvent négligée. Il implémente une architecture <strong>Zero-Knowledge</strong> : les données sensibles ne sont jamais lisibles par le serveur, conformément aux recommandations du <strong>NIST SP 800-63B Rev.4 (2024)</strong>.</p>
+											<p><strong>Réalisé avec :</strong> Bachir Gueye &nbsp;·&nbsp; Module Programmation Sécurisée &nbsp;·&nbsp; École IPROSI</p>
+										</div>
+										<div class="col-4 col-12-medium">
+											<div style="background:#f8f8f8; border-left:4px solid #f56a6a; padding:1em 1.2em; border-radius:4px;">
+												<h4 style="margin:0 0 0.5em 0; font-size:0.9em; text-transform:uppercase; color:#888;">Statut du projet</h4>
+												<p style="margin:0; font-weight:600; color:#2d8a4e;">✔ Frontend complet + Backend fonctionnel</p>
+												<hr style="margin:0.7em 0; border:none; border-top:1px solid #ddd;">
+												<p style="margin:0; font-size:0.85em; color:#555;">Déployé en local · SQLite → PostgreSQL prévu</p>
+											</div>
+										</div>
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- Architecture -->
+								<section>
+									<header class="major">
+										<h2>Architecture Générale</h2>
+									</header>
+									<p>Le projet suit une architecture client-serveur avec séparation stricte des responsabilités entre le frontend Vanilla JS et l'API REST Django.</p>
+
+									<div class="table-wrapper">
+										<table>
+											<thead>
+												<tr>
+													<th>Couche</th>
+													<th>Technologie</th>
+													<th>Rôle</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><strong>Frontend</strong></td>
+													<td>HTML5 · CSS3 · JavaScript (Vanilla)</td>
+													<td>Interface utilisateur, interactions, chiffrement côté client</td>
+												</tr>
+												<tr>
+													<td><strong>Backend</strong></td>
+													<td>Django 4.x + Django REST Framework</td>
+													<td>API REST, logique métier, authentification</td>
+												</tr>
+												<tr>
+													<td><strong>Base de données</strong></td>
+													<td>SQLite (développement)</td>
+													<td>Stockage persistant des données chiffrées</td>
+												</tr>
+												<tr>
+													<td><strong>Authentification</strong></td>
+													<td>JWT (djangorestframework-simplejwt)</td>
+													<td>Sessions sécurisées, refresh tokens avec rotation</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+
+									<!-- Schéma visuel de l'architecture -->
+									<div style="background:#0d1117; border-radius:8px; padding:2em; margin-top:1.5em; text-align:center; overflow-x:auto;">
+										<svg viewBox="0 0 700 160" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:680px; font-family:monospace;">
+											<!-- Frontend -->
+											<rect x="20" y="40" width="140" height="80" rx="8" fill="#1a2a1a" stroke="#00ff88" stroke-width="1.5"/>
+											<text x="90" y="72" text-anchor="middle" fill="#00ff88" font-size="11" font-weight="bold">FRONTEND</text>
+											<text x="90" y="90" text-anchor="middle" fill="#888" font-size="9">HTML · CSS · JS</text>
+											<text x="90" y="106" text-anchor="middle" fill="#888" font-size="9">5 pages HTML</text>
+											<!-- Flèche -->
+											<line x1="160" y1="80" x2="200" y2="80" stroke="#00aaff" stroke-width="1.5" marker-end="url(#arrow)"/>
+											<text x="180" y="72" text-anchor="middle" fill="#00aaff" font-size="8">JWT</text>
+											<!-- Backend -->
+											<rect x="200" y="40" width="140" height="80" rx="8" fill="#1a1a2a" stroke="#00aaff" stroke-width="1.5"/>
+											<text x="270" y="72" text-anchor="middle" fill="#00aaff" font-size="11" font-weight="bold">BACKEND</text>
+											<text x="270" y="90" text-anchor="middle" fill="#888" font-size="9">Django + DRF</text>
+											<text x="270" y="106" text-anchor="middle" fill="#888" font-size="9">API REST</text>
+											<!-- Flèche -->
+											<line x1="340" y1="80" x2="380" y2="80" stroke="#ff6b35" stroke-width="1.5" marker-end="url(#arrow2)"/>
+											<text x="360" y="72" text-anchor="middle" fill="#ff6b35" font-size="8">ORM</text>
+											<!-- DB -->
+											<rect x="380" y="40" width="140" height="80" rx="8" fill="#2a1a1a" stroke="#ff6b35" stroke-width="1.5"/>
+											<text x="450" y="72" text-anchor="middle" fill="#ff6b35" font-size="11" font-weight="bold">DATABASE</text>
+											<text x="450" y="90" text-anchor="middle" fill="#888" font-size="9">SQLite</text>
+											<text x="450" y="106" text-anchor="middle" fill="#888" font-size="9">VaultEntry Model</text>
+											<!-- Flèche -->
+											<line x1="520" y1="80" x2="560" y2="80" stroke="#aa44ff" stroke-width="1.5" marker-end="url(#arrow3)"/>
+											<!-- Auth -->
+											<rect x="560" y="40" width="120" height="80" rx="8" fill="#1a1a2a" stroke="#aa44ff" stroke-width="1.5"/>
+											<text x="620" y="68" text-anchor="middle" fill="#aa44ff" font-size="11" font-weight="bold">AUTH</text>
+											<text x="620" y="85" text-anchor="middle" fill="#888" font-size="9">JWT · Access 30min</text>
+											<text x="620" y="101" text-anchor="middle" fill="#888" font-size="9">Refresh 7j · Rotation</text>
+											<!-- Arrows markers -->
+											<defs>
+												<marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+													<path d="M0,0 L0,6 L8,3 z" fill="#00aaff"/>
+												</marker>
+												<marker id="arrow2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+													<path d="M0,0 L0,6 L8,3 z" fill="#ff6b35"/>
+												</marker>
+												<marker id="arrow3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+													<path d="M0,0 L0,6 L8,3 z" fill="#aa44ff"/>
+												</marker>
+											</defs>
+										</svg>
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- Pages du frontend -->
+								<section>
+									<header class="major">
+										<h2>Frontend — 5 Pages HTML</h2>
+									</header>
+									<div class="features">
+										<article>
+											<span class="icon solid fa-home"></span>
+											<div class="content">
+												<h3>Page d'accueil <code style="font-size:0.75em;">index.html</code></h3>
+												<p>Présentation du projet avec sections Hero, Fonctionnalités, Comment ça marche. Aperçu animé du coffre-fort avec entrées simulées (Facebook, Wave, Sénégal Services…). Section sécurité avec présentation de l'architecture Zero-Knowledge. Navbar sticky avec scroll effect et menu burger responsive.</p>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-user-plus"></span>
+											<div class="content">
+												<h3>Inscription <code style="font-size:0.75em;">inscription.html</code></h3>
+												<p>Formulaire avec validation en temps réel. Jauge de force du mot de passe basée sur l'entropie (conforme NIST). Minimum <strong>15 caractères</strong> requis selon NIST SP 800-63B Rev.4. Appel API réel : <code>POST /api/auth/register/</code> avec sauvegarde des tokens JWT.</p>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-sign-in-alt"></span>
+											<div class="content">
+												<h3>Connexion <code style="font-size:0.75em;">login.html</code></h3>
+												<p>Formulaire email + mot de passe maître. <strong>Blocage automatique après 5 tentatives échouées</strong> (2 minutes) avec compte à rebours visuel. Appel API réel : <code>POST /api/auth/login/</code> avec récupération des tokens JWT.</p>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-lock"></span>
+											<div class="content">
+												<h3>Coffre-fort <code style="font-size:0.75em;">dashboard.html</code></h3>
+												<p>Sidebar avec filtres (Tous, Favoris, Mots de passe, Cartes, Notes). Statistiques en temps réel : total, mots de passe faibles, réutilisés, forts. Score de sécurité global calculé dynamiquement. CRUD complet, copie en un clic, recherche et tri. Détection des mots de passe réutilisés dans le coffre.</p>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-dice"></span>
+											<div class="content">
+												<h3>Générateur NIST <small>(intégré au dashboard)</small></h3>
+												<p><strong>Mode Phrase de passe</strong> : mots français aléatoires séparés (ex : Girafe-Soleil-Dakar-42). <strong>Mode Aléatoire</strong> : génération cryptographique via <code>crypto.getRandomValues()</code>. Calcul d'entropie en bits et estimation du temps de brute-force. Conforme NIST : longueur prioritaire sur la complexité.</p>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-cog"></span>
+											<div class="content">
+												<h3>Paramètres <code style="font-size:0.75em;">settings.html</code></h3>
+												<p>Modification du profil (nom, email). Changement du mot de passe maître avec jauge NIST. Configuration 2FA TOTP avec QR code. Liste des sessions actives avec révocation. Zone de danger : export JSON, vidage du coffre, suppression de compte.</p>
+											</div>
+										</article>
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- Sécurité -->
+								<section>
+									<header class="major">
+										<h2>Sécurité Implémentée</h2>
+									</header>
+
+									<h3>Conformité NIST SP 800-63B Rev.4 (2024)</h3>
+									<div class="table-wrapper">
+										<table>
+											<thead>
+												<tr>
+													<th>Ancienne recommandation</th>
+													<th>Nouvelle recommandation NIST 2024</th>
+													<th>Implémentation SenCadenas</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Minimum 8–12 caractères</td>
+													<td>Minimum 15 caractères</td>
+													<td>Validation 15 car. obligatoire</td>
+												</tr>
+												<tr>
+													<td>Maj + chiffre + symbole obligatoires</td>
+													<td>Aucune règle de composition imposée</td>
+													<td>Jauge basée sur l'entropie uniquement</td>
+												</tr>
+												<tr>
+													<td>Changement périodique obligatoire</td>
+													<td>Changement seulement si compromis</td>
+													<td>Pas de changement forcé côté serveur</td>
+												</tr>
+												<tr>
+													<td>Vérification non systématique</td>
+													<td>Vérification contre bases compromises</td>
+													<td>Détection mots de passe communs</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+
+									<h3 style="margin-top:1.5em;">Protection contre les attaques</h3>
+									<div class="table-wrapper">
+										<table>
+											<thead>
+												<tr>
+													<th>Type d'attaque</th>
+													<th>Mesure Frontend</th>
+													<th>Mesure Backend</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Brute force</td>
+													<td>Blocage après 5 tentatives (2 min)</td>
+													<td>Throttling DRF : 20 req/heure (anon)</td>
+												</tr>
+												<tr>
+													<td>XSS</td>
+													<td>Échappement avec <code>escHtml()</code> et <code>escAttr()</code></td>
+													<td>Django échappe automatiquement les templates</td>
+												</tr>
+												<tr>
+													<td>CSRF</td>
+													<td>API stateless (pas de cookies de session)</td>
+													<td>CsrfViewMiddleware + JWT Bearer auth</td>
+												</tr>
+												<tr>
+													<td>Injection SQL</td>
+													<td>Validation côté client</td>
+													<td>ORM Django (requêtes paramétrées)</td>
+												</tr>
+												<tr>
+													<td>Accès non autorisé</td>
+													<td>Redirection si token absent</td>
+													<td>IsAuthenticated + filtrage par user</td>
+												</tr>
+												<tr>
+													<td>Mots de passe faibles</td>
+													<td>Jauge entropie + min 15 caractères</td>
+													<td>MinimumLengthValidator (15 car.)</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+
+									<h3 style="margin-top:1.5em;">Autres mesures techniques</h3>
+									<ul>
+										<li>Tokens JWT stockés dans <code>sessionStorage</code> (effacés à la fermeture du navigateur)</li>
+										<li>Rafraîchissement automatique du token JWT expiré sans déconnecter l'utilisateur</li>
+										<li>Génération cryptographique des mots de passe avec <code>crypto.getRandomValues()</code> (pas <code>Math.random()</code>)</li>
+										<li>Access token : durée de vie 30 min · Refresh token : 7 jours avec rotation et blacklist</li>
+										<li>Délégation d'événements pour éviter les conflits d'écouteurs lors du re-rendu du DOM</li>
+									</ul>
+								</section>
+
+							<hr class="major" />
+
+							<!-- API Endpoints -->
+								<section>
+									<header class="major">
+										<h2>API REST — Endpoints</h2>
+									</header>
+									<div class="table-wrapper">
+										<table>
+											<thead>
+												<tr>
+													<th>Méthode</th>
+													<th>Endpoint</th>
+													<th>Auth</th>
+													<th>Description</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr><td><span style="color:#2d8a4e;font-weight:600;">POST</span></td><td><code>/api/auth/register/</code></td><td>Non</td><td>Créer un compte</td></tr>
+												<tr><td><span style="color:#2d8a4e;font-weight:600;">POST</span></td><td><code>/api/auth/login/</code></td><td>Non</td><td>Se connecter (retourne JWT)</td></tr>
+												<tr><td><span style="color:#2d8a4e;font-weight:600;">POST</span></td><td><code>/api/auth/refresh/</code></td><td>Refresh token</td><td>Rafraîchir le token JWT</td></tr>
+												<tr><td><span style="color:#2d8a4e;font-weight:600;">POST</span></td><td><code>/api/auth/logout/</code></td><td>Oui</td><td>Invalider le refresh token</td></tr>
+												<tr><td><span style="color:#1a6e9a;font-weight:600;">GET</span></td><td><code>/api/auth/me/</code></td><td>Oui</td><td>Profil de l'utilisateur connecté</td></tr>
+												<tr><td><span style="color:#c97a1c;font-weight:600;">PATCH</span></td><td><code>/api/auth/me/update/</code></td><td>Oui</td><td>Modifier le profil</td></tr>
+												<tr><td><span style="color:#2d8a4e;font-weight:600;">POST</span></td><td><code>/api/auth/change-password/</code></td><td>Oui</td><td>Changer le mot de passe maître</td></tr>
+												<tr><td><span style="color:#1a6e9a;font-weight:600;">GET</span></td><td><code>/api/vault/</code></td><td>Oui</td><td>Lister les entrées du coffre</td></tr>
+												<tr><td><span style="color:#2d8a4e;font-weight:600;">POST</span></td><td><code>/api/vault/</code></td><td>Oui</td><td>Ajouter une entrée</td></tr>
+												<tr><td><span style="color:#c97a1c;font-weight:600;">PATCH</span></td><td><code>/api/vault/&lt;id&gt;/</code></td><td>Oui</td><td>Modifier une entrée</td></tr>
+												<tr><td><span style="color:#f56a6a;font-weight:600;">DELETE</span></td><td><code>/api/vault/&lt;id&gt;/</code></td><td>Oui</td><td>Supprimer une entrée</td></tr>
+											</tbody>
+										</table>
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- Stack & Perspectives -->
+								<section>
+									<div class="row">
+										<div class="col-6 col-12-small">
+											<header class="major">
+												<h2>Stack Technologique</h2>
+											</header>
+											<ul>
+												<li><strong>Frontend :</strong> HTML5 / CSS3 / JavaScript Vanilla — contrôle total sur la sécurité, pas de framework JS</li>
+												<li><strong>Typographie :</strong> Syne + DM Sans + JetBrains Mono (Google Fonts)</li>
+												<li><strong>Backend :</strong> Django 4.x + DRF — sécurité intégrée, ORM robuste, admin auto-généré</li>
+												<li><strong>Auth :</strong> JWT (simplejwt) — stateless, sécurisé, standard industrie</li>
+												<li><strong>BDD :</strong> SQLite (dév.) → PostgreSQL (production)</li>
+												<li><strong>CORS :</strong> django-cors-headers</li>
+												<li><strong>Standard :</strong> NIST SP 800-63B Rev.4</li>
+											</ul>
+										</div>
+										<div class="col-6 col-12-small">
+											<header class="major">
+												<h2>Perspectives d'Amélioration</h2>
+											</header>
+											<ul>
+												<li>Chiffrement côté client AES-256-GCM avant envoi au serveur (vraie architecture Zero-Knowledge)</li>
+												<li>Migration vers PostgreSQL pour la production</li>
+												<li>Intégration de l'API <strong>HaveIBeenPwned</strong> pour vérifier les mots de passe compromis</li>
+												<li>Implémentation complète du 2FA avec une vraie bibliothèque TOTP (<code>pyotp</code>)</li>
+												<li>Déploiement cloud (Heroku, Railway, ou VPS sénégalais)</li>
+												<li>Application mobile (React Native ou PWA)</li>
+												<li>Audit de sécurité complet et tests de pénétration</li>
+											</ul>
+										</div>
+									</div>
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="Search" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="index.html">Accueil</a></li>
+
+										<!-- RÉSEAU -->
+										<li>
+											<span class="opener">Réseau</span>
+											<ul>
+												<li>
+													<span class="opener">Routage</span>
+													<ul>
+														<li><a href="reseau-routage-statique.html">Routage Statique</a></li>
+														<li><a href="reseau-routage-par-defaut.html">Routage par Défaut</a></li>
+														<li><a href="reseau-ospf.html">OSPF (Dynamique)</a></li>
+														<li><a href="reseau-eigrp.html">EIGRP (Dynamique)</a></li>
+														<li><a href="reseau-ripv2.html">RIPv2 (Dynamique)</a></li>
+														<li><a href="auth-protocoles-routage.html">Authentification sur les protocoles de routage</a></li>
+													</ul>
+												</li>
+												<li>
+													<span class="opener">Haute Disponibilité</span>
+													<ul>
+														<li><a href="reseau-hsrp.html">HSRP – Hot Standby Routing Protocol</a></li>
+													</ul>
+												</li>
+												<li>
+													<span class="opener">Sécurité L2</span>
+													<ul>
+														<li><a href="reseau-dhcp-snooping.html">DHCP Snooping</a></li>
+														<li><a href="reseau-arp-spoofing.html">ARP Spoofing – Protection</a></li>
+														<li><a href="reseau-mac-flooding.html">MAC Flooding – Mitigation</a></li>
+														<li><a href="reseau-vlan.html">VLAN – Segmentation</a></li>
+													</ul>
+												</li>
+												<li>
+													<span class="opener">Services Réseau</span>
+													<ul>
+														<li><a href="reseau-nat.html">NAT & Accès Internet</a></li>
+														<li><a href="reseau-dhcp-gns3.html">DHCP sur GNS3</a></li>
+														<li><a href="reseau-portail-captif.html">Portail Captif & RADIUS</a></li>
+													</ul>
+												</li>
+												<li>
+													<span class="opener">Audit Sans-Fil & MITM</span>
+													<ul>
+														<li><a href="reseau-audit-wpa2-wpa3.html">Audit WPA2/WPA3</a></li>
+														<li><a href="reseau-attaque-mitm-wi-fi.html">Attaque MITM sur Wi-Fi Sécurisé</a></li>
+														<li><a href="reseau-analyse-trafic-wireshark.html">Analyse de trafic Wireshark</a></li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+
+										<!-- ATTAQUE / DÉFENSE -->
+										<li>
+											<span class="opener">Attaque / Défense</span>
+											<ul>
+												<li>
+													<span class="opener">Machines Vulnérables</span>
+													<ul>
+														<li><a href="attaque-exploitation-proftpd.html">Exploitation ProFTPD</a></li>
+														<li><a href="attaque-exploitation-port-80.html">Exploitation Port 80 (HTTP)</a></li>
+													</ul>
+												</li>
+												<li>
+													<span class="opener">SOC & Défense</span>
+													<ul>
+														<li><a href="defense-laboratoire-soar.html">Laboratoire SOAR (TheHive/Cortex)</a></li>
+														<li><a href="defense-mise-en-place-siem-xdr.html">Mise en place SIEM/XDR</a></li>
+														<li><a href="defense-projet-ossec.html">Projet OSSEC – Attaque & Défense</a></li>
+													</ul>
+												</li>
+												<li>
+													<span class="opener">CTF & Compétitions</span>
+													<ul>
+														<li><a href="ctf-write-ups-root-me.html">Write-ups Root-Me</a></li>
+														<li><a href="ctf-ecowas-2026-cyberphantoms.html">ECOWAS CTF 2026 – Cyberphantoms</a></li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+
+										<!-- FORENSICS -->
+										<li>
+											<span class="opener">Forensics &amp; Investigation</span>
+											<ul>
+												<li><a href="forensics-acquisition-image.html">Acquisition d'image – FTK Imager</a></li>
+												<li><a href="forensics-analyse-fichier-sam.html">Analyse fichier SAM – Autopsy</a></li>
+											</ul>
+										</li>
+
+										<!-- Programmation -->
+										<li>
+											<span class="opener active">Programmation</span>
+											<ul>
+												<li><a href="sencadenas.html" style="font-weight:600; color:#f56a6a;">SenCadenas</a></li>
+												<li><a href="e-sante.html">E-Santé</a></li>
+											</ul>
+										</li>
+
+										<!-- MÉMOIRE -->
+										<li>
+											<span class="opener">Mon Mémoire</span>
+											<ul>
+												<li><a href="memoire-chap-1.html">Chap. 1 – Présentation générale du sujet</a></li>
+												<li><a href="memoire-chap-2.html">Chap. 2 – Concepts généraux en sécurité informatique</a></li>
+												<li><a href="memoire-chap-3.html">Chap. 3 – Étude sur les SIEM, SOAR, XDR</a></li>
+												<li><a href="memoire-chap-4.html">Chap. 4 – Étude comparative des solutions</a></li>
+												<li><a href="memoire-chap-5.html">Chap. 5 – Mise en œuvre des solutions</a></li>
+											</ul>
+										</li>
+
+										<!-- CLOUD -->
+										<li>
+											<span class="opener">Sécurité Cloud</span>
+											<ul>
+												<li><a href="cloud-iam-principe-moindre-privilège.html">IAM &amp; Principe du Moindre Privilège</a></li>
+											</ul>
+										</li>
+
+										<!-- GOUVERNANCE -->
+										<li>
+											<span class="opener">Gouvernance &amp; Management</span>
+											<ul>
+												<li><a href="gouvernance-iso-27001-smsi.html">Gouvernance ISO 27001 – SMSI</a></li>
+												<li><a href="gouvernance-nist.html">Gouvernance NIST</a></li>
+											</ul>
+										</li>
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Contact</h2>
+									</header>
+									<p>N'hésitez pas à me contacter pour toute opportunité de stage, collaboration ou échange autour de la cybersécurité.</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="mailto:vieuxdiene47@gmail.com">vieuxdiene47@gmail.com</a></li>
+										<li class="icon solid fa-phone">77 993 03 06</li>
+										<li class="icon solid fa-map-marker-alt">Yoff Tonghor, Dakar, Sénégal</li>
+									</ul>
+								</section>
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Vieux Alia Samb. All rights reserved. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

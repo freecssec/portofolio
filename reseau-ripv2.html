@@ -1,0 +1,279 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>RIPv2 – Routage Dynamique – Vieux Alia Samb</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<style>
+			.project-meta { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 25px; }
+			.badge { background: #2c3e50; color: #1abc9c; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; border: 1px solid #1abc9c; }
+			.step-block { background: #f8f9fa; border-left: 4px solid #c0392b; padding: 18px 20px; margin-bottom: 20px; border-radius: 0 6px 6px 0; }
+			.step-block h4 { color: #c0392b; margin: 0 0 10px 0; font-size: 16px; }
+			.step-number { display: inline-block; background: #c0392b; color: white; width: 28px; height: 28px; border-radius: 50%; text-align: center; line-height: 28px; font-weight: bold; margin-right: 10px; font-size: 14px; }
+			pre { background: #1a252f; color: #1abc9c; padding: 16px 20px; border-radius: 6px; font-size: 13px; overflow-x: auto; line-height: 1.6; }
+			pre .comment { color: #7f8c8d; }
+			pre .highlight { color: #f39c12; font-weight: bold; }
+			.concept-box { background: #fdedec; border: 1px solid #c0392b; border-radius: 8px; padding: 16px 20px; margin: 20px 0; }
+			.concept-box h4 { color: #922b21; margin: 0 0 8px 0; }
+			.warning-box { background: #fef9e7; border: 1px solid #f39c12; border-radius: 8px; padding: 14px 18px; margin: 15px 0; font-size: 13px; }
+			.warning-box strong { color: #d35400; }
+			.compare-table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 13px; }
+			.compare-table th { background: #2c3e50; color: white; padding: 10px 14px; text-align: left; }
+			.compare-table td { padding: 9px 14px; border-bottom: 1px solid #ecf0f1; }
+			.compare-table tr:nth-child(even) td { background: #f8f9fa; }
+			.green { color: #27ae60; font-weight: bold; }
+			.red { color: #c0392b; font-weight: bold; }
+			.orange { color: #e67e22; font-weight: bold; }
+			.img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 15px 0; }
+			.img-grid figure { margin: 0; }
+			figure { margin: 15px 0; }
+			figure img { width: 100%; border-radius: 6px; border: 1px solid #ddd; }
+			figcaption { text-align: center; font-size: 12px; color: #95a5a6; margin-top: 6px; }
+			.reuse-note { background: #eaf4fb; border: 1px solid #85c1e9; border-radius: 6px; padding: 10px 14px; font-size: 13px; color: #1a5276; margin: 10px 0; }
+			.learned-box { background: #eafaf1; border: 1px solid #a9dfbf; border-radius: 8px; padding: 18px 20px; margin-top: 10px; }
+			.learned-box h4 { color: #1e8449; margin: 0 0 10px 0; }
+			.nav-pages { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ecf0f1; }
+			.nav-pages a { color: #2980b9; text-decoration: none; font-weight: bold; }
+			.summary-box { background: #f4f6f7; border-radius: 8px; padding: 18px 20px; margin: 20px 0; }
+			.summary-box h4 { color: #2c3e50; margin: 0 0 12px 0; }
+		</style>
+	</head>
+	<body class="is-preload">
+		<div id="wrapper">
+			<div id="main">
+				<div class="inner">
+
+					<header id="header">
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/vieux-alia-samb-753a443ab" target="_blank" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://github.com/Sav2507" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</header>
+
+					<p style="color:#95a5a6; font-size:13px;">
+						<a href="index.html" style="color:#2980b9;">Accueil</a> &rsaquo;
+						Réseau &rsaquo; Routage &rsaquo; <strong>RIPv2 (Dynamique)</strong>
+					</p>
+
+					<header class="main">
+						<h1>RIPv2 – Routage Dynamique sur GNS3</h1>
+					</header>
+
+					<div class="project-meta">
+						<span class="badge">🛠 GNS3</span>
+						<span class="badge">🔧 Cisco IOS</span>
+						<span class="badge">📡 RIPv2</span>
+						<span class="badge">🔄 Routage Dynamique</span>
+						<span class="badge">Janvier 2025</span>
+					</div>
+
+					<h2>Objectif</h2>
+					<p>Ce TD conclut la série sur le routage dynamique avec <strong>RIPv2</strong> (Routing Information Protocol version 2). C'est le plus ancien des protocoles de routage dynamique encore utilisés. Sa configuration est la plus simple de tous les protocoles étudiés, mais il présente des limitations importantes qui expliquent pourquoi OSPF et EIGRP lui sont préférés en entreprise.</p>
+
+					<div class="concept-box">
+						<h4>📖 Concepts clés RIPv2</h4>
+						<ul>
+							<li><strong>Protocole à vecteur de distance</strong> : chaque routeur partage sa table de routage complète avec ses voisins directs (toutes les 30 secondes)</li>
+							<li><strong>Métrique = nombre de sauts</strong> (hop count) : maximum 15 sauts — au-delà, le réseau est considéré inaccessible</li>
+							<li><strong>RIPv2 vs RIPv1</strong> : RIPv2 supporte le VLSM (masques variables) et l'authentification — RIPv1 est classful uniquement</li>
+							<li><strong>Convergence lente</strong> : les mises à jour périodiques (30s) ralentissent la convergence comparé à OSPF/EIGRP</li>
+							<li><strong>Syntaxe</strong> : <code>router rip</code> + <code>version 2</code> + <code>network</code> — la plus simple des trois protocoles</li>
+						</ul>
+					</div>
+
+					<div class="warning-box">
+						⚠️ <strong>Limitation principale :</strong> RIPv2 est limité à <strong>15 sauts maximum</strong>. Pour des réseaux d'entreprise étendus, OSPF ou EIGRP sont systématiquement préférés. RIPv2 reste utile pour les petits réseaux et comme base pédagogique.
+					</div>
+
+					<!-- Comparaison des 3 protocoles -->
+					<h2>Bilan des 3 protocoles de routage dynamique</h2>
+					<table class="compare-table">
+						<tr>
+							<th>Critère</th>
+							<th>RIPv2</th>
+							<th>EIGRP</th>
+							<th>OSPF</th>
+						</tr>
+						<tr>
+							<td>Type</td>
+							<td>Vecteur de distance</td>
+							<td>Hybride</td>
+							<td>État de lien</td>
+						</tr>
+						<tr>
+							<td>Métrique</td>
+							<td class="red">Sauts (max 15)</td>
+							<td>BW + délai</td>
+							<td>Coût (BW)</td>
+						</tr>
+						<tr>
+							<td>Convergence</td>
+							<td class="red">Lente (30s)</td>
+							<td class="green">Très rapide</td>
+							<td class="green">Rapide</td>
+						</tr>
+						<tr>
+							<td>Standard</td>
+							<td class="green">Ouvert</td>
+							<td class="red">Cisco only</td>
+							<td class="green">Ouvert (RFC)</td>
+						</tr>
+						<tr>
+							<td>Syntaxe config</td>
+							<td class="green">La plus simple</td>
+							<td>Simple</td>
+							<td>Modérée</td>
+						</tr>
+						<tr>
+							<td>Scalabilité</td>
+							<td class="red">Faible</td>
+							<td class="green">Élevée</td>
+							<td class="green">Très élevée</td>
+						</tr>
+						<tr>
+							<td>Commande clé</td>
+							<td><code>router rip / version 2</code></td>
+							<td><code>router eigrp [AS]</code></td>
+							<td><code>router ospf 1</code></td>
+						</tr>
+					</table>
+
+					<!-- Topologie -->
+					<h2>Topologie du réseau</h2>
+					<div class="reuse-note">
+						ℹ️ Même topologie que tous les TDs de routage. Voir <a href="reseau-routage-statique.html">Routage Statique</a> pour le schéma complet.
+					</div>
+
+					<!-- Configuration -->
+					<h2>Configuration des routeurs</h2>
+
+					<div class="step-block">
+						<h4><span class="step-number">1</span>Configuration de R1 – Interfaces + RIPv2</h4>
+						<figure>
+							<img src="images/ripv2-r1-config.png" alt="Configuration RIPv2 R1" />
+							<figcaption>Configuration R1 – interfaces + RIPv2 version 2 activé</figcaption>
+						</figure>
+					</div>
+
+					<div class="step-block">
+						<h4><span class="step-number">2</span>Configuration de R2 – Routeur central RIPv2</h4>
+						<figure>
+							<img src="images/ripv2-r2-config.png" alt="Configuration RIPv2 R2" />
+							<figcaption>Configuration R2 – 3 réseaux annoncés en RIPv2</figcaption>
+						</figure>
+					</div>
+
+					<div class="step-block">
+						<h4><span class="step-number">3</span>Configuration de R3 – RIPv2</h4>
+						<figure>
+							<img src="images/ripv2-r3-config.png" alt="Configuration RIPv2 R3" />
+							<figcaption>Configuration R3 – RIPv2 activé, adjacence automatique</figcaption>
+						</figure>
+					</div>
+
+					<div class="step-block">
+						<h4><span class="step-number">4</span>Tests de connectivité</h4>
+						<p>Tests depuis PC6 (réseau R2) et PC3 (réseau R1) vers les autres réseaux :</p>
+						<div class="img-grid">
+							<figure>
+								<img src="images/ripv2-ping-pc6.png" alt="Ping PC6" />
+								<figcaption>PC6 → PC5 (local), PC1 (via R1), PC8 (via R3) ✅</figcaption>
+							</figure>
+							<figure>
+								<img src="images/ripv2-ping-pc3.png" alt="Ping PC3" />
+								<figcaption>PC3 → PC2 (local), PC6 (via R2), PC7 (via R3) ✅</figcaption>
+							</figure>
+						</div>
+					</div>
+
+					<!-- Bilan série routage -->
+					<div class="summary-box">
+						<h4>🏁 Bilan de la série Routage</h4>
+						<p>Ces 5 TDs couvrent l'ensemble des approches de routage sur Cisco IOS :</p>
+						<ul>
+							<li><a href="reseau-routage-statique.html">Routage Statique</a> — configuration manuelle complète</li>
+							<li><a href="reseau-routage-defaut.html">Routage par Défaut</a> — route "joker" 0.0.0.0/0</li>
+							<li><a href="reseau-ospf.html">OSPF</a> — standard ouvert, algorithme SPF, Area 0</li>
+							<li><a href="reseau-eigrp.html">EIGRP</a> — protocole Cisco, algorithme DUAL, AS</li>
+							<li><strong>RIPv2</strong> — le plus simple, mais limité à 15 sauts</li>
+						</ul>
+					</div>
+
+					<div class="learned-box">
+						<h4>✅ Ce que j'ai appris</h4>
+						<ul>
+							<li>Configurer RIPv2 avec <code>router rip</code> + <code>version 2</code> — syntaxe la plus concise des 3 protocoles</li>
+							<li>Comprendre la limite des 15 sauts et son impact sur la scalabilité</li>
+							<li>Distinguer RIPv1 (classful, pas de VLSM) de RIPv2 (classless, supporte VLSM)</li>
+							<li>Comparer les 3 protocoles dynamiques sur critères : convergence, scalabilité, standard, métrique</li>
+							<li>Choisir le bon protocole selon le contexte : RIPv2 (petits réseaux), EIGRP (réseaux Cisco), OSPF (multi-constructeur)</li>
+						</ul>
+					</div>
+
+					<div class="nav-pages">
+						<a href="reseau-eigrp.html">← EIGRP</a>
+						<a href="reseau-hsrp.html">HSRP →</a>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- Sidebar -->
+			<div id="sidebar">
+				<div class="inner">
+					<section id="search" class="alt">
+						<form method="post" action="#"><input type="text" name="query" id="query" placeholder="Search" /></form>
+					</section>
+					<nav id="menu">
+						<header class="major"><h2>Menu</h2></header>
+						<ul>
+							<li><a href="index.html">Accueil</a></li>
+							<li>
+								<span class="opener">Réseau</span>
+								<ul>
+									<li>
+										<span class="opener">Routage</span>
+										<ul>
+											<li><a href="reseau-routage-statique.html">Routage Statique</a></li>
+											<li><a href="reseau-routage-defaut.html">Routage par Défaut</a></li>
+											<li><a href="reseau-ospf.html">OSPF (Dynamique)</a></li>
+											<li><a href="reseau-eigrp.html">EIGRP (Dynamique)</a></li>
+											<li><a href="reseau-ripv2.html"><strong>RIPv2 (Dynamique)</strong></a></li>
+										</ul>
+									</li>
+									<li><span class="opener">Haute Disponibilité</span><ul><li><a href="reseau-hsrp.html">HSRP</a></li></ul></li>
+									<li><span class="opener">Sécurité L2</span><ul><li><a href="reseau-dhcp-snooping.html">DHCP Snooping</a></li><li><a href="reseau-arp-spoofing.html">ARP Spoofing</a></li><li><a href="reseau-mac-flooding.html">MAC Flooding</a></li><li><a href="reseau-vlan.html">VLAN</a></li></ul></li>
+									<li><span class="opener">Services Réseau</span><ul><li><a href="reseau-nat.html">NAT</a></li><li><a href="reseau-dhcp.html">DHCP</a></li><li><a href="reseau-radius.html">RADIUS</a></li></ul></li>
+									<li><span class="opener">Audit Sans-Fil &amp; MITM</span><ul><li><a href="reseau-wifi-audit.html">Audit WPA2/WPA3</a></li><li><a href="reseau-mitm.html">MITM</a></li><li><a href="reseau-wireshark.html">Wireshark</a></li></ul></li>
+								</ul>
+							</li>
+							<li><span class="opener">Attaque / Défense</span><ul><li><span class="opener">Machines Vulnérables</span><ul><li><a href="#">ProFTPD</a></li><li><a href="#">Port 80</a></li></ul></li><li><span class="opener">SOC &amp; Défense</span><ul><li><a href="#">SOAR TheHive</a></li><li><a href="#">SIEM/XDR</a></li><li><a href="#">OSSEC</a></li></ul></li><li><span class="opener">CTF &amp; Compétitions</span><ul><li><a href="#">Root-Me</a></li><li><a href="#">ECOWAS CTF 2026</a></li></ul></li></ul></li>
+							<li><span class="opener">Forensics &amp; Investigation</span><ul><li><a href="#">FTK Imager</a></li><li><a href="#">Analyse SAM</a></li></ul></li>
+							<li><span class="opener">Développement</span><ul><li><a href="#">SenCadenas</a></li><li><a href="#">App Ordonnances</a></li></ul></li>
+							<li><span class="opener">Mon Mémoire</span><ul><li><a href="#">Chap. 1</a></li><li><a href="#">Chap. 2</a></li><li><a href="#">Chap. 3</a></li><li><a href="#">Chap. 4</a></li><li><a href="#">Chap. 5</a></li></ul></li>
+							<li><span class="opener">Gouvernance &amp; Management</span><ul><li><a href="#">ISO 27001</a></li><li><a href="#">Politiques</a></li></ul></li>
+							<li><span class="opener">Sécurité Cloud</span><ul><li><a href="#">IAM &amp; Moindre Privilège</a></li></ul></li>
+						</ul>
+					</nav>
+					<section>
+						<header class="major"><h2>Contact</h2></header>
+						<ul class="contact">
+							<li class="icon solid fa-envelope"><a href="mailto:vieuxdiene47@gmail.com">vieuxdiene47@gmail.com</a></li>
+							<li class="icon solid fa-phone">77 993 03 06</li>
+							<li class="icon solid fa-map-marker-alt">Yoff Tonghor, Dakar, Sénégal</li>
+						</ul>
+					</section>
+					<footer id="footer">
+						<p class="copyright">&copy; Vieux Alia Samb. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+					</footer>
+				</div>
+			</div>
+		</div>
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+	</body>
+</html>

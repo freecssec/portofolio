@@ -1,0 +1,394 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Acquisition d'image – FTK Imager – Portfolio Vieux Alia Samb</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<ul class="icons">
+										<li><a href="https://www.linkedin.com/in/vieux-alia-samb-753a443ab" target="_blank" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+										<li><a href="https://github.com/Sav2507" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+									</ul>
+								</header>
+
+							<!-- Titre -->
+								<section>
+									<header class="main">
+										<h1>Acquisition d'image — FTK Imager</h1>
+										<p>Forensics &amp; Investigation · Capture forensique bit à bit d'une clé USB · Format E01</p>
+									</header>
+
+									<!-- Badges -->
+									<div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:2em;">
+										<span style="background:#444; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">FTK Imager 8.2.0.26</span>
+										<span style="background:#1a6e9a; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">Format E01</span>
+										<span style="background:#7b4fa3; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">MD5 / SHA-1</span>
+										<span style="background:#c97a1c; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">Chain of Custody</span>
+										<span style="background:#2d8a4e; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">Récupération de données supprimées</span>
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- Présentation de l'outil -->
+								<section>
+									<header class="major">
+										<h2>FTK Imager — Présentation de l'outil</h2>
+									</header>
+									<p><strong>FTK Imager</strong> est un outil développé par AccessData Group (aujourd'hui sous Exterro), né au début des années 2000 comme complément léger et gratuit à la suite <em>Forensic Toolkit (FTK)</em>. Il s'est progressivement imposé comme l'un des standards de la criminalistique numérique, utilisé par les forces de l'ordre, les tribunaux, les entreprises et les centres de formation à travers le monde.</p>
+
+									<div class="features">
+										<article>
+											<span class="icon solid fa-clone"></span>
+											<div class="content">
+												<h3>Acquisition (Imaging)</h3>
+												<p>Sa fonction principale : créer des <strong>images forensiques bit à bit</strong> de disques durs, clés USB, cartes mémoire ou partitions, dans des formats normalisés (RAW/dd, <strong>E01</strong>, AFF) — sans jamais modifier le support original.</p>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-fingerprint"></span>
+											<div class="content">
+												<h3>Intégrité des preuves</h3>
+												<p>Calcul de hash cryptographiques (<strong>MD5, SHA-1, SHA-256</strong>) pour vérifier l'intégrité des données copiées et prouver l'authenticité des preuves devant un tribunal.</p>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-search"></span>
+											<div class="content">
+												<h3>Analyse préliminaire</h3>
+												<p>Navigation dans le système de fichiers, consultation de fichiers supprimés, prévisualisation de documents/images, lecture du registre Windows et analyse de mémoire RAM — sans altérer les données.</p>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-file-contract"></span>
+											<div class="content">
+												<h3>Chaîne de conservation</h3>
+												<p>Génération automatique de rapports documentant la date/heure d'acquisition, l'outil utilisé, les hashs calculés et les informations sur le support — essentiel pour la <strong>valeur légale</strong> des preuves.</p>
+											</div>
+										</article>
+									</div>
+
+									<p>En cybersécurité, FTK Imager est utilisé en <strong>investigation post-incident</strong> (intrusions, malwares, fuites de données) et s'intègre dans un écosystème d'outils complémentaires : Autopsy/Sleuth Kit, EnCase, Volatility (analyse mémoire) et Kali Linux côté offensif.</p>
+								</section>
+
+							<hr class="major" />
+
+							<!-- Scénario -->
+								<section>
+									<header class="major">
+										<h2>Cas Pratique — Scénario</h2>
+									</header>
+									<div style="background:#fff4f4; border-left:4px solid #f56a6a; padding:1.2em 1.5em; border-radius:4px;">
+										<p style="margin:0;">Notre groupe est mandaté par un juge pour analyser une <strong>clé USB saisie chez un suspect</strong> impliqué dans un réseau de trafic de drogue. À l'inspection, la clé semble <strong>vide</strong> — le suspect a probablement supprimé définitivement les données qu'elle contenait. L'objectif : créer une image forensique de la clé, puis tenter de récupérer les fichiers supprimés sans jamais altérer le support original.</p>
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- ÉTAPE 1 -->
+								<section>
+									<header class="major">
+										<h2>Étape 1 — Acquisition de la clé USB</h2>
+									</header>
+									<p>FTK Imager est lancé sur un poste vierge de toute investigation antérieure. L'interface principale ne montre encore aucune source de données chargée.</p>
+									<span class="image fit"><img src="images/forensics-acquisition-image/ftk-01-accueil.png" alt="Interface principale FTK Imager 8.2.0.26" /></span>
+
+									<h3 style="margin-top:1.5em;">Créer l'image forensique</h3>
+									<p>Dans le menu <strong>File → Create Disk Image…</strong>, on lance l'assistant de capture.</p>
+									<span class="image fit"><img src="images/forensics-acquisition-image/ftk-02-menu-create-image.png" alt="Menu File - Create Disk Image" /></span>
+
+									<h3 style="margin-top:1.5em;">Choisir la source</h3>
+									<p>Le type de source sélectionné est <strong>Physical Drive</strong>, correspondant à la clé USB physique à analyser (<code>\\.\PHYSICALDRIVE1</code>).</p>
+									<span class="image fit"><img src="images/forensics-acquisition-image/ftk-03-select-source.png" alt="Sélection du type de source - Physical Drive" /></span>
+
+									<h3 style="margin-top:1.5em;">Choisir le format</h3>
+									<p>Le format <strong>E01</strong> (EnCase Evidence File) est retenu — un standard largement répandu en criminalistique numérique pour stocker des images disque créées avec des outils comme FTK Imager.</p>
+									<span class="image fit"><img src="images/forensics-acquisition-image/ftk-04-format-e01.png" alt="Sélection du format E01" /></span>
+
+									<h3 style="margin-top:1.5em;">Informations de l'évidence</h3>
+									<p>Les métadonnées de l'affaire sont renseignées pour garantir la traçabilité (chain of custody) :</p>
+									<div class="table-wrapper">
+										<table>
+											<tbody>
+												<tr><td><strong>Case Number</strong></td><td>Forensic-USB</td></tr>
+												<tr><td><strong>Evidence Number</strong></td><td>1</td></tr>
+												<tr><td><strong>Unique Description</strong></td><td>Clé USB — Images supprimées</td></tr>
+												<tr><td><strong>Examiner</strong></td><td>Groupe4 Forensic</td></tr>
+											</tbody>
+										</table>
+									</div>
+									<span class="image fit"><img src="images/forensics-acquisition-image/ftk-05-evidence-info.png" alt="Informations de l'évidence (Evidence Item Information)" /></span>
+
+									<h3 style="margin-top:1.5em;">Destination de l'image</h3>
+									<p>L'image est enregistrée dans <code>C:\Users\user\Desktop\Forensic</code> sous le nom <code>usb_image_supprimées</code>, avec une taille de fragment de 1500 Mo et un taux de compression de <strong>6</strong>.</p>
+									<span class="image fit"><img src="images/forensics-acquisition-image/ftk-06-destination.png" alt="Sélection de la destination de l'image" /></span>
+
+									<h3 style="margin-top:1.5em;">Lancement de la capture</h3>
+									<p>Une fois la destination ajoutée à la liste (<code>usb_image_supprimées [E01]</code>), le bouton <strong>Start</strong> déclenche la création de l'image, avec vérification automatique après création.</p>
+									<span class="image fit"><img src="images/forensics-acquisition-image/ftk-07-start.png" alt="Lancement de la création de l'image - bouton Start" /></span>
+
+									<h3 style="margin-top:1.5em;">Capture en cours</h3>
+									<span class="image fit"><img src="images/forensics-acquisition-image/ftk-08-creating.png" alt="Progression de la création de l'image" /></span>
+
+									<h3 style="margin-top:1.5em;">Vérification d'intégrité — Hashs</h3>
+									<p>L'acquisition s'est terminée avec succès après <strong>3h39min02</strong>. FTK Imager calcule automatiquement les empreintes cryptographiques et confirme la correspondance entre le hash calculé et le hash de vérification :</p>
+									<div class="table-wrapper">
+										<table>
+											<thead>
+												<tr><th>Algorithme</th><th>Hash</th><th>Résultat</th></tr>
+											</thead>
+											<tbody>
+												<tr><td>MD5</td><td style="font-family:monospace; font-size:0.85em;">e2d0e48ec117681e5f93be82826d63cc</td><td style="color:#2d8a4e; font-weight:600;">Match ✔</td></tr>
+												<tr><td>SHA-1</td><td style="font-family:monospace; font-size:0.85em;">78773eb5ef97b99fb4fdf3e8f4c42ba24affbb5a</td><td style="color:#2d8a4e; font-weight:600;">Match ✔</td></tr>
+											</tbody>
+										</table>
+									</div>
+									<span class="image fit"><img src="images/forensics-acquisition-image/ftk-09-hash-verify.png" alt="Résultats de vérification des hashs MD5 et SHA-1" /></span>
+								</section>
+
+							<hr class="major" />
+
+							<!-- ÉTAPE 2 -->
+								<section>
+									<header class="major">
+										<h2>Étape 2 — Chargement de l'image pour analyse</h2>
+									</header>
+									<p>Après acquisition, la clé USB physique n'est <strong>plus utilisée</strong>. Toute l'analyse qui suit se fait exclusivement à partir de l'image forensique, afin de préserver l'intégrité de la preuve originale — principe fondamental de la chaîne de conservation.</p>
+
+									<p>Via <strong>Add Evidence Item</strong>, on sélectionne cette fois le type de source <strong>Image File</strong> (et non plus Physical Drive), car on travaille désormais sur une copie forensique.</p>
+									<span class="image fit"><img src="images/forensics-acquisition-image/ftk-10-add-evidence-imagefile.png" alt="Add Evidence Item - sélection Image File" /></span>
+
+									<p>La création de l'image a généré plusieurs segments (<code>.E01</code>, <code>.E02</code>, <code>.E03</code>, <code>.E04</code>) dans <code>Bureau\Forensic</code>. Seul le <strong>premier segment E01</strong> doit être sélectionné — FTK Imager reconstitue automatiquement l'ensemble.</p>
+									<span class="image fit"><img src="images/forensics-acquisition-image/ftk-11-select-e01.png" alt="Sélection du fichier usb_image_supprimées.E01" /></span>
+									<span class="image fit"><img src="images/forensics-acquisition-image/ftk-12-path-e01.png" alt="Chemin du fichier source sélectionné" /></span>
+								</section>
+
+							<hr class="major" />
+
+							<!-- ÉTAPE 3 -->
+								<section>
+									<header class="major">
+										<h2>Étape 3 — Recherche des fichiers supprimés</h2>
+									</header>
+									<p>Dans la fenêtre principale de FTK Imager, l'<strong>Evidence Tree</strong> affiche l'arborescence du volume <code>SAV-USB [FAT32]</code>. Plusieurs fichiers marqués d'une croix rouge (✕) apparaissent comme <strong>supprimés</strong> mais restent récupérables via leur <strong>File Slack</strong> — l'espace résiduel d'un cluster non réécrit par le système de fichiers.</p>
+									<p>Les fichiers retrouvés (<code>bateau de livraison.jpg</code>, <code>chanvre indien.jpg</code>, <code>cocaine-Maroc.jpg</code>, <code>cocaine-Senegal.jpg</code>, etc.) confirment la piste évoquée dans le scénario : ces images n'avaient pas été physiquement écrasées et demeuraient accessibles dans l'espace non alloué du disque.</p>
+									<span class="image fit"><img src="images/forensics-acquisition-image/ftk-13-arborescence.png" alt="Evidence Tree - fichiers supprimés visibles avec File Slack" /></span>
+								</section>
+
+							<hr class="major" />
+
+							<!-- ÉTAPE 4 -->
+								<section>
+									<header class="major">
+										<h2>Étape 4 — Export des fichiers retrouvés</h2>
+									</header>
+									<p>Les fichiers d'intérêt sont sélectionnés dans la liste, puis un clic droit ouvre le menu contextuel pour lancer <strong>Export Files…</strong> vers un répertoire de sortie dédié.</p>
+									<span class="image fit"><img src="images/forensics-acquisition-image/ftk-14-export-files.png" alt="Menu contextuel Export Files" /></span>
+
+									<h3 style="margin-top:1.5em;">Résultat de l'export</h3>
+									<p>L'analyse de l'image forensique a permis de récupérer plusieurs fichiers définitivement supprimés de la clé USB, regroupés dans le dossier <code>Image-Forensic Récupérée</code> sur le Bureau. Ces preuves numériques corroborent l'implication du suspect dans le réseau visé par l'enquête.</p>
+									<span class="image fit"><img src="images/forensics-acquisition-image/ftk-15-dossier-final.png" alt="Dossier final avec les fichiers exportés" /></span>
+
+									<div style="background:#f0fff4; border-left:4px solid #2d8a4e; padding:1.2em 1.5em; border-radius:4px; margin-top:1.5em;">
+										<p style="margin:0;"><strong>Conclusion du cas pratique :</strong> ce TP illustre un principe fondamental de la forensique numérique — la suppression d'un fichier n'efface pas immédiatement son contenu physique sur le support. Tant que les clusters concernés ne sont pas réécrits, les données restent récupérables via l'analyse du File Slack et de l'espace non alloué, ce qui permet de reconstituer fidèlement des preuves qu'un suspect croyait avoir détruites.</p>
+									</div>
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="Search" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="index.html">Accueil</a></li>
+
+										<!-- RÉSEAU -->
+										<li>
+											<span class="opener">Réseau</span>
+											<ul>
+												<li>
+													<span class="opener">Routage</span>
+													<ul>
+														<li><a href="reseau-routage-statique.html">Routage Statique</a></li>
+														<li><a href="reseau-routage-par-defaut.html">Routage par Défaut</a></li>
+														<li><a href="reseau-ospf.html">OSPF (Dynamique)</a></li>
+														<li><a href="reseau-eigrp.html">EIGRP (Dynamique)</a></li>
+														<li><a href="reseau-ripv2.html">RIPv2 (Dynamique)</a></li>
+														<li><a href="auth-protocoles-routage.html">Authentification sur les protocoles de routage</a></li>
+													</ul>
+												</li>
+												<li>
+													<span class="opener">Haute Disponibilité</span>
+													<ul>
+														<li><a href="reseau-hsrp.html">HSRP – Hot Standby Routing Protocol</a></li>
+													</ul>
+												</li>
+												<li>
+													<span class="opener">Sécurité L2</span>
+													<ul>
+														<li><a href="reseau-dhcp-snooping.html">DHCP Snooping</a></li>
+														<li><a href="reseau-arp-spoofing.html">ARP Spoofing – Protection</a></li>
+														<li><a href="reseau-mac-flooding.html">MAC Flooding – Mitigation</a></li>
+														<li><a href="reseau-vlan.html">VLAN – Segmentation</a></li>
+													</ul>
+												</li>
+												<li>
+													<span class="opener">Services Réseau</span>
+													<ul>
+														<li><a href="reseau-nat.html">NAT & Accès Internet</a></li>
+														<li><a href="reseau-dhcp-gns3.html">DHCP sur GNS3</a></li>
+														<li><a href="reseau-portail-captif.html">Portail Captif & RADIUS</a></li>
+													</ul>
+												</li>
+												<li>
+													<span class="opener">Audit Sans-Fil & MITM</span>
+													<ul>
+														<li><a href="reseau-audit-wpa2-wpa3.html">Audit WPA2/WPA3</a></li>
+														<li><a href="reseau-attaque-mitm-wi-fi.html">Attaque MITM sur Wi-Fi Sécurisé</a></li>
+														<li><a href="reseau-analyse-trafic-wireshark.html">Analyse de trafic Wireshark</a></li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+
+										<!-- ATTAQUE / DÉFENSE -->
+										<li>
+											<span class="opener">Attaque / Défense</span>
+											<ul>
+												<li>
+													<span class="opener">Machines Vulnérables</span>
+													<ul>
+														<li><a href="attaque-exploitation-proftpd.html">Exploitation ProFTPD</a></li>
+														<li><a href="attaque-exploitation-port-80.html">Exploitation Port 80 (HTTP)</a></li>
+													</ul>
+												</li>
+												<li>
+													<span class="opener">SOC & Défense</span>
+													<ul>
+														<li><a href="defense-laboratoire-soar.html">Laboratoire SOAR (TheHive/Cortex)</a></li>
+														<li><a href="defense-mise-en-place-siem-xdr.html">Mise en place SIEM/XDR</a></li>
+														<li><a href="defense-projet-ossec.html">Projet OSSEC – Attaque & Défense</a></li>
+													</ul>
+												</li>
+												<li>
+													<span class="opener">CTF & Compétitions</span>
+													<ul>
+														<li><a href="ctf-write-ups-root-me.html">Write-ups Root-Me</a></li>
+														<li><a href="ctf-ecowas-2026-cyberphantoms.html">ECOWAS CTF 2026 – Cyberphantoms</a></li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+
+										<!-- FORENSICS -->
+										<li>
+											<span class="opener active">Forensics &amp; Investigation</span>
+											<ul>
+												<li><a href="forensics-acquisition-image.html" style="font-weight:600; color:#f56a6a;">Acquisition d'image – FTK Imager</a></li>
+												<li><a href="forensics-analyse-fichier-sam.html">Analyse fichier SAM – Autopsy</a></li>
+											</ul>
+										</li>
+
+										<!-- Programmation -->
+										<li>
+											<span class="opener">Programmation</span>
+											<ul>
+												<li><a href="sencadenas.html">SenCadenas</a></li>
+												<li><a href="e-sante.html">E-Santé</a></li>
+											</ul>
+										</li>
+
+										<!-- MÉMOIRE -->
+										<li>
+											<span class="opener">Mon Mémoire</span>
+											<ul>
+												<li><a href="memoire-chap-1.html">Chap. 1 – Présentation générale du sujet</a></li>
+												<li><a href="memoire-chap-2.html">Chap. 2 – Concepts généraux en sécurité informatique</a></li>
+												<li><a href="memoire-chap-3.html">Chap. 3 – Étude sur les SIEM, SOAR, XDR</a></li>
+												<li><a href="memoire-chap-4.html">Chap. 4 – Étude comparative des solutions</a></li>
+												<li><a href="memoire-chap-5.html">Chap. 5 – Mise en œuvre des solutions</a></li>
+											</ul>
+										</li>
+
+										<!-- CLOUD -->
+										<li>
+											<span class="opener">Sécurité Cloud</span>
+											<ul>
+												<li><a href="cloud-iam-principe-moindre-privilège.html">IAM &amp; Principe du Moindre Privilège</a></li>
+											</ul>
+										</li>
+
+										<!-- GOUVERNANCE -->
+										<li>
+											<span class="opener">Gouvernance &amp; Management</span>
+											<ul>
+												<li><a href="gouvernance-iso-27001-smsi.html">Gouvernance ISO 27001 – SMSI</a></li>
+												<li><a href="gouvernance-nist.html">Gouvernance NIST</a></li>
+											</ul>
+										</li>
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Contact</h2>
+									</header>
+									<p>N'hésitez pas à me contacter pour toute opportunité de stage, collaboration ou échange autour de la cybersécurité.</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="mailto:vieuxdiene47@gmail.com">vieuxdiene47@gmail.com</a></li>
+										<li class="icon solid fa-phone">77 993 03 06</li>
+										<li class="icon solid fa-map-marker-alt">Yoff Tonghor, Dakar, Sénégal</li>
+									</ul>
+								</section>
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Vieux Alia Samb. All rights reserved. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

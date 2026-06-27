@@ -1,0 +1,307 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>ISO 27001 – SMSI DIGISEN – Vieux Alia Samb</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<style>
+			.project-meta { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 25px; }
+			.badge { background: #2c3e50; color: #1abc9c; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; border: 1px solid #1abc9c; }
+			.context-box { background: #eaf4fb; border: 1px solid #2980b9; border-radius: 8px; padding: 16px 20px; margin: 20px 0; }
+			.context-box h4 { color: #1a5276; margin: 0 0 8px 0; }
+			.step-block { background: #f8f9fa; border-left: 4px solid #2980b9; padding: 18px 20px; margin-bottom: 20px; border-radius: 0 6px 6px 0; }
+			.step-block h3 { color: #2980b9; margin: 0 0 12px 0; font-size: 16px; border-bottom: 1px solid #d6eaf8; padding-bottom: 8px; }
+			.step-number { display: inline-block; background: #2980b9; color: white; width: 28px; height: 28px; border-radius: 50%; text-align: center; line-height: 28px; font-weight: bold; margin-right: 10px; font-size: 14px; }
+			table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 13px; }
+			th { background: #2c3e50; color: white; padding: 10px 14px; text-align: left; }
+			td { padding: 9px 14px; border-bottom: 1px solid #ecf0f1; }
+			tr:nth-child(even) td { background: #f8f9fa; }
+			.critique { color: #e74c3c; font-weight: bold; }
+			.moyen { color: #e67e22; font-weight: bold; }
+			.green { color: #27ae60; font-weight: bold; }
+			.risk-high { background: #fdedec !important; }
+			.risk-med { background: #fef9e7 !important; }
+			.risk-low { background: #eafaf1 !important; }
+			.treatment-box { border-radius: 6px; padding: 12px 16px; margin: 8px 0; font-size: 13px; }
+			.reduce { background: #fdedec; border-left: 4px solid #e74c3c; }
+			.avoid  { background: #fef9e7; border-left: 4px solid #f39c12; }
+			.transfer { background: #eafaf1; border-left: 4px solid #27ae60; }
+			.soa-table th { background: #1a5276; }
+			.learned-box { background: #eafaf1; border: 1px solid #a9dfbf; border-radius: 8px; padding: 18px 20px; margin-top: 10px; }
+			.learned-box h4 { color: #1e8449; margin: 0 0 10px 0; }
+			.nav-pages { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ecf0f1; }
+			.nav-pages a { color: #2980b9; text-decoration: none; font-weight: bold; }
+		</style>
+	</head>
+	<body class="is-preload">
+		<div id="wrapper">
+			<div id="main">
+				<div class="inner">
+					<header id="header">
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/vieux-alia-samb-753a443ab" target="_blank" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://github.com/Sav2507" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</header>
+
+					<p style="color:#95a5a6; font-size:13px;">
+						<a href="index.html" style="color:#2980b9;">Accueil</a> &rsaquo;
+						Gouvernance &amp; Management &rsaquo; <strong>ISO 27001 – SMSI DIGISEN</strong>
+					</p>
+
+					<header class="main">
+						<h1>Mise en place d'un SMSI – ISO 27001</h1>
+					</header>
+
+					<div class="project-meta">
+						<span class="badge">📋 ISO 27001</span>
+						<span class="badge">🔐 SMSI</span>
+						<span class="badge">📊 Analyse de risques</span>
+						<span class="badge">📄 Déclaration d'Application</span>
+						<span class="badge">Exercice individuel</span>
+					</div>
+
+					<!-- Contexte -->
+					<div class="context-box">
+						<h4>🏢 Contexte – DIGISEN SARL</h4>
+						<p>En tant que <strong>consultant sécurité</strong> pour DIGISEN SARL (services numériques : hébergement + développement web, 50 employés), l'objectif est de préparer cette entreprise à la <strong>certification ISO 27001</strong> en mettant en place les bases d'un SMSI (Système de Management de la Sécurité de l'Information).</p>
+						<p><strong>Données sensibles en jeu :</strong> données clients, applications web hébergées, données RH.</p>
+					</div>
+
+					<!-- Étape 1 : Actifs -->
+					<div class="step-block">
+						<h3><span class="step-number">1</span>Identification des actifs</h3>
+						<table>
+							<tr><th>Actif</th><th>Propriétaire</th><th>Valeur</th></tr>
+							<tr><td>Serveurs d'hébergement</td><td>DSI</td><td><span class="critique">Critique</span></td></tr>
+							<tr><td>Base de données clients</td><td>Direction Commerciale</td><td><span class="critique">Critique</span></td></tr>
+							<tr><td>Applications Web hébergées</td><td>Équipe développement</td><td><span class="critique">Critique</span></td></tr>
+							<tr><td>Réseau Interne</td><td>DSI</td><td><span class="moyen">Moyen</span></td></tr>
+							<tr><td>Données Ressources Humaines</td><td>Direction RH</td><td><span class="critique">Critique</span></td></tr>
+							<tr><td>Postes de travail employés</td><td>DSI</td><td><span class="moyen">Moyen</span></td></tr>
+							<tr><td>Sauvegardes</td><td>DSI</td><td><span class="critique">Critique</span></td></tr>
+							<tr><td>Abonnements logiciels (SIEM, SOAR, XDR, EDR…)</td><td>Équipe Dev / Sécu</td><td><span class="critique">Critique</span></td></tr>
+						</table>
+					</div>
+
+					<!-- Étape 2 : Menaces -->
+					<div class="step-block">
+						<h3><span class="step-number">2</span>Identification des menaces et vulnérabilités</h3>
+						<table>
+							<tr><th>Actif</th><th>Menaces</th><th>Vulnérabilités</th></tr>
+							<tr>
+								<td><strong>Base de données clients</strong></td>
+								<td>Fuite de données, Injection SQL</td>
+								<td>Absence de chiffrement, patching insuffisant</td>
+							</tr>
+							<tr>
+								<td><strong>Applications Web hébergées</strong></td>
+								<td>DDoS, exploitation de failles applicatives</td>
+								<td>Code non audité, absence de WAF</td>
+							</tr>
+							<tr>
+								<td><strong>Données RH</strong></td>
+								<td>Vol d'identité, accès non autorisé</td>
+								<td>Droits mal configurés, absence de journalisation</td>
+							</tr>
+						</table>
+					</div>
+
+					<!-- Étape 3 : Matrice de risques -->
+					<div class="step-block">
+						<h3><span class="step-number">3</span>Matrice de risques (C = Impact × Probabilité)</h3>
+						<table>
+							<tr><th>Actif</th><th>Menace</th><th>Impact (1-5)</th><th>Probabilité (1-5)</th><th>Criticité</th></tr>
+							<tr class="risk-high">
+								<td><strong>Base de données clients</strong></td>
+								<td>Fuite de données</td>
+								<td>5</td>
+								<td>4</td>
+								<td><span class="critique">20 🔴</span></td>
+							</tr>
+							<tr class="risk-med">
+								<td><strong>Données RH</strong></td>
+								<td>Accès non autorisé</td>
+								<td>4</td>
+								<td>4</td>
+								<td><span class="moyen">16 🟠</span></td>
+							</tr>
+							<tr class="risk-low">
+								<td><strong>Applications Web</strong></td>
+								<td>DDoS</td>
+								<td>4</td>
+								<td>3</td>
+								<td><span class="green">12 🟡</span></td>
+							</tr>
+						</table>
+					</div>
+
+					<!-- Étape 4 : Traitement des risques -->
+					<div class="step-block">
+						<h3><span class="step-number">4</span>Traitement des risques</h3>
+						<div class="treatment-box reduce">
+							<strong>🔴 Fuite de données (20) → RÉDUIRE</strong><br>
+							Chiffrement de la base de données, durcissement du SGBD, tests d'intrusion réguliers, patch management strict
+						</div>
+						<div class="treatment-box avoid">
+							<strong>🟠 Accès non autorisé RH (16) → ÉVITER</strong><br>
+							Contrôle d'accès strict basé sur les rôles (RBAC), MFA obligatoire, journalisation et alertes sur les accès suspects
+						</div>
+						<div class="treatment-box transfer">
+							<strong>🟡 DDoS sur applications web (12) → TRANSFÉRER</strong><br>
+							Contrat avec fournisseur anti-DDoS (Cloudflare), WAF en amont des applications, SLA avec le prestataire
+						</div>
+					</div>
+
+					<!-- Étape 5 : Contrôles ISO 27002 -->
+					<div class="step-block">
+						<h3><span class="step-number">5</span>Choix des contrôles ISO 27002</h3>
+						<table>
+							<tr><th>Annexe</th><th>Domaine</th><th>Contrôles appliqués</th></tr>
+							<tr><td><strong>A.9</strong></td><td>Gestion des accès</td><td>MFA, droits minimaux (PoLP)</td></tr>
+							<tr><td><strong>A.12</strong></td><td>Sécurité opérationnelle</td><td>Patch management, sauvegardes</td></tr>
+							<tr><td><strong>A.13</strong></td><td>Sécurité des communications</td><td>Chiffrement TLS, VPN</td></tr>
+							<tr><td><strong>A.14</strong></td><td>Acquisition &amp; développement</td><td>Tests de sécurité applicative (SAST/DAST)</td></tr>
+							<tr><td><strong>A.17</strong></td><td>Continuité</td><td>PRA/PCA, anti-DDoS</td></tr>
+						</table>
+					</div>
+
+					<!-- Étape 6 : SoA -->
+					<div class="step-block">
+						<h3><span class="step-number">6</span>Déclaration d'Application (SoA)</h3>
+						<p style="font-size:13px; margin-bottom:12px;">La SoA (Statement of Applicability) liste les contrôles ISO 27002 applicables à DIGISEN et leur justification.</p>
+						<table class="soa-table">
+							<tr><th>Domaine ISO 27002</th><th>Contrôle</th><th>Applicabilité</th><th>Justification</th></tr>
+							<tr>
+								<td>A.9 – Gestion des accès</td>
+								<td>MFA, droits minimaux</td>
+								<td><span class="green">✅ Applicable</span></td>
+								<td>Réduit le risque d'accès non autorisé aux données RH</td>
+							</tr>
+							<tr>
+								<td>A.12 – Sécurité opérationnelle</td>
+								<td>Patch management, sauvegardes</td>
+								<td><span class="green">✅ Applicable</span></td>
+								<td>Réduit le risque de fuite de données clients</td>
+							</tr>
+							<tr>
+								<td>A.13 – Sécurité des communications</td>
+								<td>Chiffrement TLS, VPN</td>
+								<td><span class="green">✅ Applicable</span></td>
+								<td>Protège les échanges sensibles avec les clients</td>
+							</tr>
+							<tr>
+								<td>A.14 – Acquisition &amp; développement</td>
+								<td>Tests de sécurité applicative</td>
+								<td><span class="green">✅ Applicable</span></td>
+								<td>Réduit les vulnérabilités des applications web hébergées</td>
+							</tr>
+							<tr>
+								<td>A.17 – Continuité</td>
+								<td>Anti-DDoS, PRA/PCA</td>
+								<td><span class="green">✅ Applicable</span></td>
+								<td>Transfert/réduction du risque DDoS</td>
+							</tr>
+							<tr>
+								<td>A.18 – Conformité</td>
+								<td>Journalisation et traçabilité</td>
+								<td><span class="green">✅ Applicable</span></td>
+								<td>Obligations légales et audit interne</td>
+							</tr>
+							<tr>
+								<td>A.6 – Organisation de la sécurité</td>
+								<td>Politique de sécurité</td>
+								<td><span class="green">✅ Applicable</span></td>
+								<td>Nécessaire pour formaliser le SMSI</td>
+							</tr>
+							<tr>
+								<td>A.11 – Sécurité physique</td>
+								<td>Contrôle d'accès aux locaux</td>
+								<td><span class="green">✅ Applicable</span></td>
+								<td>Protection des serveurs hébergés</td>
+							</tr>
+						</table>
+					</div>
+
+					<div class="learned-box">
+						<h4>✅ Ce que j'ai appris</h4>
+						<ul>
+							<li>Mener une analyse de risques structurée : identifier les actifs, les menaces, les vulnérabilités, puis calculer la criticité (I × P)</li>
+							<li>Distinguer les 4 stratégies de traitement des risques : <strong>Réduire, Éviter, Transférer, Accepter</strong></li>
+							<li>Cartographier les contrôles ISO 27002 selon les risques identifiés et rédiger une Déclaration d'Application (SoA)</li>
+							<li>Comprendre que l'ISO 27001 est une <strong>norme certifiable</strong> — la SoA est un livrable obligatoire pour l'audit</li>
+							<li>Voir la complémentarité avec le NIST : l'ISO certifie, le NIST guide — les deux ensemble forment un SMSI robuste</li>
+						</ul>
+					</div>
+
+					<div class="nav-pages">
+						<a href="gouvernance-nist.html">← NIST CSF</a>
+						<a href="index.html">Accueil →</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- Sidebar -->
+			<div id="sidebar">
+				<div class="inner">
+					<section id="search" class="alt">
+						<form method="post" action="#"><input type="text" name="query" id="query" placeholder="Search" /></form>
+					</section>
+					<nav id="menu">
+						<header class="major"><h2>Menu</h2></header>
+						<ul>
+							<li><a href="index.html">Accueil</a></li>
+							<li><span class="opener">Réseau</span><ul>
+								<li><span class="opener">Routage</span><ul>
+									<li><a href="reseau-routage-statique.html">Routage Statique</a></li>
+									<li><a href="reseau-routage-defaut.html">Routage par Défaut</a></li>
+									<li><a href="reseau-ospf.html">OSPF</a></li>
+									<li><a href="reseau-eigrp.html">EIGRP</a></li>
+									<li><a href="reseau-ripv2.html">RIPv2</a></li>
+									<li><a href="reseau-auth-routage.html">Authentification des Protocoles</a></li>
+								</ul></li>
+								<li><span class="opener">Haute Disponibilité</span><ul><li><a href="reseau-hsrp.html">HSRP</a></li></ul></li>
+								<li><span class="opener">Sécurité L2</span><ul><li><a href="#">DHCP Snooping</a></li><li><a href="#">ARP Spoofing</a></li><li><a href="#">MAC Flooding</a></li><li><a href="#">VLAN</a></li></ul></li>
+								<li><span class="opener">Services Réseau</span><ul><li><a href="#">NAT</a></li><li><a href="#">DHCP</a></li><li><a href="#">RADIUS</a></li></ul></li>
+								<li><span class="opener">Audit Sans-Fil &amp; MITM</span><ul><li><a href="#">WPA2/WPA3</a></li><li><a href="#">MITM</a></li><li><a href="#">Wireshark</a></li></ul></li>
+							</ul></li>
+							<li><span class="opener">Attaque / Défense</span><ul>
+								<li><span class="opener">Machines Vulnérables</span><ul><li><a href="#">ProFTPD</a></li><li><a href="#">Port 80</a></li></ul></li>
+								<li><span class="opener">SOC &amp; Défense</span><ul><li><a href="#">SOAR TheHive</a></li><li><a href="#">SIEM/XDR</a></li><li><a href="#">OSSEC</a></li></ul></li>
+								<li><span class="opener">CTF &amp; Compétitions</span><ul><li><a href="#">Root-Me</a></li><li><a href="#">ECOWAS CTF 2026</a></li></ul></li>
+							</ul></li>
+							<li><span class="opener">Forensics &amp; Investigation</span><ul><li><a href="#">FTK Imager</a></li><li><a href="#">Analyse SAM</a></li></ul></li>
+							<li><span class="opener">Développement</span><ul><li><a href="#">SenCadenas</a></li><li><a href="#">App Ordonnances</a></li></ul></li>
+							<li><span class="opener">Mon Mémoire</span><ul><li><a href="#">Chap. 1</a></li><li><a href="#">Chap. 2</a></li><li><a href="#">Chap. 3</a></li><li><a href="#">Chap. 4</a></li><li><a href="#">Chap. 5</a></li></ul></li>
+							<li>
+								<span class="opener">Gouvernance &amp; Management</span>
+								<ul>
+									<li><a href="gouvernance-nist.html">NIST Cybersecurity Framework</a></li>
+									<li><a href="gouvernance-iso27001.html"><strong>ISO 27001 – SMSI (DIGISEN)</strong></a></li>
+								</ul>
+							</li>
+							<li><span class="opener">Sécurité Cloud</span><ul><li><a href="cloud-iam-aws.html">IAM &amp; Moindre Privilège</a></li></ul></li>
+						</ul>
+					</nav>
+					<section>
+						<header class="major"><h2>Contact</h2></header>
+						<ul class="contact">
+							<li class="icon solid fa-envelope"><a href="mailto:vieuxdiene47@gmail.com">vieuxdiene47@gmail.com</a></li>
+							<li class="icon solid fa-phone">77 993 03 06</li>
+							<li class="icon solid fa-map-marker-alt">Yoff Tonghor, Dakar, Sénégal</li>
+						</ul>
+					</section>
+					<footer id="footer">
+						<p class="copyright">&copy; Vieux Alia Samb. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+					</footer>
+				</div>
+			</div>
+		</div>
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+	</body>
+</html>

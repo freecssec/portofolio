@@ -1,0 +1,449 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Analyse fichier SAM – Autopsy – Portfolio Vieux Alia Samb</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<ul class="icons">
+										<li><a href="https://www.linkedin.com/in/vieux-alia-samb-753a443ab" target="_blank" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+										<li><a href="https://github.com/Sav2507" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+									</ul>
+								</header>
+
+							<!-- Titre -->
+								<section>
+									<header class="main">
+										<h1>Analyse Forensique du Fichier SAM</h1>
+										<p>Forensics &amp; Investigation · Reconstitution d'activités sur une VM Windows 10 avec Autopsy · TP n°001</p>
+									</header>
+
+									<!-- Badges -->
+									<div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:2em;">
+										<span style="background:#444; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">Autopsy 4.22.1</span>
+										<span style="background:#1a6e9a; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">Windows 10 x64 (.vmdk)</span>
+										<span style="background:#7b4fa3; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">Fichier SAM</span>
+										<span style="background:#c97a1c; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">Web History / Downloads</span>
+										<span style="background:#2d8a4e; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">MD5 / SHA-256</span>
+									</div>
+
+									<div class="row">
+										<div class="col-8 col-12-medium">
+											<p>Ce TP de forensique numérique reconstitue trois activités réalisées intentionnellement sur une machine virtuelle Windows 10 : la <strong>navigation web</strong>, le <strong>téléchargement de logiciels</strong>, et surtout la <strong>suppression volontaire du fichier SAM</strong> (Security Account Manager), base de données critique des comptes Windows. L'objectif : démontrer qu'aucune action sur un système n'est jamais totalement invisible pour un analyste équipé des bons outils.</p>
+										</div>
+										<div class="col-4 col-12-medium">
+											<div style="background:#f8f8f8; border-left:4px solid #f56a6a; padding:1em 1.2em; border-radius:4px;">
+												<h4 style="margin:0 0 0.5em 0; font-size:0.9em; text-transform:uppercase; color:#888;">Infos du cas</h4>
+												<p style="margin:0; font-size:0.85em;"><strong>Cas n°</strong> 001</p>
+												<p style="margin:0; font-size:0.85em;"><strong>Examinateur</strong> Vieux Alia Samb</p>
+												<p style="margin:0; font-size:0.85em;"><strong>Source</strong> Windows 10 x64.vmdk</p>
+												<p style="margin:0; font-size:0.85em;"><strong>Fuseau</strong> Africa/Dakar (GMT+0)</p>
+											</div>
+										</div>
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- Objectifs -->
+								<section>
+									<header class="major">
+										<h2>Objectifs de l'Analyse</h2>
+									</header>
+									<p>Trois activités ont été réalisées délibérément sur la VM, puis recherchées via Autopsy, comme le ferait un analyste lors d'une investigation réelle :</p>
+									<div class="features">
+										<article>
+											<span class="icon solid fa-globe"></span>
+											<div class="content">
+												<h3>Navigation web</h3>
+												<p>Connexion à 3 sites différents depuis Microsoft Edge.</p>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-download"></span>
+											<div class="content">
+												<h3>Téléchargements</h3>
+												<p>Récupération de 3 logiciels depuis Internet.</p>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-trash-alt"></span>
+											<div class="content">
+												<h3>Suppression du SAM</h3>
+												<p>Effacement de la base de comptes Windows via l'Invite de commandes en mode récupération (WinRE).</p>
+											</div>
+										</article>
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- Méthodologie : suppression du SAM -->
+								<section>
+									<header class="major">
+										<h2>Étape 1 — Suppression du fichier SAM sur la VM</h2>
+									</header>
+									<p>Avant toute analyse Autopsy, le fichier <code>C:\Windows\System32\config\SAM</code> a été supprimé directement depuis la VM, via l'Invite de commandes en <strong>mode récupération Windows (WinRE)</strong> — la seule façon d'y accéder, ce fichier étant verrouillé par le système tant que Windows est démarré normalement.</p>
+
+									<h3>Accès au mode récupération</h3>
+									<p>Le chemin classique : <code>Paramètres → Mise à jour et sécurité → Récupération → Démarrage avancé → Résolution des problèmes → Options avancées → Invite de commandes</code>, avec authentification du compte utilisateur requise pour ouvrir un terminal Administrateur.</p>
+
+									<h3 style="margin-top:1.5em;">Suppression et confirmation</h3>
+									<div style="background:#0d1117; border-radius:8px; padding:1.5em; font-family:monospace; font-size:0.85em; color:#00ff88; overflow-x:auto;">
+										<div>X:\windows\system32&gt; D: dir</div>
+										<div>D:\&gt; cd Windows\System32\config</div>
+										<div>D:\Windows\System32\config&gt; del SAM</div>
+										<div style="color:#888;">D:\Windows\System32\config&gt;</div>
+									</div>
+									<p style="margin-top:1em;">La commande <code>dir</code> confirme ensuite l'absence du fichier SAM dans le répertoire — la suppression est effective au niveau du système de fichiers actif.</p>
+
+									<h3 style="margin-top:1.5em;">Impact immédiat sur le système</h3>
+									<p>Au redémarrage, Windows ne peut plus accéder à sa base d'authentification : un <strong>écran bleu (BSOD)</strong> apparaît avec le code d'arrêt <code>0xc00002e3</code>, suivi du déclenchement automatique de la réparation système.</p>
+
+									<div class="table-wrapper">
+										<table>
+											<tbody>
+												<tr><td><strong>Fichier ciblé</strong></td><td><code>C:\Windows\System32\config\SAM</code></td></tr>
+												<tr><td><strong>Méthode</strong></td><td>Commande <code>del SAM</code> depuis WinRE</td></tr>
+												<tr><td><strong>Date de modification</strong></td><td>02/03/2026 à 18:11 GMT</td></tr>
+												<tr><td><strong>Taille</strong></td><td>8 192 octets (64 Ko dans l'explorateur)</td></tr>
+												<tr><td><strong>Impact immédiat</strong></td><td>BSOD — Code d'arrêt <code>0xc00002e3</code></td></tr>
+												<tr><td><strong>Conséquence</strong></td><td>Démarrage impossible — Réparation automatique déclenchée</td></tr>
+											</tbody>
+										</table>
+									</div>
+
+									<div style="background:#fff4f4; border-left:4px solid #f56a6a; padding:1.2em 1.5em; border-radius:4px; margin-top:1.2em;">
+										<p style="margin:0;"><strong>Remarque :</strong> dans un contexte réel, la suppression du fichier SAM constitue une action malveillante grave visant à détruire les preuves d'authentification d'un système — un signal d'alerte majeur pour tout analyste forensique.</p>
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- Méthodologie Autopsy -->
+								<section>
+									<header class="major">
+										<h2>Étape 2 — Analyse avec Autopsy 4.22.1</h2>
+									</header>
+
+									<h3>Création du cas</h3>
+									<p>Un nouveau cas est créé dans Autopsy avec les paramètres suivants, garantissant la traçabilité de l'investigation :</p>
+									<div class="table-wrapper">
+										<table>
+											<tbody>
+												<tr><td><strong>Nom du cas</strong></td><td>TP_Forensic_Windows10_SAM</td></tr>
+												<tr><td><strong>Numéro de cas</strong></td><td>001</td></tr>
+												<tr><td><strong>Examinateur</strong></td><td>Vieux Alia Samb</td></tr>
+												<tr><td><strong>Email</strong></td><td>vieuxdiene47@gmail.com</td></tr>
+												<tr><td><strong>Notes</strong></td><td>Analyse forensique pour retracer les dernières activités d'un utilisateur de Windows 10</td></tr>
+											</tbody>
+										</table>
+									</div>
+
+									<h3 style="margin-top:1.5em;">Ajout de la source de données</h3>
+									<p>Le fichier image VMware (<code>.vmdk</code>) est ajouté comme source de type <strong>"Disk Image or VM File"</strong> :</p>
+									<div class="table-wrapper">
+										<table>
+											<tbody>
+												<tr><td><strong>Hôte</strong></td><td>Windows10-VM</td></tr>
+												<tr><td><strong>Chemin</strong></td><td><code>E:\Program Files\Windows 10\Windows 10 x64.vmdk</code></td></tr>
+												<tr><td><strong>Fuseau horaire</strong></td><td>Africa/Dakar (GMT+0:00)</td></tr>
+												<tr><td><strong>Modules Ingest</strong></td><td>Recent Activity, Hash Lookup, File Type Identification, Extension Mismatch Detector</td></tr>
+											</tbody>
+										</table>
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- Résultats : SAM -->
+								<section>
+									<header class="major">
+										<h2>Résultats de l'Analyse</h2>
+									</header>
+
+									<h3>5.1 — Le fichier SAM dans Autopsy</h3>
+									<p>Le fichier <strong>SAM (Security Account Manager)</strong> est un fichier système critique de Windows : il stocke les hashs des mots de passe des comptes utilisateurs locaux, à l'emplacement <code>C:\Windows\System32\config\SAM</code>.</p>
+									<p>Dans Autopsy, la navigation vers le dossier <code>config</code> de la VM confirme que le fichier porte les traces de sa modification — preuve numérique de l'action de suppression, même si le fichier reste référencé dans le système de fichiers analysé.</p>
+
+									<h3 style="margin-top:1.5em;">5.2 — Traces de navigation web (Web History)</h3>
+									<p>Autopsy a extrait <strong>65 entrées</strong> d'historique web depuis Microsoft Edge. Les 3 sites visités intentionnellement ont été retrouvés :</p>
+									<div class="table-wrapper">
+										<table>
+											<thead>
+												<tr><th>URL</th><th>Date (GMT)</th><th>Titre</th></tr>
+											</thead>
+											<tbody>
+												<tr><td><code>youtube.com</code></td><td>02/03/2026 17:33</td><td>YouTube</td></tr>
+												<tr><td><code>it-connect.fr</code></td><td>02/03/2026 17:33</td><td>IT-Connect | Tutoriels</td></tr>
+												<tr><td><code>trashtalk.co</code></td><td>02/03/2026 17:34</td><td>TrashTalk — NBA &amp; Basket</td></tr>
+											</tbody>
+										</table>
+									</div>
+									<p>Autopsy a également identifié <strong>17 entrées Web Search</strong> correspondant aux recherches Bing effectuées pour accéder à ces sites.</p>
+
+									<h3 style="margin-top:1.5em;">5.3 — Logiciels téléchargés (Web Downloads)</h3>
+									<p>La section <strong>Web Downloads</strong> a révélé <strong>5 téléchargements</strong>, dont les 3 logiciels du TP :</p>
+									<div class="table-wrapper">
+										<table>
+											<thead>
+												<tr><th>Fichier</th><th>Date (GMT)</th><th>Domaine source</th></tr>
+											</thead>
+											<tbody>
+												<tr><td><code>scptoolkit-1-6-238-16010.exe</code></td><td>02/03/2026 17:34</td><td>uptodown.com</td></tr>
+												<tr><td><code>wps_wid.cid938436705.1.exe</code></td><td>02/03/2026 17:36</td><td>wpscdn.com</td></tr>
+												<tr><td><code>OperaGXSetup.exe</code></td><td>02/03/2026 17:40</td><td>opera.com</td></tr>
+												<tr><td><code>winrar-x64-720fr.exe</code></td><td>02/03/2026 17:45</td><td>win-rar.com</td></tr>
+											</tbody>
+										</table>
+									</div>
+									<p>Les 3 logiciels visés par le TP : <strong>SCPToolkit</strong> (pilote manette PS3), <strong>WPS Office</strong> (suite bureautique) et <strong>Opera GX</strong> (navigateur). WinRAR a été téléchargé en complément.</p>
+
+									<h3 style="margin-top:1.5em;">Rapport HTML généré</h3>
+									<p>Autopsy a généré automatiquement un rapport HTML complet, archivant l'ensemble du cas avec horodatage :</p>
+									<div style="background:#0d1117; border-radius:8px; padding:1em 1.5em; font-family:monospace; font-size:0.82em; color:#00ff88; overflow-x:auto;">
+										C:\Users\user\Forensic\TP_Forensic_Windows10_SAM\Reports\report.html
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- Intégrité & chaîne de conservation -->
+								<section>
+									<header class="major">
+										<h2>Intégrité &amp; Chaîne de Conservation</h2>
+									</header>
+									<ul>
+										<li>Aucun fichier original de la VM n'a été modifié pendant l'analyse Autopsy.</li>
+										<li>L'analyse a été réalisée exclusivement sur le fichier image (<code>.vmdk</code>), sans toucher à la VM source.</li>
+										<li>Autopsy 4.22.1 respecte les standards forensiques reconnus.</li>
+										<li>Un rapport HTML a été généré le 02/03/2026 à 21:51:18 pour archivage.</li>
+									</ul>
+
+									<div class="table-wrapper">
+										<table>
+											<tbody>
+												<tr><td><strong>Source analysée</strong></td><td><code>E:\Program Files\Windows 10\Windows 10 x64.vmdk</code></td></tr>
+												<tr><td><strong>Hash MD5</strong></td><td style="font-family:monospace; font-size:0.85em;">3bfce71390da0310f755f5787ec72e06</td></tr>
+												<tr><td><strong>Hash SHA-256</strong></td><td style="font-family:monospace; font-size:0.78em; word-break:break-all;">1d892b63d39a944662b1b03a5770cd32999667c491a3f9dd415032a685b3e60d</td></tr>
+												<tr><td><strong>Outil de hachage</strong></td><td>Autopsy Data Source Integrity Module (v4.22.1)</td></tr>
+											</tbody>
+										</table>
+									</div>
+
+									<div style="background:#fff4f4; border-left:4px solid #f56a6a; padding:1.2em 1.5em; border-radius:4px; margin-top:1.2em;">
+										<p style="margin:0;"><strong>Lacune identifiée :</strong> le hash de la source de données n'a pas été calculé <em>avant</em> le début de l'analyse — une omission dans la chaîne de conservation. Dans un contexte réel, ce calcul doit impérativement précéder toute opération forensique pour garantir l'intégrité des preuves devant un tribunal.</p>
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- Conclusion -->
+								<section>
+									<header class="major">
+										<h2>Conclusion</h2>
+									</header>
+									<div style="background:#f0fff4; border-left:4px solid #2d8a4e; padding:1.2em 1.5em; border-radius:4px;">
+										<p style="margin:0;">L'analyse forensique de la VM Windows 10 avec Autopsy 4.22.1 a permis de retrouver avec succès les traces des trois activités du TP : les <strong>3 sites web visités</strong> parmi 65 entrées d'historique, les <strong>3 logiciels téléchargés</strong> avec leurs URLs et dates exactes, et la <strong>suppression du fichier SAM</strong> documentée étape par étape — jusqu'à son impact direct (BSOD, code 0xc00002e3).</p>
+										<p style="margin:0.8em 0 0 0;">Ce TP illustre un principe fondamental de la forensique numérique : <strong>toute action sur un système laisse des traces</strong>. Même une tentative de destruction de preuves génère elle-même de nouvelles traces (logs système, BSOD, métadonnées de modification). Un analyste qualifié peut ainsi reconstituer fidèlement la chronologie des événements.</p>
+									</div>
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="Search" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="index.html">Accueil</a></li>
+
+										<!-- RÉSEAU -->
+										<li>
+											<span class="opener">Réseau</span>
+											<ul>
+												<li>
+													<span class="opener">Routage</span>
+													<ul>
+														<li><a href="reseau-routage-statique.html">Routage Statique</a></li>
+														<li><a href="reseau-routage-par-defaut.html">Routage par Défaut</a></li>
+														<li><a href="reseau-ospf.html">OSPF (Dynamique)</a></li>
+														<li><a href="reseau-eigrp.html">EIGRP (Dynamique)</a></li>
+														<li><a href="reseau-ripv2.html">RIPv2 (Dynamique)</a></li>
+														<li><a href="auth-protocoles-routage.html">Authentification sur les protocoles de routage</a></li>
+													</ul>
+												</li>
+												<li>
+													<span class="opener">Haute Disponibilité</span>
+													<ul>
+														<li><span class="soon">HSRP – Hot Standby Routing Protocol <em>🚧 à venir</em></span></li>
+													</ul>
+												</li>
+												<li>
+													<span class="opener">Sécurité L2</span>
+													<ul>
+														<li><span class="soon">DHCP Snooping <em>🚧 à venir</em></span></li>
+														<li><span class="soon">ARP Spoofing – Protection <em>🚧 à venir</em></span></li>
+														<li><span class="soon">MAC Flooding – Mitigation <em>🚧 à venir</em></span></li>
+														<li><span class="soon">VLAN – Segmentation <em>🚧 à venir</em></span></li>
+													</ul>
+												</li>
+												<li>
+													<span class="opener">Services Réseau</span>
+													<ul>
+														<li><span class="soon">NAT & Accès Internet <em>🚧 à venir</em></span></li>
+														<li><span class="soon">DHCP sur GNS3 <em>🚧 à venir</em></span></li>
+														<li><span class="soon">Portail Captif & RADIUS <em>🚧 à venir</em></span></li>
+													</ul>
+												</li>
+												<li>
+													<span class="opener">Audit Sans-Fil & MITM</span>
+													<ul>
+														<li><span class="soon">Audit WPA2/WPA3 <em>🚧 à venir</em></span></li>
+														<li><span class="soon">Attaque MITM sur Wi-Fi Sécurisé <em>🚧 à venir</em></span></li>
+														<li><span class="soon">Analyse de trafic Wireshark <em>🚧 à venir</em></span></li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+
+										<!-- ATTAQUE / DÉFENSE -->
+										<li>
+											<span class="opener">Attaque / Défense</span>
+											<ul>
+												<li>
+													<span class="opener">Machines Vulnérables</span>
+													<ul>
+														<li><span class="soon">Exploitation ProFTPD <em>🚧 à venir</em></span></li>
+														<li><span class="soon">Exploitation Port 80 (HTTP) <em>🚧 à venir</em></span></li>
+													</ul>
+												</li>
+												<li>
+													<span class="opener">SOC & Défense</span>
+													<ul>
+														<li><span class="soon">Laboratoire SOAR (TheHive/Cortex) <em>🚧 à venir</em></span></li>
+														<li><span class="soon">Mise en place SIEM/XDR <em>🚧 à venir</em></span></li>
+														<li><span class="soon">Projet OSSEC – Attaque & Défense <em>🚧 à venir</em></span></li>
+													</ul>
+												</li>
+												<li>
+													<span class="opener">CTF & Compétitions</span>
+													<ul>
+														<li><span class="soon">Write-ups Root-Me <em>🚧 à venir</em></span></li>
+														<li><span class="soon">ECOWAS CTF 2026 – Cyberphantoms <em>🚧 à venir</em></span></li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+
+										<!-- FORENSICS -->
+										<li>
+											<span class="opener active">Forensics &amp; Investigation</span>
+											<ul>
+												<li><a href="forensics-acquisition-image.html">Acquisition d'image – FTK Imager</a></li>
+												<li><a href="forensics-analyse-fichier-sam.html" style="font-weight:600; color:#f56a6a;">Analyse fichier SAM – Autopsy</a></li>
+											</ul>
+										</li>
+
+										<!-- Programmation -->
+										<li>
+											<span class="opener">Programmation</span>
+											<ul>
+												<li><a href="sencadenas.html">SenCadenas</a></li>
+												<li><a href="e-sante.html">E-Santé</a></li>
+											</ul>
+										</li>
+
+										<!-- MÉMOIRE -->
+										<li>
+											<span class="opener">Mon Mémoire</span>
+											<ul>
+												<li><span class="soon">Chap. 1 – Présentation générale du sujet <em>🚧 à venir</em></span></li>
+												<li><span class="soon">Chap. 2 – Concepts généraux en sécurité informatique <em>🚧 à venir</em></span></li>
+												<li><span class="soon">Chap. 3 – Étude sur les SIEM, SOAR, XDR <em>🚧 à venir</em></span></li>
+												<li><span class="soon">Chap. 4 – Étude comparative des solutions <em>🚧 à venir</em></span></li>
+												<li><span class="soon">Chap. 5 – Mise en œuvre des solutions <em>🚧 à venir</em></span></li>
+											</ul>
+										</li>
+
+										<!-- CLOUD -->
+										<li>
+											<span class="opener">Sécurité Cloud</span>
+											<ul>
+												<li><a href="cloud-iam-principe-moindre-privilège.html">IAM &amp; Principe du Moindre Privilège</a></li>
+											</ul>
+										</li>
+
+										<!-- GOUVERNANCE -->
+										<li>
+											<span class="opener">Gouvernance &amp; Management</span>
+											<ul>
+												<li><a href="gouvernance-iso-27001-smsi.html">Gouvernance ISO 27001 – SMSI</a></li>
+												<li><a href="gouvernance-nist.html">Gouvernance NIST</a></li>
+											</ul>
+										</li>
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Contact</h2>
+									</header>
+									<p>N'hésitez pas à me contacter pour toute opportunité de stage, collaboration ou échange autour de la cybersécurité.</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="mailto:vieuxdiene47@gmail.com">vieuxdiene47@gmail.com</a></li>
+										<li class="icon solid fa-phone">77 993 03 06</li>
+										<li class="icon solid fa-map-marker-alt">Yoff Tonghor, Dakar, Sénégal</li>
+									</ul>
+								</section>
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Vieux Alia Samb. All rights reserved. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

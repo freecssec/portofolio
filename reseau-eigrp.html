@@ -1,0 +1,256 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>EIGRP – Routage Dynamique – Vieux Alia Samb</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<style>
+			.project-meta { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 25px; }
+			.badge { background: #2c3e50; color: #1abc9c; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; border: 1px solid #1abc9c; }
+			.step-block { background: #f8f9fa; border-left: 4px solid #e67e22; padding: 18px 20px; margin-bottom: 20px; border-radius: 0 6px 6px 0; }
+			.step-block h4 { color: #e67e22; margin: 0 0 10px 0; font-size: 16px; }
+			.step-number { display: inline-block; background: #e67e22; color: white; width: 28px; height: 28px; border-radius: 50%; text-align: center; line-height: 28px; font-weight: bold; margin-right: 10px; font-size: 14px; }
+			pre { background: #1a252f; color: #1abc9c; padding: 16px 20px; border-radius: 6px; font-size: 13px; overflow-x: auto; line-height: 1.6; }
+			pre .comment { color: #7f8c8d; }
+			pre .highlight { color: #f39c12; font-weight: bold; }
+			.concept-box { background: #fef5e7; border: 1px solid #e67e22; border-radius: 8px; padding: 16px 20px; margin: 20px 0; }
+			.concept-box h4 { color: #ca6f1e; margin: 0 0 8px 0; }
+			.compare-table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 13px; }
+			.compare-table th { background: #2c3e50; color: white; padding: 10px 14px; text-align: left; }
+			.compare-table td { padding: 9px 14px; border-bottom: 1px solid #ecf0f1; }
+			.compare-table tr:nth-child(even) td { background: #f8f9fa; }
+			.compare-table .green { color: #27ae60; font-weight: bold; }
+			.compare-table .orange { color: #e67e22; font-weight: bold; }
+			.img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 15px 0; }
+			.img-grid figure { margin: 0; }
+			figure { margin: 15px 0; }
+			figure img { width: 100%; border-radius: 6px; border: 1px solid #ddd; }
+			figcaption { text-align: center; font-size: 12px; color: #95a5a6; margin-top: 6px; }
+			.adj-msg { background: #1a252f; color: #f39c12; padding: 10px 16px; border-radius: 6px; font-family: monospace; font-size: 12px; margin: 10px 0; }
+			.reuse-note { background: #eaf4fb; border: 1px solid #85c1e9; border-radius: 6px; padding: 10px 14px; font-size: 13px; color: #1a5276; margin: 10px 0; }
+			.learned-box { background: #eafaf1; border: 1px solid #a9dfbf; border-radius: 8px; padding: 18px 20px; margin-top: 10px; }
+			.learned-box h4 { color: #1e8449; margin: 0 0 10px 0; }
+			.nav-pages { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ecf0f1; }
+			.nav-pages a { color: #2980b9; text-decoration: none; font-weight: bold; }
+		</style>
+	</head>
+	<body class="is-preload">
+		<div id="wrapper">
+			<div id="main">
+				<div class="inner">
+
+					<header id="header">
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/vieux-alia-samb-753a443ab" target="_blank" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://github.com/Sav2507" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</header>
+
+					<p style="color:#95a5a6; font-size:13px;">
+						<a href="index.html" style="color:#2980b9;">Accueil</a> &rsaquo;
+						Réseau &rsaquo; Routage &rsaquo; <strong>EIGRP (Dynamique)</strong>
+					</p>
+
+					<header class="main">
+						<h1>EIGRP – Routage Dynamique sur GNS3</h1>
+					</header>
+
+					<div class="project-meta">
+						<span class="badge">🛠 GNS3</span>
+						<span class="badge">🔧 Cisco IOS</span>
+						<span class="badge">📡 EIGRP AS 100</span>
+						<span class="badge">🔄 Routage Dynamique</span>
+						<span class="badge">Janvier 2025</span>
+					</div>
+
+					<h2>Objectif</h2>
+					<p>Ce TD explore <strong>EIGRP</strong> (Enhanced Interior Gateway Routing Protocol), protocole de routage dynamique propriétaire Cisco. Comme OSPF, EIGRP découvre et propage automatiquement les routes — mais avec une syntaxe plus simple et un algorithme différent. La même topologie à 3 routeurs est utilisée, ce qui permet une comparaison directe entre les protocoles.</p>
+
+					<!-- Concepts EIGRP -->
+					<div class="concept-box">
+						<h4>📖 Concepts clés EIGRP</h4>
+						<ul>
+							<li><strong>Protocole hybride</strong> : combine les avantages des protocoles à vecteur de distance et à état de lien</li>
+							<li><strong>Algorithme DUAL</strong> (Diffusing Update Algorithm) : garantit une convergence rapide et sans boucle</li>
+							<li><strong>AS (Autonomous System)</strong> : numéro identifiant le domaine EIGRP — tous les routeurs doivent avoir le <em>même AS</em> (ici AS 100)</li>
+							<li><strong>Classful par défaut</strong> : les réseaux sont déclarés en notation classful (ex: <code>192.168.1.0</code> sans masque)</li>
+							<li><strong>Métriques composites</strong> : bande passante, délai, charge, fiabilité (par défaut : BW + délai)</li>
+						</ul>
+					</div>
+
+					<!-- Comparaison OSPF vs EIGRP -->
+					<h2>EIGRP vs OSPF – Comparaison</h2>
+					<table class="compare-table">
+						<tr>
+							<th>Critère</th>
+							<th>OSPF</th>
+							<th>EIGRP</th>
+						</tr>
+						<tr>
+							<td>Type</td>
+							<td>État de lien (Link-State)</td>
+							<td class="orange">Hybride (Distance Vector + LS)</td>
+						</tr>
+						<tr>
+							<td>Algorithme</td>
+							<td>SPF / Dijkstra</td>
+							<td class="orange">DUAL</td>
+						</tr>
+						<tr>
+							<td>Standard</td>
+							<td class="green">Ouvert (RFC 2328)</td>
+							<td>Propriétaire Cisco</td>
+						</tr>
+						<tr>
+							<td>Syntaxe réseau</td>
+							<td><code>network X.X.X.X 0.0.0.255 area 0</code></td>
+							<td class="green"><code>network X.X.X.X</code> (plus simple)</td>
+						</tr>
+						<tr>
+							<td>Convergence</td>
+							<td>Rapide</td>
+							<td class="green">Très rapide (DUAL)</td>
+						</tr>
+						<tr>
+							<td>Message d'adjacence</td>
+							<td><code>%OSPF-5-ADJCHG ... FULL</code></td>
+							<td class="orange"><code>%DUAL-5-NBRCHANGE ... is up</code></td>
+						</tr>
+					</table>
+
+					<!-- Topologie -->
+					<h2>Topologie du réseau</h2>
+					<div class="reuse-note">
+						ℹ️ Même topologie que les TDs précédents (Routage Statique, Défaut, OSPF) : R1 → Switch1 (PC1–PC4), R2 central, R3 → Switch3 (PC7–PC8). Seule la configuration des routeurs change.
+					</div>
+					<figure>
+						<img src="images/rs-topologie.png" alt="Topologie réseau" />
+						<figcaption>Topologie identique aux TDs précédents – R1, R2, R3 interconnectés via liaisons série</figcaption>
+					</figure>
+
+					<h2>Configuration des VPCS</h2>
+					<div class="reuse-note">
+						ℹ️ Adressage IP identique aux TDs précédents. Voir <a href="reseau-routage-par-defaut.html">Routage par Défaut</a> pour le détail des captures.
+					</div>
+					<div class="img-grid">
+						<figure><img src="images/rd-pc1-ip.png" alt="PC1"/><figcaption>PC1 – 192.168.1.1/24, GW: 192.168.1.100</figcaption></figure>
+						<figure><img src="images/rd-pc5-ip.png" alt="PC5"/><figcaption>PC5 – 192.168.2.1/24, GW: 192.168.2.100</figcaption></figure>
+						<figure><img src="images/rd-pc7-ip.png" alt="PC7"/><figcaption>PC7 – 192.168.3.1/24, GW: 192.168.3.100</figcaption></figure>
+						<figure><img src="images/rd-pc8-ip.png" alt="PC8"/><figcaption>PC8 – 192.168.3.2/24, GW: 192.168.3.100</figcaption></figure>
+					</div>
+
+					<h2>Configuration des routeurs</h2>
+
+					<div class="step-block">
+						<h4><span class="step-number">1</span>Configuration de R1 – Interfaces + EIGRP AS 100</h4>
+						<figure>
+							<img src="images/eigrp-r1-config.png" alt="Configuration EIGRP R1" />
+							<figcaption>Configuration complète de R1 – interfaces + activation EIGRP AS 100</figcaption>
+						</figure>
+					</div>
+
+					<div class="step-block">
+						<h4><span class="step-number">2</span>Configuration de R2 – Routeur central EIGRP</h4>
+						<figure>
+							<img src="images/eigrp-r2-config.png" alt="Configuration EIGRP R2" />
+							<figcaption>R2 avec EIGRP – message d'adjacence <code>%DUAL-5-NBRCHANGE: Neighbor 10.0.0.1 is up</code></figcaption>
+						</figure>
+						<div class="adj-msg">*Mar 1 00:21:10.219: %DUAL-5-NBRCHANGE: IP-EIGRP(0) 100: Neighbor 10.0.0.1 (Serial0/0) is up: new adjacency</div>
+					</div>
+
+					<div class="step-block">
+						<h4><span class="step-number">3</span>Configuration de R3 – EIGRP AS 100</h4>
+						<figure>
+							<img src="images/eigrp-r3-config.png" alt="Configuration EIGRP R3" />
+							<figcaption>R3 avec EIGRP – adjacence établie avec R2 via Serial0/0 (11.0.0.1)</figcaption>
+						</figure>
+						<div class="adj-msg">*Mar 1 00:21:13.247: %DUAL-5-NBRCHANGE: IP-EIGRP(0) 100: Neighbor 11.0.0.1 (Serial0/0) is up: new adjacency</div>
+					</div>
+
+					<div class="step-block">
+						<h4><span class="step-number">4</span>Tests de connectivité</h4>
+						<p>Pings depuis PC1 vers les réseaux distants (192.168.2.0 et 192.168.3.0) :</p>
+						<figure>
+							<img src="images/eigrp-ping-pc1.png" alt="Tests ping EIGRP" />
+							<figcaption>Connectivité totale entre les 3 réseaux – EIGRP a propagé toutes les routes automatiquement ✅</figcaption>
+						</figure>
+					</div>
+
+					<div class="learned-box">
+						<h4>✅ Ce que j'ai appris</h4>
+						<ul>
+							<li>Configurer EIGRP avec <code>router eigrp [AS]</code> — le numéro d'AS doit être identique sur tous les routeurs du domaine</li>
+							<li>Déclarer les réseaux en notation classful sans wildcard mask (plus simple qu'OSPF)</li>
+							<li>Interpréter le message d'adjacence EIGRP : <code>%DUAL-5-NBRCHANGE ... is up: new adjacency</code></li>
+							<li>Distinguer EIGRP (Cisco propriétaire, algorithme DUAL) d'OSPF (standard ouvert, algorithme SPF)</li>
+							<li>Comprendre que malgré des syntaxes différentes, OSPF et EIGRP aboutissent au même résultat de routage dynamique</li>
+						</ul>
+					</div>
+
+					<div class="nav-pages">
+						<a href="reseau-ospf.html">← OSPF</a>
+						<a href="reseau-ripv2.html">RIPv2 →</a>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- Sidebar -->
+			<div id="sidebar">
+				<div class="inner">
+					<section id="search" class="alt">
+						<form method="post" action="#"><input type="text" name="query" id="query" placeholder="Search" /></form>
+					</section>
+					<nav id="menu">
+						<header class="major"><h2>Menu</h2></header>
+						<ul>
+							<li><a href="index.html">Accueil</a></li>
+							<li>
+								<span class="opener">Réseau</span>
+								<ul>
+									<li>
+										<span class="opener">Routage</span>
+										<ul>
+											<li><a href="reseau-routage-statique.html">Routage Statique</a></li>
+											<li><a href="reseau-routage-defaut.html">Routage par Défaut</a></li>
+											<li><a href="reseau-ospf.html">OSPF (Dynamique)</a></li>
+											<li><a href="reseau-eigrp.html"><strong>EIGRP (Dynamique)</strong></a></li>
+											<li><a href="reseau-ripv2.html">RIPv2 (Dynamique)</a></li>
+										</ul>
+									</li>
+									<li><span class="opener">Haute Disponibilité</span><ul><li><a href="reseau-hsrp.html">HSRP</a></li></ul></li>
+									<li><span class="opener">Sécurité L2</span><ul><li><a href="reseau-dhcp-snooping.html">DHCP Snooping</a></li><li><a href="reseau-arp-spoofing.html">ARP Spoofing</a></li><li><a href="reseau-mac-flooding.html">MAC Flooding</a></li><li><a href="reseau-vlan.html">VLAN</a></li></ul></li>
+									<li><span class="opener">Services Réseau</span><ul><li><a href="reseau-nat.html">NAT</a></li><li><a href="reseau-dhcp.html">DHCP</a></li><li><a href="reseau-radius.html">RADIUS</a></li></ul></li>
+									<li><span class="opener">Audit Sans-Fil &amp; MITM</span><ul><li><a href="reseau-wifi-audit.html">Audit WPA2/WPA3</a></li><li><a href="reseau-mitm.html">MITM</a></li><li><a href="reseau-wireshark.html">Wireshark</a></li></ul></li>
+								</ul>
+							</li>
+							<li><span class="opener">Attaque / Défense</span><ul><li><span class="opener">Machines Vulnérables</span><ul><li><a href="#">ProFTPD</a></li><li><a href="#">Port 80</a></li></ul></li><li><span class="opener">SOC &amp; Défense</span><ul><li><a href="#">SOAR TheHive</a></li><li><a href="#">SIEM/XDR</a></li><li><a href="#">OSSEC</a></li></ul></li><li><span class="opener">CTF &amp; Compétitions</span><ul><li><a href="#">Root-Me</a></li><li><a href="#">ECOWAS CTF 2026</a></li></ul></li></ul></li>
+							<li><span class="opener">Forensics &amp; Investigation</span><ul><li><a href="#">FTK Imager</a></li><li><a href="#">Analyse SAM</a></li></ul></li>
+							<li><span class="opener">Développement</span><ul><li><a href="#">SenCadenas</a></li><li><a href="#">App Ordonnances</a></li></ul></li>
+							<li><span class="opener">Mon Mémoire</span><ul><li><a href="#">Chap. 1</a></li><li><a href="#">Chap. 2</a></li><li><a href="#">Chap. 3</a></li><li><a href="#">Chap. 4</a></li><li><a href="#">Chap. 5</a></li></ul></li>
+							<li><span class="opener">Gouvernance &amp; Management</span><ul><li><a href="#">ISO 27001</a></li><li><a href="#">Politiques</a></li></ul></li>
+							<li><span class="opener">Sécurité Cloud</span><ul><li><a href="#">IAM &amp; Moindre Privilège</a></li></ul></li>
+						</ul>
+					</nav>
+					<section>
+						<header class="major"><h2>Contact</h2></header>
+						<ul class="contact">
+							<li class="icon solid fa-envelope"><a href="mailto:vieuxdiene47@gmail.com">vieuxdiene47@gmail.com</a></li>
+							<li class="icon solid fa-phone">77 993 03 06</li>
+							<li class="icon solid fa-map-marker-alt">Yoff Tonghor, Dakar, Sénégal</li>
+						</ul>
+					</section>
+					<footer id="footer">
+						<p class="copyright">&copy; Vieux Alia Samb. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+					</footer>
+				</div>
+			</div>
+		</div>
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+	</body>
+</html>

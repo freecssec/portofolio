@@ -1,0 +1,495 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Sécurité Cloud & IAM AWS – Vieux Alia Samb</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<style>
+			.project-meta { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 25px; }
+			.badge { background: #2c3e50; color: #ff9900; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; border: 1px solid #ff9900; }
+			.phase-block { background: #f8f9fa; border-left: 4px solid #ff9900; padding: 18px 20px; margin-bottom: 25px; border-radius: 0 6px 6px 0; }
+			.phase-block h3 { color: #e07b00; margin: 0 0 12px 0; font-size: 17px; border-bottom: 1px solid #ffe0a0; padding-bottom: 8px; }
+			pre { background: #1a252f; color: #1abc9c; padding: 16px 20px; border-radius: 6px; font-size: 12.5px; overflow-x: auto; line-height: 1.6; }
+			pre .comment { color: #7f8c8d; }
+			.concept-box { background: #fff8e7; border: 1px solid #ff9900; border-radius: 8px; padding: 16px 20px; margin: 20px 0; }
+			.concept-box h4 { color: #c47700; margin: 0 0 8px 0; }
+			.warning-box { background: #fef9e7; border-left: 4px solid #f39c12; padding: 12px 16px; margin: 12px 0; font-size: 13px; border-radius: 0 6px 6px 0; }
+			.danger-box { background: #fdedec; border-left: 4px solid #e74c3c; padding: 12px 16px; margin: 12px 0; font-size: 13px; border-radius: 0 6px 6px 0; }
+			.success-box { background: #eafaf1; border-left: 4px solid #27ae60; padding: 12px 16px; margin: 12px 0; font-size: 13px; border-radius: 0 6px 6px 0; }
+			.polp-box { background: #fff3cd; border: 2px solid #ff9900; border-radius: 8px; padding: 16px 20px; margin: 20px 0; }
+			.polp-box h4 { color: #c47700; margin: 0 0 8px 0; font-size: 15px; }
+			.img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 15px 0; }
+			.img-grid figure { margin: 0; }
+			figure { margin: 15px 0; }
+			figure img { width: 100%; border-radius: 6px; border: 1px solid #ddd; }
+			figcaption { text-align: center; font-size: 12px; color: #95a5a6; margin-top: 6px; font-style: italic; }
+			.permissions-table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 13px; }
+			.permissions-table th { background: #232f3e; color: #ff9900; padding: 10px 14px; text-align: left; }
+			.permissions-table td { padding: 9px 14px; border-bottom: 1px solid #ecf0f1; }
+			.permissions-table tr:nth-child(even) td { background: #f8f9fa; }
+			.green { color: #27ae60; font-weight: bold; }
+			.red { color: #e74c3c; font-weight: bold; }
+			.orange { color: #e67e22; font-weight: bold; }
+			.learned-box { background: #eafaf1; border: 1px solid #a9dfbf; border-radius: 8px; padding: 18px 20px; margin-top: 10px; }
+			.learned-box h4 { color: #1e8449; margin: 0 0 10px 0; }
+			.nav-pages { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ecf0f1; }
+			.nav-pages a { color: #2980b9; text-decoration: none; font-weight: bold; }
+			.json-policy { background: #1a252f; color: #ecf0f1; padding: 16px 20px; border-radius: 6px; font-size: 12px; overflow-x: auto; line-height: 1.7; font-family: monospace; }
+			.json-policy .key { color: #9cdcfe; }
+			.json-policy .val { color: #ce9178; }
+			.json-policy .bool { color: #569cd6; }
+			.json-policy .comment { color: #6a9955; }
+			.aws-logo { color: #ff9900; font-weight: bold; }
+			.phase-header { background: #232f3e; color: #ff9900; padding: 10px 18px; border-radius: 6px; margin: 25px 0 15px 0; font-size: 16px; font-weight: bold; }
+		</style>
+	</head>
+	<body class="is-preload">
+		<div id="wrapper">
+			<div id="main">
+				<div class="inner">
+
+					<header id="header">
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/vieux-alia-samb-753a443ab" target="_blank" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://github.com/Sav2507" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</header>
+
+					<p style="color:#95a5a6; font-size:13px;">
+						<a href="index.html" style="color:#2980b9;">Accueil</a> &rsaquo;
+						Sécurité Cloud &rsaquo; <strong>IAM &amp; Principe du Moindre Privilège</strong>
+					</p>
+
+					<header class="main">
+						<h1><span class="aws-logo">☁️ AWS</span> Sécurité Cloud &amp; IAM</h1>
+					</header>
+
+					<div class="project-meta">
+						<span class="badge">☁️ AWS IAM</span>
+						<span class="badge">🔐 PoLP</span>
+						<span class="badge">👥 Groupes &amp; Policies</span>
+						<span class="badge">🪣 Amazon S3</span>
+						<span class="badge">📋 Policy JSON Custom</span>
+						<span class="badge">2025 – 2026</span>
+					</div>
+
+					<!-- Contexte -->
+					<h2>Contexte – Le projet PaySen</h2>
+					<p>Ce lab applique les concepts IAM sur un cas concret : la startup fictive <strong>PaySen</strong>, une application de paiement mobile en cours de développement. L'objectif est de construire une structure IAM réaliste qui reflète une organisation d'équipe réelle, en appliquant rigoureusement le <strong>Principe du Moindre Privilège</strong>.</p>
+
+					<div class="polp-box">
+						<h4>🔑 Le Principe du Moindre Privilège (PoLP)</h4>
+						<p>Chaque utilisateur, service ou application doit disposer <strong>uniquement des permissions strictement nécessaires</strong> à l'accomplissement de ses tâches — ni plus, ni moins.</p>
+						<ul>
+							<li>Un développeur n'a pas besoin d'accéder à IAM pour écrire du code</li>
+							<li>Une fonction Lambda qui lit dans S3 n'a pas besoin de créer des utilisateurs</li>
+							<li>Un analyste qui produit des rapports n'a pas besoin de supprimer des bases de données</li>
+						</ul>
+						<p>Si un compte développeur est compromis, l'attaquant se retrouve <strong>limité aux ressources de développement</strong> — sans pouvoir toucher la production ni escalader ses privilèges.</p>
+					</div>
+
+					<!-- Structure IAM -->
+					<h2>Structure IAM mise en place</h2>
+					<table class="permissions-table">
+						<tr>
+							<th>Groupe</th>
+							<th>Utilisateurs</th>
+							<th>Policy</th>
+							<th>Accès</th>
+						</tr>
+						<tr>
+							<td><strong>Admins</strong></td>
+							<td>admin-Fatou</td>
+							<td>AdministratorAccess</td>
+							<td class="red">Accès total AWS</td>
+						</tr>
+						<tr>
+							<td><strong>Developers</strong></td>
+							<td>dev-Moussa, dev-Ibou, dev-Aissatou</td>
+							<td>Custom-Dev-Policy</td>
+							<td class="orange">S3 dev, Lambda dev, CloudWatch read, EC2 describe</td>
+						</tr>
+						<tr>
+							<td><strong>Auditors</strong></td>
+							<td>analyst-Awa</td>
+							<td>ReadOnlyAccess</td>
+							<td class="green">Lecture seule sur tous les services</td>
+						</tr>
+					</table>
+
+					<!-- Phase 1 -->
+					<div class="phase-header">📋 Phase 1 — Connexion à la Console AWS et ouverture d'IAM</div>
+					<div class="phase-block">
+						<h3>Connexion en région eu-west-1 et tableau de bord IAM</h3>
+						<div class="warning-box">
+							⚠️ <strong>Bonne pratique :</strong> ne jamais travailler avec le compte <strong>root</strong> au quotidien. Créer un user admin dès que possible puis se déconnecter du root.
+						</div>
+						<div class="img-grid">
+							<figure>
+								<img src="images/iam-p6-img1.png" alt="Console AWS" />
+								<figcaption>Console AWS connectée en région eu-west-1 (Irlande)</figcaption>
+							</figure>
+							<figure>
+								<img src="images/iam-p7-img1.png" alt="Dashboard IAM" />
+								<figcaption>Tableau de bord IAM : 0 groupes, 1 utilisateur. Recommandations de sécurité validées (MFA root ✅, pas de clé root active ✅)</figcaption>
+							</figure>
+						</div>
+					</div>
+
+					<!-- Phase 2 -->
+					<div class="phase-header">👥 Phase 2 — Création des groupes IAM</div>
+					<div class="phase-block">
+						<h3>Création des 3 groupes : Admins, Auditors, Developers</h3>
+						<p>Les groupes permettent d'attribuer des policies à plusieurs utilisateurs en une seule opération. Chaque utilisateur hérite automatiquement des permissions de son groupe.</p>
+						<figure>
+							<img src="images/iam-p7-img2.png" alt="Liste groupes vide" />
+							<figcaption>Liste des groupes IAM initialement vide — point de départ</figcaption>
+						</figure>
+
+						<h4>Groupe Admins – AdministratorAccess</h4>
+						<div class="img-grid">
+							<figure>
+								<img src="images/iam-p8-img1.png" alt="Nommage Admins" />
+								<figcaption>Nommage du groupe "Admins"</figcaption>
+							</figure>
+							<figure>
+								<img src="images/iam-p8-img2.png" alt="Policy AdministratorAccess" />
+								<figcaption>Sélection de la policy AdministratorAccess (accès total)</figcaption>
+							</figure>
+						</div>
+						<div class="danger-box">
+							🔴 La policy <strong>AdministratorAccess</strong> donne les droits les plus élevés possibles. Elle ne doit être accordée qu'à un nombre très réduit d'utilisateurs de confiance.
+						</div>
+
+						<h4>Groupe Auditors – ReadOnlyAccess</h4>
+						<div class="img-grid">
+							<figure>
+								<img src="images/iam-p9-img1.png" alt="Nommage Auditors" />
+								<figcaption>Nommage du groupe "Auditors"</figcaption>
+							</figure>
+							<figure>
+								<img src="images/iam-p9-img2.png" alt="ReadOnlyAccess" />
+								<figcaption>ReadOnlyAccess : lecture seule sur tous les services AWS</figcaption>
+							</figure>
+						</div>
+
+						<h4>Groupe Developers – Sans policy (custom à venir)</h4>
+						<figure>
+							<img src="images/iam-p9-img3.png" alt="Developers sans policy" />
+							<figcaption>Groupe Developers créé sans policy — la Custom-Dev-Policy sera créée en Phase 3</figcaption>
+						</figure>
+						<div class="warning-box">
+							💡 <strong>Pourquoi pas AdministratorAccess pour les développeurs ?</strong> Pour respecter le PoLP. Si un développeur est compromis par phishing, l'attaquant serait limité aux ressources de dev uniquement — pas d'accès production.
+						</div>
+
+						<h4>Bilan : les 3 groupes créés</h4>
+						<figure>
+							<img src="images/iam-p10-img1.png" alt="3 groupes créés" />
+							<figcaption>Les 3 groupes IAM : Admins (Défini ✅), Auditors (Défini ✅), Developers (Non défini ⚠️ — intentionnel)</figcaption>
+						</figure>
+					</div>
+
+					<!-- Phase 3 -->
+					<div class="phase-header">📄 Phase 3 — Création de la policy custom "Custom-Dev-Policy"</div>
+					<div class="phase-block">
+						<h3>Policy JSON sur mesure pour les développeurs PaySen</h3>
+						<p>C'est l'application concrète du PoLP : les développeurs ont exactement ce dont ils ont besoin — <strong>ni plus, ni moins</strong>.</p>
+
+						<div class="json-policy">
+{<br>
+&nbsp;&nbsp;<span class="key">"Version"</span>: <span class="val">"2012-10-17"</span>,<br>
+&nbsp;&nbsp;<span class="key">"Statement"</span>: [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="comment">// S3 dev uniquement</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"Sid"</span>: <span class="val">"S3DevBucketsAccess"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"Effect"</span>: <span class="val">"Allow"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"Action"</span>: [<span class="val">"s3:GetObject"</span>, <span class="val">"s3:PutObject"</span>, <span class="val">"s3:CreateBucket"</span>, <span class="val">"s3:ListBucket"</span>, <span class="val">"s3:DeleteObject"</span>],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"Resource"</span>: [<span class="val">"arn:aws:s3:::paysenv-dev-*"</span>]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="comment">// Lambda dev uniquement</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"Sid"</span>: <span class="val">"LambdaDevFunctions"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"Effect"</span>: <span class="val">"Allow"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"Action"</span>: [<span class="val">"lambda:UpdateFunctionCode"</span>, <span class="val">"lambda:GetFunction"</span>, <span class="val">"lambda:ListFunctions"</span>, <span class="val">"lambda:InvokeFunction"</span>],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"Resource"</span>: <span class="val">"arn:aws:lambda:*:*:function:paysenv-dev-*"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="comment">// Logs CloudWatch en lecture</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"Sid"</span>: <span class="val">"CloudWatchLogsRead"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"Effect"</span>: <span class="val">"Allow"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"Action"</span>: [<span class="val">"logs:GetLogEvents"</span>, <span class="val">"logs:DescribeLogGroups"</span>, <span class="val">"logs:DescribeLogStreams"</span>],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"Resource"</span>: <span class="val">"*"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="comment">// EC2 describe seulement (lecture)</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"Sid"</span>: <span class="val">"EC2DescribeOnly"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"Effect"</span>: <span class="val">"Allow"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"Action"</span>: [<span class="val">"ec2:Describe*"</span>],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"Resource"</span>: <span class="val">"*"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;]<br>
+}
+						</div>
+						<div class="danger-box">
+							🔴 <strong>Si on avait mis <code>Action: "*"</code></strong>, les développeurs auraient un accès total équivalent à AdministratorAccess — une faille de sécurité majeure. La granularité des actions est essentielle.
+						</div>
+
+						<div class="img-grid">
+							<figure>
+								<img src="images/iam-p11-img1.png" alt="Éditeur JSON partie 1" />
+								<figcaption>Éditeur JSON – blocs S3 (ressource limitée à paysenv-dev-*) et Lambda</figcaption>
+							</figure>
+							<figure>
+								<img src="images/iam-p12-img1.png" alt="Éditeur JSON partie 2" />
+								<figcaption>Suite de la policy – blocs CloudWatch et EC2 (Describe uniquement). Validation AWS : 0 erreurs ✅</figcaption>
+							</figure>
+						</div>
+
+						<figure>
+							<img src="images/iam-p12-img2.png" alt="Nommage policy" />
+							<figcaption>Nommage : "Custom-Dev-Policy" — Policy développeurs PaySen : S3 dev, Lambda dev, CloudWatch read, EC2 describe</figcaption>
+						</figure>
+
+						<h4>Attachement au groupe Developers</h4>
+						<div class="img-grid">
+							<figure>
+								<img src="images/iam-p13-img1.png" alt="Groupe Developers autorisations" />
+								<figcaption>Groupe Developers – onglet Autorisations (0 policy attachée avant)</figcaption>
+							</figure>
+							<figure>
+								<img src="images/iam-p13-img2.png" alt="Sélection Custom-Dev-Policy" />
+								<figcaption>Custom-Dev-Policy sélectionnée – type "Gérée par le client"</figcaption>
+							</figure>
+						</div>
+					</div>
+
+					<!-- Phase 4 -->
+					<div class="phase-header">👤 Phase 4 — Création des utilisateurs IAM</div>
+					<div class="phase-block">
+						<h3>5 utilisateurs créés et affectés à leurs groupes</h3>
+
+						<h4>admin-Fatou (groupe Admins)</h4>
+						<div class="img-grid">
+							<figure>
+								<img src="images/iam-p14-img1.png" alt="Formulaire admin-Fatou" />
+								<figcaption>Formulaire de création d'admin-Fatou – accès console activé, mot de passe personnalisé</figcaption>
+							</figure>
+							<figure>
+								<img src="images/iam-p15-img1.png" alt="Profil admin-Fatou" />
+								<figcaption>Profil admin-Fatou – membre du groupe Admins avec AdministratorAccess. Statut : "Activé sans MFA" (à corriger en prod)</figcaption>
+							</figure>
+						</div>
+						<figure>
+							<img src="images/iam-p15-img2.png" alt="URL connexion admin-Fatou" />
+							<figcaption>Récupération du mot de passe et URL de connexion IAM – à télécharger en .csv immédiatement !</figcaption>
+						</figure>
+						<div class="warning-box">
+							⚠️ Téléchargez toujours le fichier .csv à cette étape — c'est la seule fois où le mot de passe est accessible. Après avoir cliqué "Revenir à la liste", vous ne pourrez plus le voir.
+						</div>
+
+						<h4>Développeurs (groupe Developers)</h4>
+						<div class="img-grid">
+							<figure>
+								<img src="images/iam-p16-img1.png" alt="Récap dev-Ibou" />
+								<figcaption>Récapitulatif dev-Ibou – groupe Developers confirmé</figcaption>
+							</figure>
+							<figure>
+								<img src="images/iam-p16-img2.png" alt="Récap dev-Aissatou" />
+								<figcaption>Récapitulatif dev-Aissatou – groupe Developers confirmé</figcaption>
+							</figure>
+						</div>
+						<figure>
+							<img src="images/iam-p17-img1.png" alt="Profil dev-Moussa" />
+							<figcaption>Profil dev-Moussa – membre de Developers avec Custom-Dev-Policy héritée</figcaption>
+						</figure>
+
+						<h4>Analyste (groupe Auditors)</h4>
+						<figure>
+							<img src="images/iam-p17-img2.png" alt="Récap analyst-Awa" />
+							<figcaption>Récapitulatif analyst-Awa – groupe Auditors, ReadOnlyAccess héritée</figcaption>
+						</figure>
+
+						<h4>Vérification finale</h4>
+						<div class="img-grid">
+							<figure>
+								<img src="images/iam-p18-img1.png" alt="Liste 5 utilisateurs" />
+								<figcaption>Liste des 5 utilisateurs IAM créés – admin-Fatou, analyst-Awa, dev-Aissatou, dev-Ibou, dev-Moussa</figcaption>
+							</figure>
+							<figure>
+								<img src="images/iam-p18-img2.png" alt="Groupes avec membres" />
+								<figcaption>Vue finale des groupes : Admins (1), Auditors (1), Developers (3) — tous "Définis" ✅</figcaption>
+							</figure>
+						</div>
+					</div>
+
+					<!-- Phase 5 -->
+					<div class="phase-header">🧪 Phase 5 — Test des permissions (en tant que dev-Moussa)</div>
+					<div class="phase-block">
+						<h3>Validation concrète du Principe du Moindre Privilège</h3>
+						<p>On se connecte en tant que <strong>dev-Moussa</strong> en navigation privée pour tester 3 services : S3 (autorisé), IAM (refusé), EC2 (lecture seule).</p>
+
+						<figure>
+							<img src="images/iam-p19-img1.png" alt="Connexion dev-Moussa" />
+							<figcaption>Connexion IAM en mode navigation privée – username dev-Moussa</figcaption>
+						</figure>
+
+						<h4>Test 1 – S3 : création d'un bucket autorisé ✅</h4>
+						<div class="img-grid">
+							<figure>
+								<img src="images/iam-p19-img2.png" alt="Console S3 accessible" />
+								<figcaption>Console S3 accessible pour dev-Moussa – bouton "Créer un compartiment" disponible</figcaption>
+							</figure>
+							<figure>
+								<img src="images/iam-p20-img1.png" alt="Création bucket" />
+								<figcaption>Création du bucket "paysenv-dev-test-moussa-2026" – le nom respecte le pattern paysenv-dev-* autorisé par la policy</figcaption>
+							</figure>
+						</div>
+						<div class="img-grid">
+							<figure>
+								<img src="images/iam-p20-img2.png" alt="Config bucket ACL" />
+								<figcaption>Configuration : ACL désactivées + blocage accès public ✅ (bonnes pratiques AWS)</figcaption>
+							</figure>
+							<figure>
+								<img src="images/iam-p21-img1.png" alt="Bucket créé" />
+								<figcaption>Bucket paysenv-dev-test-moussa-2026 créé avec succès ✅</figcaption>
+							</figure>
+						</div>
+						<div class="success-box">
+							✅ <strong>Test S3 validé !</strong> Un bucket "paysenv-prod-test" (sans le préfixe dev) aurait donné "Access Denied" — c'est le PoLP en action sur les ressources.
+						</div>
+
+						<h4>Test 2 – IAM : accès refusé ✅</h4>
+						<div class="img-grid">
+							<figure>
+								<img src="images/iam-p21-img2.png" alt="IAM refusé" />
+								<figcaption>Dashboard IAM pour dev-Moussa : multiples erreurs "Accès refusé" – comportement attendu et correct</figcaption>
+							</figure>
+							<figure>
+								<img src="images/iam-p22-img1.png" alt="ListUsers refusé" />
+								<figcaption>"Accès refusé à iam:ListUsers" – dev-Moussa ne peut pas voir la liste des utilisateurs</figcaption>
+							</figure>
+						</div>
+						<div class="success-box">
+							✅ Les développeurs n'ont aucune visibilité sur la gestion des accès IAM. Seuls les admins peuvent voir et modifier la structure IAM.
+						</div>
+
+						<h4>Test 3 – EC2 : lecture seule ✅</h4>
+						<div class="img-grid">
+							<figure>
+								<img src="images/iam-p22-img2.png" alt="EC2 liste vide" />
+								<figcaption>Console EC2 accessible – liste des instances visible (vide). ec2:Describe* autorisé ✅</figcaption>
+							</figure>
+							<figure>
+								<img src="images/iam-p23-img1.png" alt="EC2 création refusée" />
+								<figcaption>Tentative de lancement d'instance : "not authorized to perform ec2:CreateKeyPair" – création bloquée ✅</figcaption>
+							</figure>
+						</div>
+						<div class="success-box">
+							✅ dev-Moussa peut <strong>voir</strong> les ressources EC2 (Describe) mais ne peut en <strong>créer, modifier ni supprimer</strong> aucune.
+						</div>
+					</div>
+
+					<!-- Phase 6 -->
+					<div class="phase-header">🧹 Phase 6 — Nettoyage des ressources</div>
+					<div class="phase-block">
+						<h3>Suppression du bucket de test – bonne pratique cloud</h3>
+						<div class="img-grid">
+							<figure>
+								<img src="images/iam-p24-img1.png" alt="Bucket dans liste admin" />
+								<figcaption>Vue admin : bucket paysenv-dev-test-moussa-2026 visible dans S3</figcaption>
+							</figure>
+							<figure>
+								<img src="images/iam-p25-img1.png" alt="Suppression bucket" />
+								<figcaption>Confirmation de suppression par saisie du nom exact du bucket</figcaption>
+							</figure>
+						</div>
+						<figure>
+							<img src="images/iam-p25-img2.png" alt="Nettoyage terminé" />
+							<figcaption>Bannière verte : bucket supprimé avec succès – liste S3 vide, nettoyage complet ✅</figcaption>
+						</figure>
+						<div class="warning-box">
+							⚠️ La suppression d'un bucket S3 est <strong>irréversible</strong>. Les noms de bucket sont uniques globalement — si un autre compte AWS réutilise le même nom, vos anciennes URLs S3 pourraient pointer vers un bucket tiers.
+						</div>
+					</div>
+
+					<!-- Bilan -->
+					<div class="learned-box">
+						<h4>✅ Bilan du Lab – Ce que j'ai appris</h4>
+						<ul>
+							<li><strong>Groupes IAM :</strong> organiser les permissions par rôle (Admins, Auditors, Developers) plutôt que par utilisateur individuel — plus scalable et maintenable</li>
+							<li><strong>Policies managées AWS :</strong> AdministratorAccess (accès total) et ReadOnlyAccess (lecture seule) pour les rôles standards</li>
+							<li><strong>Policy JSON custom :</strong> écrire une policy sur mesure qui limite précisément les services et les ressources (paysenv-dev-*)</li>
+							<li><strong>Granularité des actions :</strong> <code>ec2:Describe*</code> ≠ <code>ec2:*</code> — la différence est critique en sécurité</li>
+							<li><strong>Tests de permissions :</strong> valider le PoLP en se connectant avec un user limité et en testant les accès autorisés ET refusés</li>
+							<li><strong>Nettoyage AWS :</strong> toujours supprimer les ressources de test pour éviter des coûts inutiles et maintenir un compte propre</li>
+							<li><strong>Bonne pratique MFA :</strong> en production, activer le MFA sur tous les comptes admin — le statut "Activé sans MFA" est à corriger</li>
+						</ul>
+					</div>
+
+					<div class="nav-pages">
+						<a href="index.html">← Accueil</a>
+						<span></span>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- Sidebar -->
+			<div id="sidebar">
+				<div class="inner">
+					<section id="search" class="alt">
+						<form method="post" action="#"><input type="text" name="query" id="query" placeholder="Search" /></form>
+					</section>
+					<nav id="menu">
+						<header class="major"><h2>Menu</h2></header>
+						<ul>
+							<li><a href="index.html">Accueil</a></li>
+							<li><span class="opener">Réseau</span><ul>
+								<li><span class="opener">Routage</span><ul>
+									<li><a href="reseau-routage-statique.html">Routage Statique</a></li>
+									<li><a href="reseau-routage-defaut.html">Routage par Défaut</a></li>
+									<li><a href="reseau-ospf.html">OSPF</a></li>
+									<li><a href="reseau-eigrp.html">EIGRP</a></li>
+									<li><a href="reseau-ripv2.html">RIPv2</a></li>
+									<li><a href="reseau-auth-routage.html">Authentification des Protocoles</a></li>
+								</ul></li>
+								<li><span class="opener">Haute Disponibilité</span><ul><li><a href="reseau-hsrp.html">HSRP</a></li></ul></li>
+								<li><span class="opener">Sécurité L2</span><ul><li><a href="reseau-dhcp-snooping.html">DHCP Snooping</a></li><li><a href="reseau-arp-spoofing.html">ARP Spoofing</a></li><li><a href="reseau-mac-flooding.html">MAC Flooding</a></li><li><a href="reseau-vlan.html">VLAN</a></li></ul></li>
+								<li><span class="opener">Services Réseau</span><ul><li><a href="reseau-nat.html">NAT</a></li><li><a href="reseau-dhcp.html">DHCP</a></li><li><a href="reseau-radius.html">RADIUS</a></li></ul></li>
+								<li><span class="opener">Audit Sans-Fil &amp; MITM</span><ul><li><a href="reseau-wifi-audit.html">Audit WPA2/WPA3</a></li><li><a href="reseau-mitm.html">MITM</a></li><li><a href="reseau-wireshark.html">Wireshark</a></li></ul></li>
+							</ul></li>
+							<li><span class="opener">Attaque / Défense</span><ul>
+								<li><span class="opener">Machines Vulnérables</span><ul><li><a href="#">ProFTPD</a></li><li><a href="#">Port 80</a></li></ul></li>
+								<li><span class="opener">SOC &amp; Défense</span><ul><li><a href="#">SOAR TheHive</a></li><li><a href="#">SIEM/XDR</a></li><li><a href="#">OSSEC</a></li></ul></li>
+								<li><span class="opener">CTF &amp; Compétitions</span><ul><li><a href="#">Root-Me</a></li><li><a href="#">ECOWAS CTF 2026</a></li></ul></li>
+							</ul></li>
+							<li><span class="opener">Forensics &amp; Investigation</span><ul><li><a href="#">FTK Imager</a></li><li><a href="#">Analyse SAM</a></li></ul></li>
+							<li><span class="opener">Développement</span><ul><li><a href="#">SenCadenas</a></li><li><a href="#">App Ordonnances</a></li></ul></li>
+							<li><span class="opener">Mon Mémoire</span><ul><li><a href="#">Chap. 1</a></li><li><a href="#">Chap. 2</a></li><li><a href="#">Chap. 3</a></li><li><a href="#">Chap. 4</a></li><li><a href="#">Chap. 5</a></li></ul></li>
+							<li><span class="opener">Gouvernance &amp; Management</span><ul><li><a href="#">ISO 27001</a></li><li><a href="#">Politiques</a></li></ul></li>
+							<li>
+								<span class="opener">Sécurité Cloud</span>
+								<ul>
+									<li><a href="cloud-iam-aws.html"><strong>IAM &amp; Principe du Moindre Privilège</strong></a></li>
+								</ul>
+							</li>
+						</ul>
+					</nav>
+					<section>
+						<header class="major"><h2>Contact</h2></header>
+						<ul class="contact">
+							<li class="icon solid fa-envelope"><a href="mailto:vieuxdiene47@gmail.com">vieuxdiene47@gmail.com</a></li>
+							<li class="icon solid fa-phone">77 993 03 06</li>
+							<li class="icon solid fa-map-marker-alt">Yoff Tonghor, Dakar, Sénégal</li>
+						</ul>
+					</section>
+					<footer id="footer">
+						<p class="copyright">&copy; Vieux Alia Samb. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+					</footer>
+				</div>
+			</div>
+		</div>
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+	</body>
+</html>

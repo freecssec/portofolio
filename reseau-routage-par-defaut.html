@@ -1,0 +1,332 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Routage par Défaut – Vieux Alia Samb</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<style>
+			.project-meta { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 25px; }
+			.badge { background: #2c3e50; color: #1abc9c; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; border: 1px solid #1abc9c; }
+			.step-block { background: #f8f9fa; border-left: 4px solid #2980b9; padding: 18px 20px; margin-bottom: 20px; border-radius: 0 6px 6px 0; }
+			.step-block h4 { color: #2980b9; margin: 0 0 10px 0; font-size: 16px; }
+			.step-number { display: inline-block; background: #2980b9; color: white; width: 28px; height: 28px; border-radius: 50%; text-align: center; line-height: 28px; font-weight: bold; margin-right: 10px; font-size: 14px; }
+			pre { background: #1a252f; color: #1abc9c; padding: 16px 20px; border-radius: 6px; font-size: 13px; overflow-x: auto; line-height: 1.6; }
+			pre .comment { color: #7f8c8d; }
+			.diff-box { background: #fef9e7; border: 1px solid #f39c12; border-radius: 8px; padding: 16px 20px; margin: 20px 0; }
+			.diff-box h4 { color: #d35400; margin: 0 0 8px 0; }
+			.img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 15px 0; }
+			.img-grid figure { margin: 0; }
+			figure { margin: 15px 0; }
+			figure img { width: 100%; border-radius: 6px; border: 1px solid #ddd; }
+			figcaption { text-align: center; font-size: 12px; color: #95a5a6; margin-top: 6px; }
+			.learned-box { background: #eafaf1; border: 1px solid #a9dfbf; border-radius: 8px; padding: 18px 20px; margin-top: 10px; }
+			.learned-box h4 { color: #1e8449; margin: 0 0 10px 0; }
+			.nav-pages { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ecf0f1; }
+			.nav-pages a { color: #2980b9; text-decoration: none; font-weight: bold; }
+			.nav-pages a:hover { text-decoration: underline; }
+		</style>
+	</head>
+	<body class="is-preload">
+		<div id="wrapper">
+			<div id="main">
+				<div class="inner">
+
+					<header id="header">
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/vieux-alia-samb-753a443ab" target="_blank" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://github.com/Sav2507" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</header>
+
+					<!-- Breadcrumb -->
+					<p style="color:#95a5a6; font-size:13px;">
+						<a href="index.html" style="color:#2980b9;">Accueil</a> &rsaquo;
+						Réseau &rsaquo; Routage &rsaquo;
+						<strong>Routage par Défaut</strong>
+					</p>
+
+					<header class="main">
+						<h1>Routage par Défaut sur GNS3</h1>
+					</header>
+
+					<div class="project-meta">
+						<span class="badge">🛠 GNS3</span>
+						<span class="badge">🔧 Cisco IOS</span>
+						<span class="badge">📡 Route par Défaut</span>
+						<span class="badge">🖥 VPCS</span>
+						<span class="badge">Janvier 2025</span>
+					</div>
+
+					<!-- Objectif -->
+					<h2>Objectif</h2>
+					<p>Ce TD reprend la même topologie que le routage statique (3 routeurs, 3 switches, 8 VPCS) mais introduit le concept de <strong>route par défaut</strong> (<em>default route</em>). Au lieu de définir une route statique pour chaque réseau distant, on configure une route unique <code>0.0.0.0/0</code> qui capture tout le trafic sans correspondance dans la table de routage — l'équivalent d'un "joker" réseau.</p>
+
+					<!-- Différence clé -->
+					<div class="diff-box">
+						<h4>⚡ Différence avec le Routage Statique</h4>
+						<p>En routage statique, chaque routeur devait connaître <strong>tous</strong> les réseaux distants :</p>
+						<pre style="margin:8px 0;"><span class="comment">! Routage statique : 2 routes par routeur de bord</span>
+ip route 192.168.2.0 255.255.255.0 10.0.0.2
+ip route 192.168.3.0 255.255.255.0 10.0.0.2</pre>
+						<p>Avec le routage par défaut, R1 et R3 n'ont besoin que d'<strong>une seule route</strong> :</p>
+						<pre style="margin:8px 0;"><span class="comment">! Route par défaut : 1 seule route "attrape-tout"</span>
+ip route 0.0.0.0 0.0.0.0 10.0.0.2</pre>
+					</div>
+
+					<!-- Étapes -->
+					<h2>Étapes de configuration</h2>
+
+					<div class="step-block">
+						<h4><span class="step-number">1</span>Installation et câblage dans GNS3</h4>
+						<p>Même configuration matérielle que le TD Routage Statique : routeurs <strong>c3725</strong> avec modules <strong>WIC-1T</strong> (R1, R3) et <strong>WIC-2T</strong> (R2). Switches Ethernet standard et VPCS.</p>
+					</div>
+
+					<!-- Topologie -->
+					<h2>Topologie du réseau</h2>
+					<figure>
+						<img src="images/rs-topologie.png" alt="Topologie GNS3 – Routage par Défaut" />
+						<figcaption>Même topologie que le routage statique – R1, R2, R3 interconnectés via liaisons série, 8 VPCS répartis sur 3 switches</figcaption>
+					</figure>
+
+					
+					<div class="step-block">
+						<h4><span class="step-number">2</span>Configuration des adresses IP des VPCS</h4>
+						<p>8 VPCS configurés sur 3 réseaux distincts :</p>
+						<div class="img-grid">
+							<figure>
+								<img src="images/rd-pc1-ip.png" alt="PC1 IP" />
+								<figcaption>PC1 – 192.168.1.1/24</figcaption>
+							</figure>
+							<figure>
+								<img src="images/rd-pc2-ip.png" alt="PC2 IP" />
+								<figcaption>PC2 – 192.168.1.2/24</figcaption>
+							</figure>
+							<figure>
+								<img src="images/rd-pc3-ip.png" alt="PC3 IP" />
+								<figcaption>PC3 – 192.168.1.3/24</figcaption>
+							</figure>
+							<figure>
+								<img src="images/rd-pc4-ip.png" alt="PC4 IP" />
+								<figcaption>PC4 – 192.168.1.4/24</figcaption>
+							</figure>
+							<figure>
+								<img src="images/rd-pc5-ip.png" alt="PC5 IP" />
+								<figcaption>PC5 – 192.168.2.1/24</figcaption>
+							</figure>
+							<figure>
+								<img src="images/rd-pc6-ip.png" alt="PC6 IP" />
+								<figcaption>PC6 – 192.168.2.2/24</figcaption>
+							</figure>
+							<figure>
+								<img src="images/rd-pc7-ip.png" alt="PC7 IP" />
+								<figcaption>PC7 – 192.168.3.1/24</figcaption>
+							</figure>
+							<figure>
+								<img src="images/rd-pc8-ip.png" alt="PC8 IP" />
+								<figcaption>PC8 – 192.168.3.2/24</figcaption>
+							</figure>
+						</div>
+					</div>
+
+					<div class="step-block">
+						<h4><span class="step-number">3</span>Configuration de R1 – Route par défaut vers R2</h4>
+						<figure>
+							<img src="images/rd-r1-config.png" alt="Configuration R1" />
+							<figcaption>Configuration complète de R1 avec route par défaut 0.0.0.0/0 → 10.0.0.2</figcaption>
+						</figure>
+					</div>
+
+					<div class="step-block">
+						<h4><span class="step-number">4</span>Configuration de R2 – Routeur central avec routes statiques</h4>
+						<p>R2 est le routeur central : il connaît tous les réseaux et utilise des routes statiques classiques pour router vers R1 et R3.</p>
+						<figure>
+							<img src="images/rd-r2-config.png" alt="Configuration R2" />
+							<figcaption>Configuration de R2 – routeur central avec routes statiques vers R1 et R3</figcaption>
+						</figure>
+					</div>
+
+					<div class="step-block">
+						<h4><span class="step-number">5</span>Configuration de R3 – Route par défaut vers R2</h4>
+						<figure>
+							<img src="images/rd-r3-config.png" alt="Configuration R3" />
+							<figcaption>Configuration de R3 avec route par défaut 0.0.0.0/0 → 11.0.0.1 (R2)</figcaption>
+						</figure>
+					</div>
+
+					<div class="step-block">
+						<h4><span class="step-number">6</span>Tests de connectivité</h4>
+						<p>Vérification du routage depuis PC1 vers des machines des réseaux 192.168.2.0/24 et 192.168.3.0/24 :</p>
+						<figure>
+							<img src="images/rd-ping-tests.png" alt="Tests ping" />
+							<figcaption>Pings réussis depuis PC1 vers PC4 (même réseau), PC6 (réseau R2) et PC7 (réseau R3) – routage par défaut fonctionnel ✅</figcaption>
+						</figure>
+					</div>
+
+					<!-- Ce que j'ai appris -->
+					<div class="learned-box">
+						<h4>✅ Ce que j'ai appris</h4>
+						<ul>
+							<li>Comprendre la notion de route par défaut (<code>0.0.0.0 0.0.0.0</code>) et son rôle de "last resort"</li>
+							<li>Distinguer les cas d'usage : route par défaut sur les routeurs de bord, routes statiques sur le routeur central</li>
+							<li>Réduire la complexité de configuration sur R1 et R3 (1 route au lieu de N routes)</li>
+							<li>Sauvegarder la configuration avec <code>copy run start</code> pour persistance après redémarrage</li>
+							<li>Observer le comportement des TTL dans les pings inter-réseaux (TTL=62 pour 2 sauts)</li>
+						</ul>
+					</div>
+
+					<!-- Navigation -->
+					<div class="nav-pages">
+						<a href="reseau-routage-statique.html">← Routage Statique</a>
+						<a href="reseau-ospf.html">OSPF →</a>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- Sidebar -->
+			<div id="sidebar">
+				<div class="inner">
+					<section id="search" class="alt">
+						<form method="post" action="#">
+							<input type="text" name="query" id="query" placeholder="Search" />
+						</form>
+					</section>
+					<nav id="menu">
+						<header class="major"><h2>Menu</h2></header>
+						<ul>
+							<li><a href="index.html">Accueil</a></li>
+							<li>
+								<span class="opener">Réseau</span>
+								<ul>
+									<li>
+										<span class="opener">Routage</span>
+										<ul>
+											<li><a href="reseau-routage-statique.html">Routage Statique</a></li>
+											<li><a href="reseau-routage-defaut.html"><strong>Routage par Défaut</strong></a></li>
+											<li><a href="reseau-ospf.html">OSPF (Dynamique)</a></li>
+											<li><a href="reseau-eigrp.html">EIGRP (Dynamique)</a></li>
+											<li><a href="reseau-ripv2.html">RIPv2 (Dynamique)</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Haute Disponibilité</span>
+										<ul>
+											<li><a href="reseau-hsrp.html">HSRP</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Sécurité L2</span>
+										<ul>
+											<li><a href="reseau-dhcp-snooping.html">DHCP Snooping</a></li>
+											<li><a href="reseau-arp-spoofing.html">ARP Spoofing</a></li>
+											<li><a href="reseau-mac-flooding.html">MAC Flooding</a></li>
+											<li><a href="reseau-vlan.html">VLAN</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Services Réseau</span>
+										<ul>
+											<li><a href="reseau-nat.html">NAT &amp; Accès Internet</a></li>
+											<li><a href="reseau-dhcp.html">DHCP sur GNS3</a></li>
+											<li><a href="reseau-radius.html">Portail Captif &amp; RADIUS</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Audit Sans-Fil &amp; MITM</span>
+										<ul>
+											<li><a href="reseau-wifi-audit.html">Audit WPA2/WPA3</a></li>
+											<li><a href="reseau-mitm.html">Attaque MITM</a></li>
+											<li><a href="reseau-wireshark.html">Wireshark</a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<span class="opener">Attaque / Défense</span>
+								<ul>
+									<li>
+										<span class="opener">Machines Vulnérables</span>
+										<ul>
+											<li><a href="#">Exploitation ProFTPD</a></li>
+											<li><a href="#">Exploitation Port 80</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">SOC &amp; Défense</span>
+										<ul>
+											<li><a href="#">Laboratoire SOAR (TheHive/Cortex)</a></li>
+											<li><a href="#">Mise en place SIEM/XDR</a></li>
+											<li><a href="#">Projet OSSEC</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">CTF &amp; Compétitions</span>
+										<ul>
+											<li><a href="#">Write-ups Root-Me</a></li>
+											<li><a href="#">ECOWAS CTF 2026</a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<span class="opener">Forensics &amp; Investigation</span>
+								<ul>
+									<li><a href="#">FTK Imager</a></li>
+									<li><a href="#">Analyse SAM – Autopsy</a></li>
+								</ul>
+							</li>
+							<li>
+								<span class="opener">Développement</span>
+								<ul>
+									<li><a href="#">SenCadenas</a></li>
+									<li><a href="#">App Mobile – Ordonnances</a></li>
+								</ul>
+							</li>
+							<li>
+								<span class="opener">Mon Mémoire</span>
+								<ul>
+									<li><a href="#">Chap. 1 – Présentation générale</a></li>
+									<li><a href="#">Chap. 2 – Concepts généraux</a></li>
+									<li><a href="#">Chap. 3 – SIEM, SOAR, XDR</a></li>
+									<li><a href="#">Chap. 4 – Étude comparative</a></li>
+									<li><a href="#">Chap. 5 – Mise en œuvre</a></li>
+								</ul>
+							</li>
+							<li>
+								<span class="opener">Gouvernance &amp; Management</span>
+								<ul>
+									<li><a href="#">ISO 27001 – SMSI</a></li>
+									<li><a href="#">Politiques &amp; Normes</a></li>
+								</ul>
+							</li>
+							<li>
+								<span class="opener">Sécurité Cloud</span>
+								<ul>
+									<li><a href="#">IAM &amp; Moindre Privilège</a></li>
+								</ul>
+							</li>
+						</ul>
+					</nav>
+					<section>
+						<header class="major"><h2>Contact</h2></header>
+						<ul class="contact">
+							<li class="icon solid fa-envelope"><a href="mailto:vieuxdiene47@gmail.com">vieuxdiene47@gmail.com</a></li>
+							<li class="icon solid fa-phone">77 993 03 06</li>
+							<li class="icon solid fa-map-marker-alt">Yoff Tonghor, Dakar, Sénégal</li>
+						</ul>
+					</section>
+					<footer id="footer">
+						<p class="copyright">&copy; Vieux Alia Samb. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+					</footer>
+				</div>
+			</div>
+
+		</div>
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+	</body>
+</html>

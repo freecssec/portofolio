@@ -1,0 +1,332 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>NIST Cybersecurity Framework – Vieux Alia Samb</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<style>
+			.project-meta { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 25px; }
+			.badge { background: #2c3e50; color: #1abc9c; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; border: 1px solid #1abc9c; }
+			.nist-function { border-radius: 8px; padding: 16px 20px; margin-bottom: 16px; }
+			.nist-identify  { background: #eaf4fb; border-left: 5px solid #2980b9; }
+			.nist-protect   { background: #eafaf1; border-left: 5px solid #27ae60; }
+			.nist-detect    { background: #fef9e7; border-left: 5px solid #f39c12; }
+			.nist-respond   { background: #fdedec; border-left: 5px solid #e74c3c; }
+			.nist-recover   { background: #f5eef8; border-left: 5px solid #8e44ad; }
+			.nist-function h4 { margin: 0 0 10px 0; font-size: 15px; }
+			.nist-identify h4  { color: #1a5276; }
+			.nist-protect h4   { color: #1e8449; }
+			.nist-detect h4    { color: #9a7d0a; }
+			.nist-respond h4   { color: #922b21; }
+			.nist-recover h4   { color: #6c3483; }
+			.function-badge { display: inline-block; width: 30px; height: 30px; border-radius: 50%; text-align: center; line-height: 30px; font-weight: bold; font-size: 13px; margin-right: 10px; color: white; }
+			.b-identify { background: #2980b9; }
+			.b-protect  { background: #27ae60; }
+			.b-detect   { background: #f39c12; }
+			.b-respond  { background: #e74c3c; }
+			.b-recover  { background: #8e44ad; }
+			.case-study { background: #fdf2f8; border: 2px solid #c0392b; border-radius: 8px; padding: 18px 20px; margin: 20px 0; }
+			.case-study h4 { color: #922b21; margin: 0 0 10px 0; }
+			.tier-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 15px 0; }
+			.tier-box { background: #f8f9fa; border-radius: 8px; padding: 14px 16px; border-top: 4px solid; }
+			.tier-1 { border-color: #e74c3c; }
+			.tier-2 { border-color: #e67e22; }
+			.tier-3 { border-color: #f39c12; }
+			.tier-4 { border-color: #27ae60; }
+			.tier-box h5 { margin: 0 0 6px 0; font-size: 13px; }
+			.tier-1 h5 { color: #e74c3c; }
+			.tier-2 h5 { color: #e67e22; }
+			.tier-3 h5 { color: #f39c12; }
+			.tier-4 h5 { color: #27ae60; }
+			.compare-table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 13px; }
+			.compare-table th { background: #2c3e50; color: white; padding: 10px 14px; text-align: left; }
+			.compare-table td { padding: 9px 14px; border-bottom: 1px solid #ecf0f1; font-size: 13px; }
+			.compare-table tr:nth-child(even) td { background: #f8f9fa; }
+			.green { color: #27ae60; font-weight: bold; }
+			.quote-box { background: #2c3e50; color: #1abc9c; padding: 16px 24px; border-radius: 8px; font-style: italic; font-size: 15px; text-align: center; margin: 20px 0; }
+			.daf-table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 13px; }
+			.daf-table th { background: #c0392b; color: white; padding: 10px 14px; text-align: left; }
+			.daf-table td { padding: 9px 14px; border-bottom: 1px solid #f5c6cb; }
+			.daf-table tr:nth-child(even) td { background: #fdf2f8; }
+			.group-box { background: #eaf4fb; border: 1px solid #85c1e9; border-radius: 8px; padding: 14px 18px; margin: 15px 0; font-size: 13px; }
+			.learned-box { background: #eafaf1; border: 1px solid #a9dfbf; border-radius: 8px; padding: 18px 20px; margin-top: 10px; }
+			.learned-box h4 { color: #1e8449; margin: 0 0 10px 0; }
+			.nav-pages { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ecf0f1; }
+			.nav-pages a { color: #2980b9; text-decoration: none; font-weight: bold; }
+			figure { margin: 15px 0; }
+			figure img { width: 100%; border-radius: 6px; border: 1px solid #ddd; }
+			figcaption { text-align: center; font-size: 12px; color: #95a5a6; margin-top: 6px; font-style: italic; }
+		</style>
+	</head>
+	<body class="is-preload">
+		<div id="wrapper">
+			<div id="main">
+				<div class="inner">
+					<header id="header">
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/vieux-alia-samb-753a443ab" target="_blank" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://github.com/Sav2507" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</header>
+
+					<p style="color:#95a5a6; font-size:13px;">
+						<a href="index.html" style="color:#2980b9;">Accueil</a> &rsaquo;
+						Gouvernance &amp; Management &rsaquo; <strong>NIST Cybersecurity Framework</strong>
+					</p>
+
+					<header class="main">
+						<h1>NIST Cybersecurity Framework</h1>
+					</header>
+
+					<div class="project-meta">
+						<span class="badge">📐 NIST CSF v2.0</span>
+						<span class="badge">👥 Exposé de groupe</span>
+						<span class="badge">🇸🇳 Étude de cas DAF</span>
+						<span class="badge">Management Sécurité</span>
+						<span class="badge">2025 – 2026</span>
+					</div>
+
+					<div class="group-box">
+						<strong>Exposé de groupe</strong> — Présenté par : Aboubacar FATY, Ndeye Maguette DIAW, <strong>Vieux Alia SAMB</strong>, Maimouna BODIANG, Ndiaga KANE<br>
+						Encadreur : M. KEBE | Module : Management de la Sécurité | IPROSI 2025-2026
+					</div>
+
+					<!-- Intro -->
+					<h2>Qu'est-ce que le NIST ?</h2>
+					<p>Le <strong>National Institute of Standards and Technology (NIST)</strong> est une agence fédérale américaine fondée en 1901. En 2014, il lance le <strong>Cybersecurity Framework (CSF)</strong> — aujourd'hui en version 2.0 (2024) — adopté dans plus de 90 pays. Ce n'est pas une loi : c'est un cadre <em>volontaire</em>, mais si largement adopté qu'il est devenu un standard de facto mondial.</p>
+
+					<div class="quote-box">
+						"Cybersecurity is not a destination — it's a continuous journey."
+					</div>
+
+					<!-- Vue d'ensemble CSF -->
+					<h2>Le NIST CSF — Vue d'ensemble</h2>
+					<p>Le CSF repose sur trois composantes :</p>
+					<ul>
+						<li><strong>Framework Core</strong> — ensemble d'activités et résultats organisés autour des 5 fonctions</li>
+						<li><strong>Framework Tiers</strong> — 4 niveaux de maturité (Partiel → Adaptatif)</li>
+						<li><strong>Framework Profiles</strong> — alignement avec les besoins et la tolérance au risque de l'organisation</li>
+					</ul>
+					<p style="font-size:13px; color:#8e44ad;"><strong>CSF v2.0 (2024) :</strong> ajout d'une 6ème fonction — <strong>GOVERN</strong> (Gouverner), qui chapote les 5 fonctions existantes.</p>
+
+					<!-- Les 5 fonctions -->
+					<h2>Les 5 Fonctions Clés</h2>
+					<p>Un <strong>cycle continu</strong> de gestion du risque — pas une checklist statique.</p>
+
+					<div class="nist-function nist-identify">
+						<h4><span class="function-badge b-identify">01</span>IDENTIFY — Identifier</h4>
+						<p>Comprendre l'environnement organisationnel pour gérer les risques de cybersécurité.</p>
+						<ul>
+							<li><strong>Asset Management</strong> — inventorier données, systèmes, appareils, logiciels</li>
+							<li><strong>Business Environment</strong> — comprendre la mission et les parties prenantes</li>
+							<li><strong>Governance</strong> — politiques et processus de gestion du risque</li>
+							<li><strong>Risk Assessment</strong> — identifier vulnérabilités et menaces aux actifs critiques</li>
+							<li><strong>Supply Chain Risk</strong> — gérer les risques liés aux fournisseurs</li>
+						</ul>
+					</div>
+
+					<div class="nist-function nist-protect">
+						<h4><span class="function-badge b-protect">02</span>PROTECT — Protéger</h4>
+						<p>Mettre en place des mesures de protection pour limiter l'impact des incidents.</p>
+						<ul>
+							<li><strong>Access Control</strong> — principe du moindre privilège</li>
+							<li><strong>Awareness &amp; Training</strong> — formation et sensibilisation du personnel</li>
+							<li><strong>Data Security</strong> — chiffrement au repos et en transit (TLS, DLP)</li>
+							<li><strong>Maintenance</strong> — patch management, mise à jour des systèmes</li>
+							<li><strong>Protective Technology</strong> — audit logs, contrôles techniques</li>
+						</ul>
+					</div>
+
+					<div class="nist-function nist-detect">
+						<h4><span class="function-badge b-detect">03</span>DETECT — Détecter</h4>
+						<p>Développer des activités permettant d'identifier en temps utile un événement de cybersécurité.</p>
+						<ul>
+							<li><strong>Anomalies &amp; Events</strong> — SIEM, analyse comportementale (UEBA)</li>
+							<li><strong>Continuous Monitoring</strong> — IDS/IPS, surveillance réseau en temps réel</li>
+							<li><strong>Detection Processes</strong> — playbooks de détection, tests réguliers (red team)</li>
+						</ul>
+					</div>
+
+					<div class="nist-function nist-respond">
+						<h4><span class="function-badge b-respond">04</span>RESPOND — Répondre</h4>
+						<p>Développer des actions appropriées lors de la détection d'un incident.</p>
+						<ul>
+							<li><strong>Response Planning</strong> — plans de réponse activés et exécutés</li>
+							<li><strong>Communications</strong> — coordination interne/externe, notification aux autorités</li>
+							<li><strong>Analysis</strong> — forensics, impact assessment</li>
+							<li><strong>Mitigation</strong> — contenir, atténuer et éradiquer la menace</li>
+							<li><strong>Improvements</strong> — tirer les leçons pour améliorer les processus</li>
+						</ul>
+					</div>
+
+					<div class="nist-function nist-recover">
+						<h4><span class="function-badge b-recover">05</span>RECOVER — Récupérer</h4>
+						<p>Maintenir des plans de résilience et restaurer les capacités après un incident.</p>
+						<ul>
+							<li><strong>Recovery Planning</strong> — PRA/PCA maintenus et testés régulièrement</li>
+							<li><strong>Improvements</strong> — intégrer les leçons apprises dans les plans de reprise</li>
+							<li><strong>Communications</strong> — coordonner la restauration avec toutes les parties prenantes</li>
+							<li><strong>RTO &amp; RPO</strong> — définis <em>avant</em> tout incident</li>
+						</ul>
+					</div>
+
+					<!-- Tiers de maturité -->
+					<h2>Les 4 Tiers de Maturité</h2>
+					<div class="tier-grid">
+						<div class="tier-box tier-1">
+							<h5>Tier 1 — Partial (Partiel)</h5>
+							<p style="font-size:13px;">Pratiques ad hoc, peu formalisées. Gestion du risque réactive. Pas de sensibilisation systémique.</p>
+						</div>
+						<div class="tier-box tier-2">
+							<h5>Tier 2 — Risk Informed</h5>
+							<p style="font-size:13px;">Pratiques approuvées mais pas standardisées. Gestion du risque définie mais pas implémentée globalement.</p>
+						</div>
+						<div class="tier-box tier-3">
+							<h5>Tier 3 — Repeatable</h5>
+							<p style="font-size:13px;">Politiques formelles mises en place. Pratiques de sécurité mises à jour régulièrement.</p>
+						</div>
+						<div class="tier-box tier-4">
+							<h5>Tier 4 — Adaptive ✅</h5>
+							<p style="font-size:13px;">Amélioration continue basée sur les leçons apprises. Cybersécurité intégrée dans la culture d'entreprise.</p>
+						</div>
+					</div>
+
+					<!-- NIST vs ISO 27001 -->
+					<h2>NIST CSF vs ISO 27001</h2>
+					<table class="compare-table">
+						<tr><th>Critère</th><th>NIST CSF</th><th>ISO 27001</th></tr>
+						<tr><td>Nature</td><td>Cadre volontaire (guidelines)</td><td>Norme internationale (certifiable)</td></tr>
+						<tr><td>Certification</td><td>❌ Pas de certification officielle</td><td class="green">✅ Certification tierce partie</td></tr>
+						<tr><td>Flexibilité</td><td class="green">Très flexible, adaptable à tout secteur</td><td>Structure imposée (Annexe A)</td></tr>
+						<tr><td>Périmètre</td><td>Cybersécurité &amp; risques cyber</td><td>Système de management de la sécurité (SMSI)</td></tr>
+						<tr><td>Adoption</td><td>USA + 90 pays</td><td>International — tous secteurs</td></tr>
+						<tr><td>Coût</td><td class="green">Gratuit — document public</td><td>Audit &amp; certification payants</td></tr>
+					</table>
+					<p style="font-size:13px; color:#2980b9;">💡 NIST et ISO 27001 sont <strong>complémentaires</strong> — beaucoup d'organisations utilisent les deux en parallèle.</p>
+
+					<!-- Étude de cas DAF -->
+					<h2>Étude de cas — Incident à la DAF (Sénégal, Jan-Fév 2026)</h2>
+					<div class="case-study">
+						<h4>🇸🇳 Contexte : Cyberattaque contre la Direction de l'Automatisation des Fichiers</h4>
+						<p>En janvier-février 2026, la DAF — chargée des services d'identité nationale et des bases de données biométriques — a subi une cyberattaque de grande ampleur revendiquée par <strong>The Green Blood Group</strong>. Résultat : suspension de la production des cartes d'identité pendant plusieurs jours et exfiltration massive de données sensibles.</p>
+					</div>
+
+					<table class="daf-table">
+						<tr><th>Fonction NIST</th><th>Situation observée à la DAF</th><th>Recommandation NIST</th></tr>
+						<tr>
+							<td><strong>Identify</strong></td>
+							<td>Pas d'inventaire précis des risques critiques liés aux systèmes</td>
+							<td>Cartographier tous les systèmes, données sensibles et vecteurs d'accès</td>
+						</tr>
+						<tr>
+							<td><strong>Protect</strong></td>
+							<td>Exfiltrations massives → mesures de protection insuffisantes</td>
+							<td>Contrôles d'accès stricts, chiffrement, segmentation réseau, patch management</td>
+						</tr>
+						<tr>
+							<td><strong>Detect</strong></td>
+							<td>Attaque non détectée à temps pour réduire les dégâts</td>
+							<td>Déployer SIEM, analyse des logs, outils de détection automatisée</td>
+						</tr>
+						<tr>
+							<td><strong>Respond</strong></td>
+							<td>Suspension des opérations sans procédure formelle révélée</td>
+							<td>Plan de réponse aux incidents : rôles définis, escalade, communication</td>
+						</tr>
+						<tr>
+							<td><strong>Recover</strong></td>
+							<td>Impact sociétal fort — services civils suspendus</td>
+							<td>PRA/PCA testés régulièrement, sauvegardes sécurisées, RTO/RPO définis</td>
+						</tr>
+					</table>
+
+					<h3>Enjeux pour le Sénégal</h3>
+					<ul>
+						<li><strong>Gouvernance immature</strong> — CERT/SOC national pas pleinement opérationnel</li>
+						<li><strong>Culture du risque limitée</strong> dans les structures publiques</li>
+						<li><strong>Dépendance aux prestataires externes</strong> sans mécanismes stricts de supervision</li>
+					</ul>
+					<p>L'adoption du NIST CSF dans les structures publiques stratégiques constituerait un levier essentiel pour renforcer la <strong>souveraineté numérique</strong> du Sénégal.</p>
+
+					<div class="learned-box">
+						<h4>✅ Ce que j'ai appris</h4>
+						<ul>
+							<li>Comprendre la structure du NIST CSF : 5 fonctions formant un cycle continu, pas une checklist statique</li>
+							<li>Distinguer les 4 tiers de maturité et savoir positionner une organisation sur cet axe</li>
+							<li>Appliquer le NIST à un cas réel (DAF) pour analyser les lacunes et proposer des améliorations concrètes</li>
+							<li>Comprendre la complémentarité NIST / ISO 27001 : le NIST structure, l'ISO certifie</li>
+							<li>Mesurer l'impact d'une infrastructure critique non protégée sur la vie des citoyens (identité nationale)</li>
+						</ul>
+					</div>
+
+					<div class="nav-pages">
+						<a href="index.html">← Accueil</a>
+						<a href="gouvernance-iso27001.html">ISO 27001 – SMSI →</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- Sidebar -->
+			<div id="sidebar">
+				<div class="inner">
+					<section id="search" class="alt">
+						<form method="post" action="#"><input type="text" name="query" id="query" placeholder="Search" /></form>
+					</section>
+					<nav id="menu">
+						<header class="major"><h2>Menu</h2></header>
+						<ul>
+							<li><a href="index.html">Accueil</a></li>
+							<li><span class="opener">Réseau</span><ul>
+								<li><span class="opener">Routage</span><ul>
+									<li><a href="reseau-routage-statique.html">Routage Statique</a></li>
+									<li><a href="reseau-routage-defaut.html">Routage par Défaut</a></li>
+									<li><a href="reseau-ospf.html">OSPF</a></li>
+									<li><a href="reseau-eigrp.html">EIGRP</a></li>
+									<li><a href="reseau-ripv2.html">RIPv2</a></li>
+									<li><a href="reseau-auth-routage.html">Authentification des Protocoles</a></li>
+								</ul></li>
+								<li><span class="opener">Haute Disponibilité</span><ul><li><a href="reseau-hsrp.html">HSRP</a></li></ul></li>
+								<li><span class="opener">Sécurité L2</span><ul><li><a href="#">DHCP Snooping</a></li><li><a href="#">ARP Spoofing</a></li><li><a href="#">MAC Flooding</a></li><li><a href="#">VLAN</a></li></ul></li>
+								<li><span class="opener">Services Réseau</span><ul><li><a href="#">NAT</a></li><li><a href="#">DHCP</a></li><li><a href="#">RADIUS</a></li></ul></li>
+								<li><span class="opener">Audit Sans-Fil &amp; MITM</span><ul><li><a href="#">WPA2/WPA3</a></li><li><a href="#">MITM</a></li><li><a href="#">Wireshark</a></li></ul></li>
+							</ul></li>
+							<li><span class="opener">Attaque / Défense</span><ul>
+								<li><span class="opener">Machines Vulnérables</span><ul><li><a href="#">ProFTPD</a></li><li><a href="#">Port 80</a></li></ul></li>
+								<li><span class="opener">SOC &amp; Défense</span><ul><li><a href="#">SOAR TheHive</a></li><li><a href="#">SIEM/XDR</a></li><li><a href="#">OSSEC</a></li></ul></li>
+								<li><span class="opener">CTF &amp; Compétitions</span><ul><li><a href="#">Root-Me</a></li><li><a href="#">ECOWAS CTF 2026</a></li></ul></li>
+							</ul></li>
+							<li><span class="opener">Forensics &amp; Investigation</span><ul><li><a href="#">FTK Imager</a></li><li><a href="#">Analyse SAM</a></li></ul></li>
+							<li><span class="opener">Développement</span><ul><li><a href="#">SenCadenas</a></li><li><a href="#">App Ordonnances</a></li></ul></li>
+							<li><span class="opener">Mon Mémoire</span><ul><li><a href="#">Chap. 1</a></li><li><a href="#">Chap. 2</a></li><li><a href="#">Chap. 3</a></li><li><a href="#">Chap. 4</a></li><li><a href="#">Chap. 5</a></li></ul></li>
+							<li>
+								<span class="opener">Gouvernance &amp; Management</span>
+								<ul>
+									<li><a href="gouvernance-nist.html"><strong>NIST Cybersecurity Framework</strong></a></li>
+									<li><a href="gouvernance-iso27001.html">ISO 27001 – SMSI (DIGISEN)</a></li>
+								</ul>
+							</li>
+							<li><span class="opener">Sécurité Cloud</span><ul><li><a href="cloud-iam-aws.html">IAM &amp; Moindre Privilège</a></li></ul></li>
+						</ul>
+					</nav>
+					<section>
+						<header class="major"><h2>Contact</h2></header>
+						<ul class="contact">
+							<li class="icon solid fa-envelope"><a href="mailto:vieuxdiene47@gmail.com">vieuxdiene47@gmail.com</a></li>
+							<li class="icon solid fa-phone">77 993 03 06</li>
+							<li class="icon solid fa-map-marker-alt">Yoff Tonghor, Dakar, Sénégal</li>
+						</ul>
+					</section>
+					<footer id="footer">
+						<p class="copyright">&copy; Vieux Alia Samb. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+					</footer>
+				</div>
+			</div>
+		</div>
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+	</body>
+</html>

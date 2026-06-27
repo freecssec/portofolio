@@ -1,0 +1,617 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>E-Santé PKI – Portfolio Vieux Alia Samb</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<ul class="icons">
+										<li><a href="https://www.linkedin.com/in/vieux-alia-samb-753a443ab" target="_blank" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+										<li><a href="https://github.com/Sav2507" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+									</ul>
+								</header>
+
+							<!-- Titre -->
+								<section>
+									<header class="main">
+										<h1>E-Santé PKI</h1>
+										<p>Application Mobile — Ordonnances Numériques Signées Cryptographiquement · Projet de groupe · 2025–2026</p>
+									</header>
+
+									<!-- Badges -->
+									<div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:2em;">
+										<span style="background:#f56a6a; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">React Native · Expo SDK 54</span>
+										<span style="background:#1a6e9a; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">Node.js · Express</span>
+										<span style="background:#2d6a2d; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">PostgreSQL</span>
+										<span style="background:#7b4fa3; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">OpenSSL · RSA-2048 · SHA-256</span>
+										<span style="background:#c97a1c; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">PKI · Autorité de Certification</span>
+										<span style="background:#444; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">Android · Biométrie</span>
+									</div>
+
+									<!-- Bloc intro -->
+									<div class="row">
+										<div class="col-8 col-12-medium">
+											<p>E-Santé PKI est une application mobile sécurisée permettant la génération, la signature et la vérification d'ordonnances médicales numériques au Sénégal. Les ordonnances papier sont facilement falsifiées ou réutilisées — notre solution met en œuvre une <strong>infrastructure à clés publiques (PKI)</strong> complète avec une Autorité de Certification racine, rendant chaque prescription infalsifiable, vérifiable et non-répudiable.</p>
+											<p><strong>Réalisé avec :</strong> Mouhamadou Dia Bah · Kouassi Kouame &nbsp;·&nbsp; Encadrant : M. Khali Dieng &nbsp;·&nbsp; École IPROSI</p>
+										</div>
+										<div class="col-4 col-12-medium">
+											<div style="background:#f8f8f8; border-left:4px solid #f56a6a; padding:1em 1.2em; border-radius:4px;">
+												<h4 style="margin:0 0 0.5em 0; font-size:0.9em; text-transform:uppercase; color:#888;">Statut du projet</h4>
+												<p style="margin:0; font-weight:600; color:#2d8a4e;">✔ Fonctionnel sur Android</p>
+												<hr style="margin:0.7em 0; border:none; border-top:1px solid #ddd;">
+												<p style="margin:0; font-size:0.85em; color:#555;">Testé sur Infinix + Pixel 6 · Déploiement cloud prévu</p>
+											</div>
+										</div>
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- Problématique -->
+								<section>
+									<header class="major">
+										<h2>Contexte &amp; Problématique</h2>
+									</header>
+									<div class="features">
+										<article>
+											<span class="icon solid fa-file-alt"></span>
+											<div class="content">
+												<h3>Falsification d'ordonnances</h3>
+												<p>Les ordonnances papier sont facilement falsifiées, photocopiées ou réutilisées abusivement, exposant les patients et les systèmes de santé à des risques graves.</p>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-pills"></span>
+											<div class="content">
+												<h3>Abus médicamenteux</h3>
+												<p>Le trafic de prescriptions facilite l'accès non autorisé à des médicaments contrôlés. Aucun mécanisme fiable ne permet au pharmacien de vérifier l'authenticité d'une ordonnance.</p>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-lightbulb"></span>
+											<div class="content">
+												<h3>Notre réponse</h3>
+												<p>Une application mobile avec <strong>signature cryptographique PKI</strong> : chaque ordonnance est signée numériquement par le médecin avec sa clé privée RSA-2048, vérifiable en temps réel par le pharmacien via un QR Code.</p>
+											</div>
+										</article>
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- Architecture -->
+								<section>
+									<header class="major">
+										<h2>Architecture Technique — 4 Couches</h2>
+									</header>
+
+									<!-- Schéma des 4 couches -->
+									<div style="background:#0d1117; border-radius:8px; padding:2em; margin-bottom:1.5em; overflow-x:auto; text-align:center;">
+										<svg viewBox="0 0 700 170" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:680px; font-family:monospace;">
+											<!-- Couche 1 : Frontend -->
+											<rect x="15" y="30" width="145" height="110" rx="8" fill="#1a2a1a" stroke="#00ff88" stroke-width="1.5"/>
+											<text x="87" y="55" text-anchor="middle" fill="#00ff88" font-size="10" font-weight="bold">FRONTEND</text>
+											<text x="87" y="72" text-anchor="middle" fill="#aaa" font-size="9">React Native</text>
+											<text x="87" y="87" text-anchor="middle" fill="#aaa" font-size="9">Expo SDK 54</text>
+											<text x="87" y="102" text-anchor="middle" fill="#555" font-size="8">3 apps Android</text>
+											<text x="87" y="117" text-anchor="middle" fill="#555" font-size="8">Médecin · Patient · Pharma</text>
+											<text x="87" y="130" text-anchor="middle" fill="#00ff88" font-size="8">Couche 1</text>
+											<!-- Flèche -->
+											<line x1="160" y1="85" x2="185" y2="85" stroke="#00aaff" stroke-width="1.5" marker-end="url(#a1)"/>
+											<!-- Couche 2 : Backend -->
+											<rect x="185" y="30" width="145" height="110" rx="8" fill="#1a1a2a" stroke="#00aaff" stroke-width="1.5"/>
+											<text x="257" y="55" text-anchor="middle" fill="#00aaff" font-size="10" font-weight="bold">BACKEND</text>
+											<text x="257" y="72" text-anchor="middle" fill="#aaa" font-size="9">Node.js + Express</text>
+											<text x="257" y="87" text-anchor="middle" fill="#aaa" font-size="9">API REST</text>
+											<text x="257" y="102" text-anchor="middle" fill="#555" font-size="8">Logique métier</text>
+											<text x="257" y="117" text-anchor="middle" fill="#555" font-size="8">Port 3000</text>
+											<text x="257" y="130" text-anchor="middle" fill="#00aaff" font-size="8">Couche 2</text>
+											<!-- Flèche -->
+											<line x1="330" y1="85" x2="355" y2="85" stroke="#ff6b35" stroke-width="1.5" marker-end="url(#a2)"/>
+											<!-- Couche 3 : BDD -->
+											<rect x="355" y="30" width="145" height="110" rx="8" fill="#2a1a1a" stroke="#ff6b35" stroke-width="1.5"/>
+											<text x="427" y="55" text-anchor="middle" fill="#ff6b35" font-size="10" font-weight="bold">BASE DE DONNÉES</text>
+											<text x="427" y="72" text-anchor="middle" fill="#aaa" font-size="9">PostgreSQL</text>
+											<text x="427" y="87" text-anchor="middle" fill="#aaa" font-size="9">Stockage sécurisé</text>
+											<text x="427" y="102" text-anchor="middle" fill="#555" font-size="8">Ordonnances · Clés PKI</text>
+											<text x="427" y="117" text-anchor="middle" fill="#555" font-size="8">Médecins · Patients</text>
+											<text x="427" y="130" text-anchor="middle" fill="#ff6b35" font-size="8">Couche 3</text>
+											<!-- Flèche -->
+											<line x1="500" y1="85" x2="525" y2="85" stroke="#aa44ff" stroke-width="1.5" marker-end="url(#a3)"/>
+											<!-- Couche 4 : PKI -->
+											<rect x="525" y="30" width="155" height="110" rx="8" fill="#1a1a2a" stroke="#aa44ff" stroke-width="1.5"/>
+											<text x="602" y="55" text-anchor="middle" fill="#aa44ff" font-size="10" font-weight="bold">PKI</text>
+											<text x="602" y="72" text-anchor="middle" fill="#aaa" font-size="9">OpenSSL RSA-2048</text>
+											<text x="602" y="87" text-anchor="middle" fill="#aaa" font-size="9">SHA-256 + CA</text>
+											<text x="602" y="102" text-anchor="middle" fill="#555" font-size="8">Autorité de Certification</text>
+											<text x="602" y="117" text-anchor="middle" fill="#555" font-size="8">Signature numérique</text>
+											<text x="602" y="130" text-anchor="middle" fill="#aa44ff" font-size="8">Couche 4</text>
+											<!-- Markers -->
+											<defs>
+												<marker id="a1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#00aaff"/></marker>
+												<marker id="a2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#ff6b35"/></marker>
+												<marker id="a3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#aa44ff"/></marker>
+											</defs>
+										</svg>
+									</div>
+
+									<div class="table-wrapper">
+										<table>
+											<thead>
+												<tr>
+													<th>Couche</th>
+													<th>Technologie</th>
+													<th>Rôle</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><strong>Frontend</strong></td>
+													<td>React Native + Expo SDK 54</td>
+													<td>3 applications Android (Médecin, Patient, Pharmacie)</td>
+												</tr>
+												<tr>
+													<td><strong>Backend</strong></td>
+													<td>Node.js + Express</td>
+													<td>Serveur API REST, logique métier, port 3000</td>
+												</tr>
+												<tr>
+													<td><strong>Base de données</strong></td>
+													<td>PostgreSQL</td>
+													<td>Stockage sécurisé des ordonnances et clés PKI</td>
+												</tr>
+												<tr>
+													<td><strong>PKI &amp; Cryptographie</strong></td>
+													<td>OpenSSL + crypto (Node.js)</td>
+													<td>RSA 2048 bits + SHA-256 + Autorité de Certification racine</td>
+												</tr>
+												<tr>
+													<td><strong>Transport</strong></td>
+													<td>ADB (Android Debug Bridge)</td>
+													<td>Tunnel réseau USB ↔ serveur pour les tests</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- Signature PKI -->
+								<section>
+									<header class="major">
+										<h2>Signature Numérique PKI — Chaîne de Confiance</h2>
+									</header>
+									<p>Le cœur du projet repose sur une chaîne de confiance complète : <strong>CA → Médecin → Ordonnance → QR Code → Vérification pharmacie</strong>. Chaque ordonnance garantit trois propriétés cryptographiques fondamentales.</p>
+
+									<!-- Flow de signature -->
+									<div style="background:#f8f8f8; border-radius:8px; padding:2em; margin-bottom:2em; overflow-x:auto;">
+										<svg viewBox="0 0 680 100" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:660px; font-family:sans-serif;">
+											<!-- Étape 1 -->
+											<rect x="5" y="20" width="110" height="60" rx="6" fill="#fff" stroke="#f56a6a" stroke-width="1.5"/>
+											<text x="60" y="45" text-anchor="middle" fill="#f56a6a" font-size="10" font-weight="bold">1</text>
+											<text x="60" y="60" text-anchor="middle" fill="#333" font-size="9">Ordonnance</text>
+											<text x="60" y="73" text-anchor="middle" fill="#333" font-size="9">créée</text>
+											<!-- Flèche -->
+											<line x1="115" y1="50" x2="135" y2="50" stroke="#999" stroke-width="1.5" marker-end="url(#fa)"/>
+											<!-- Étape 2 -->
+											<rect x="135" y="20" width="110" height="60" rx="6" fill="#fff" stroke="#c97a1c" stroke-width="1.5"/>
+											<text x="190" y="45" text-anchor="middle" fill="#c97a1c" font-size="10" font-weight="bold">2</text>
+											<text x="190" y="60" text-anchor="middle" fill="#333" font-size="9">Hachage</text>
+											<text x="190" y="73" text-anchor="middle" fill="#333" font-size="9">SHA-256</text>
+											<!-- Flèche -->
+											<line x1="245" y1="50" x2="265" y2="50" stroke="#999" stroke-width="1.5" marker-end="url(#fa)"/>
+											<!-- Étape 3 -->
+											<rect x="265" y="20" width="110" height="60" rx="6" fill="#fff" stroke="#7b4fa3" stroke-width="1.5"/>
+											<text x="320" y="45" text-anchor="middle" fill="#7b4fa3" font-size="10" font-weight="bold">3</text>
+											<text x="320" y="60" text-anchor="middle" fill="#333" font-size="9">Signature</text>
+											<text x="320" y="73" text-anchor="middle" fill="#333" font-size="9">RSA-2048</text>
+											<!-- Flèche -->
+											<line x1="375" y1="50" x2="395" y2="50" stroke="#999" stroke-width="1.5" marker-end="url(#fa)"/>
+											<!-- Étape 4 -->
+											<rect x="395" y="20" width="110" height="60" rx="6" fill="#fff" stroke="#1a6e9a" stroke-width="1.5"/>
+											<text x="450" y="45" text-anchor="middle" fill="#1a6e9a" font-size="10" font-weight="bold">4</text>
+											<text x="450" y="60" text-anchor="middle" fill="#333" font-size="9">QR Code</text>
+											<text x="450" y="73" text-anchor="middle" fill="#333" font-size="9">chiffré</text>
+											<!-- Flèche -->
+											<line x1="505" y1="50" x2="525" y2="50" stroke="#999" stroke-width="1.5" marker-end="url(#fa)"/>
+											<!-- Étape 5 -->
+											<rect x="525" y="20" width="150" height="60" rx="6" fill="#fff" stroke="#2d8a4e" stroke-width="1.5"/>
+											<text x="600" y="45" text-anchor="middle" fill="#2d8a4e" font-size="10" font-weight="bold">5</text>
+											<text x="600" y="60" text-anchor="middle" fill="#333" font-size="9">Vérification</text>
+											<text x="600" y="73" text-anchor="middle" fill="#333" font-size="9">pharmacie ✓</text>
+											<!-- Markers -->
+											<defs>
+												<marker id="fa" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#999"/></marker>
+											</defs>
+										</svg>
+									</div>
+
+									<div class="row">
+										<div class="col-4 col-12-medium">
+											<div style="background:#f0fff4; border-left:4px solid #2d8a4e; padding:1em; border-radius:4px; margin-bottom:1em;">
+												<h4 style="color:#2d8a4e; margin:0 0 0.5em 0;">✔ Authenticité</h4>
+												<p style="margin:0; font-size:0.9em;">Seul le médecin possédant sa clé privée peut signer l'ordonnance. Impossible de se faire passer pour un autre praticien.</p>
+											</div>
+										</div>
+										<div class="col-4 col-12-medium">
+											<div style="background:#fff8f0; border-left:4px solid #c97a1c; padding:1em; border-radius:4px; margin-bottom:1em;">
+												<h4 style="color:#c97a1c; margin:0 0 0.5em 0;">✔ Intégrité</h4>
+												<p style="margin:0; font-size:0.9em;">Le hachage SHA-256 garantit qu'aucune modification n'a été apportée à l'ordonnance après sa signature.</p>
+											</div>
+										</div>
+										<div class="col-4 col-12-medium">
+											<div style="background:#f8f0ff; border-left:4px solid #7b4fa3; padding:1em; border-radius:4px; margin-bottom:1em;">
+												<h4 style="color:#7b4fa3; margin:0 0 0.5em 0;">✔ Non-répudiation</h4>
+												<p style="margin:0; font-size:0.9em;">Le médecin ne peut pas nier avoir signé une ordonnance. La signature RSA est cryptographiquement liée à son identité.</p>
+											</div>
+										</div>
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- 3 Applications -->
+								<section>
+									<header class="major">
+										<h2>Les 3 Applications Android</h2>
+									</header>
+									<div class="features">
+										<article>
+											<span class="icon solid fa-user-md"></span>
+											<div class="content">
+												<h3>Application Médecin</h3>
+												<ul>
+													<li>Inscription avec <strong>génération de la paire de clés PKI</strong> (clé privée + certificat signé par la CA)</li>
+													<li>Tableau de bord personnalisé</li>
+													<li>Création et rédaction des ordonnances</li>
+													<li>Signature RSA de l'ordonnance + envoi au patient</li>
+													<li>Historique complet des prescriptions</li>
+												</ul>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-mobile-alt"></span>
+											<div class="content">
+												<h3>Application Patient</h3>
+												<ul>
+													<li>Inscription et authentification sécurisée</li>
+													<li>Réception des ordonnances numériques certifiées</li>
+													<li>Affichage du <strong>QR Code PKI signé</strong> unique à chaque ordonnance</li>
+													<li>Historique des prescriptions reçues</li>
+													<li><strong>Authentification biométrique</strong> (empreinte + code PIN)</li>
+												</ul>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-hospital"></span>
+											<div class="content">
+												<h3>Application Pharmacie</h3>
+												<ul>
+													<li>Inscription officine avec numéro de licence</li>
+													<li>Portail de validation des ordonnances</li>
+													<li><strong>Scanner QR Code PKI en temps réel</strong></li>
+													<li>Vérification de la signature RSA du médecin</li>
+													<li>Connecté au réseau santé national</li>
+												</ul>
+											</div>
+										</article>
+									</div>
+
+									<!-- Cycle de vie -->
+									<h3 style="margin-top:1.5em;">Cycle de Vie Complet d'une Ordonnance</h3>
+									<div style="background:#f8f8f8; border-radius:8px; padding:1.5em; text-align:center; overflow-x:auto;">
+										<svg viewBox="0 0 680 80" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:660px; font-family:sans-serif;">
+											<!-- Médecin -->
+											<circle cx="70" cy="35" r="28" fill="#f0f8ff" stroke="#1a6e9a" stroke-width="1.5"/>
+											<text x="70" y="31" text-anchor="middle" font-size="16">👨‍⚕️</text>
+											<text x="70" y="47" text-anchor="middle" fill="#1a6e9a" font-size="9">Médecin</text>
+											<text x="70" y="58" text-anchor="middle" fill="#888" font-size="8">prescrit</text>
+											<!-- Flèche -->
+											<line x1="100" y1="35" x2="135" y2="35" stroke="#ccc" stroke-width="1.5" marker-end="url(#fb)"/>
+											<!-- Signature -->
+											<circle cx="165" cy="35" r="28" fill="#fff8f0" stroke="#c97a1c" stroke-width="1.5"/>
+											<text x="165" y="31" text-anchor="middle" font-size="16">🔏</text>
+											<text x="165" y="47" text-anchor="middle" fill="#c97a1c" font-size="9">Signature</text>
+											<text x="165" y="58" text-anchor="middle" fill="#888" font-size="8">PKI RSA</text>
+											<!-- Flèche -->
+											<line x1="195" y1="35" x2="230" y2="35" stroke="#ccc" stroke-width="1.5" marker-end="url(#fb)"/>
+											<!-- Patient -->
+											<circle cx="260" cy="35" r="28" fill="#f0fff4" stroke="#2d8a4e" stroke-width="1.5"/>
+											<text x="260" y="31" text-anchor="middle" font-size="16">📱</text>
+											<text x="260" y="47" text-anchor="middle" fill="#2d8a4e" font-size="9">Patient</text>
+											<text x="260" y="58" text-anchor="middle" fill="#888" font-size="8">reçoit QR</text>
+											<!-- Flèche -->
+											<line x1="290" y1="35" x2="325" y2="35" stroke="#ccc" stroke-width="1.5" marker-end="url(#fb)"/>
+											<!-- Pharmacien -->
+											<circle cx="355" cy="35" r="28" fill="#fff0f8" stroke="#a33a6e" stroke-width="1.5"/>
+											<text x="355" y="31" text-anchor="middle" font-size="16">🏥</text>
+											<text x="355" y="47" text-anchor="middle" fill="#a33a6e" font-size="9">Pharmacien</text>
+											<text x="355" y="58" text-anchor="middle" fill="#888" font-size="8">scanne</text>
+											<!-- Flèche -->
+											<line x1="385" y1="35" x2="420" y2="35" stroke="#ccc" stroke-width="1.5" marker-end="url(#fb)"/>
+											<!-- Validation -->
+											<circle cx="450" cy="35" r="28" fill="#f0fff4" stroke="#2d8a4e" stroke-width="2"/>
+											<text x="450" y="31" text-anchor="middle" font-size="16">✅</text>
+											<text x="450" y="47" text-anchor="middle" fill="#2d8a4e" font-size="9">Délivrance</text>
+											<text x="450" y="58" text-anchor="middle" fill="#888" font-size="8">validée</text>
+											<!-- Markers -->
+											<defs>
+												<marker id="fb" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#ccc"/></marker>
+											</defs>
+										</svg>
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- Résultats & Perspectives -->
+								<section>
+									<div class="row">
+										<div class="col-6 col-12-small">
+											<header class="major">
+												<h2>Résultats Obtenus</h2>
+											</header>
+											<ul>
+												<li>Application mobile <strong>fonctionnelle sur Android</strong> (Infinix + Pixel 6)</li>
+												<li><strong>PKI complète</strong> avec Autorité de Certification racine opérationnelle</li>
+												<li>Signature numérique <strong>RSA-2048 / SHA-256</strong> implémentée et validée</li>
+												<li><strong>QR Code unique et infalsifiable</strong> généré pour chaque ordonnance</li>
+												<li><strong>Authentification biométrique</strong> intégrée (empreinte + code PIN)</li>
+												<li>Serveur PKI opérationnel sur <code>localhost:3000</code> via ADB</li>
+											</ul>
+										</div>
+										<div class="col-6 col-12-small">
+											<header class="major">
+												<h2>Perspectives</h2>
+											</header>
+											<ul>
+												<li>☁ Déploiement cloud (AWS / OVH)</li>
+												<li>🌍 Conformité au standard <strong>HL7 FHIR</strong> (interopérabilité santé)</li>
+												<li>⏱ Horodatage certifié (TSA — Time Stamping Authority)</li>
+												<li>🍎 Portage iOS (React Native cross-platform)</li>
+												<li>📊 Dashboard Ministère de la Santé pour supervision nationale</li>
+											</ul>
+										</div>
+									</div>
+
+									<!-- Stack -->
+									<h3 style="margin-top:1em;">Stack Technologique Complète</h3>
+									<div class="table-wrapper">
+										<table>
+											<thead>
+												<tr>
+													<th>Composant</th>
+													<th>Technologie</th>
+													<th>Justification</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Mobile</td>
+													<td>React Native + Expo SDK 54</td>
+													<td>Cross-platform, accès aux APIs natives Android</td>
+												</tr>
+												<tr>
+													<td>Backend</td>
+													<td>Node.js + Express</td>
+													<td>Léger, rapide, écosystème crypto riche</td>
+												</tr>
+												<tr>
+													<td>Cryptographie</td>
+													<td>OpenSSL + module crypto Node.js</td>
+													<td>RSA 2048 bits, standards industriels</td>
+												</tr>
+												<tr>
+													<td>Base de données</td>
+													<td>PostgreSQL</td>
+													<td>Relationnel robuste, intégrité des données médicales</td>
+												</tr>
+												<tr>
+													<td>Réseau de test</td>
+													<td>ADB (Android Debug Bridge)</td>
+													<td>Tunnel USB pour connecter les appareils Android au serveur local</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="Search" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="index.html">Accueil</a></li>
+
+										<!-- RÉSEAU -->
+										<li>
+											<span class="opener">Réseau</span>
+											<ul>
+												<li>
+													<span class="opener">Routage</span>
+													<ul>
+														<li><a href="reseau-routage-statique.html">Routage Statique</a></li>
+														<li><a href="reseau-routage-par-defaut.html">Routage par Défaut</a></li>
+														<li><a href="reseau-ospf.html">OSPF (Dynamique)</a></li>
+														<li><a href="reseau-eigrp.html">EIGRP (Dynamique)</a></li>
+														<li><a href="reseau-ripv2.html">RIPv2 (Dynamique)</a></li>
+														<li><a href="auth-protocoles-routage.html">Authentification sur les protocoles de routage</a></li>
+													</ul>
+												</li>
+												<li>
+													<span class="opener">Haute Disponibilité</span>
+													<ul>
+														<li><a href="reseau-hsrp.html">HSRP – Hot Standby Routing Protocol</a></li>
+													</ul>
+												</li>
+												<li>
+													<span class="opener">Sécurité L2</span>
+													<ul>
+														<li><a href="reseau-dhcp-snooping.html">DHCP Snooping</a></li>
+														<li><a href="reseau-arp-spoofing.html">ARP Spoofing – Protection</a></li>
+														<li><a href="reseau-mac-flooding.html">MAC Flooding – Mitigation</a></li>
+														<li><a href="reseau-vlan.html">VLAN – Segmentation</a></li>
+													</ul>
+												</li>
+												<li>
+													<span class="opener">Services Réseau</span>
+													<ul>
+														<li><a href="reseau-nat.html">NAT & Accès Internet</a></li>
+														<li><a href="reseau-dhcp-gns3.html">DHCP sur GNS3</a></li>
+														<li><a href="reseau-portail-captif.html">Portail Captif & RADIUS</a></li>
+													</ul>
+												</li>
+												<li>
+													<span class="opener">Audit Sans-Fil & MITM</span>
+													<ul>
+														<li><a href="reseau-audit-wpa2-wpa3.html">Audit WPA2/WPA3</a></li>
+														<li><a href="reseau-attaque-mitm-wi-fi.html">Attaque MITM sur Wi-Fi Sécurisé</a></li>
+														<li><a href="reseau-analyse-trafic-wireshark.html">Analyse de trafic Wireshark</a></li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+
+										<!-- ATTAQUE / DÉFENSE -->
+										<li>
+											<span class="opener">Attaque / Défense</span>
+											<ul>
+												<li>
+													<span class="opener">Machines Vulnérables</span>
+													<ul>
+														<li><a href="attaque-exploitation-proftpd.html">Exploitation ProFTPD</a></li>
+														<li><a href="attaque-exploitation-port-80.html">Exploitation Port 80 (HTTP)</a></li>
+													</ul>
+												</li>
+												<li>
+													<span class="opener">SOC & Défense</span>
+													<ul>
+														<li><a href="defense-laboratoire-soar.html">Laboratoire SOAR (TheHive/Cortex)</a></li>
+														<li><a href="defense-mise-en-place-siem-xdr.html">Mise en place SIEM/XDR</a></li>
+														<li><a href="defense-projet-ossec.html">Projet OSSEC – Attaque & Défense</a></li>
+													</ul>
+												</li>
+												<li>
+													<span class="opener">CTF & Compétitions</span>
+													<ul>
+														<li><a href="ctf-write-ups-root-me.html">Write-ups Root-Me</a></li>
+														<li><a href="ctf-ecowas-2026-cyberphantoms.html">ECOWAS CTF 2026 – Cyberphantoms</a></li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+
+										<!-- FORENSICS -->
+										<li>
+											<span class="opener">Forensics &amp; Investigation</span>
+											<ul>
+												<li><a href="forensics-acquisition-image.html">Acquisition d'image – FTK Imager</a></li>
+												<li><a href="forensics-analyse-fichier-sam.html">Analyse fichier SAM – Autopsy</a></li>
+											</ul>
+										</li>
+
+										<!-- Programmation -->
+										<li>
+											<span class="opener active">Programmation</span>
+											<ul>
+												<li><a href="sencadenas.html">SenCadenas</a></li>
+												<li><a href="e-sante.html" style="font-weight:600; color:#f56a6a;">E-Santé</a></li>
+											</ul>
+										</li>
+
+										<!-- MÉMOIRE -->
+										<li>
+											<span class="opener">Mon Mémoire</span>
+											<ul>
+												<li><a href="memoire-chap-1.html">Chap. 1 – Présentation générale du sujet</a></li>
+												<li><a href="memoire-chap-2.html">Chap. 2 – Concepts généraux en sécurité informatique</a></li>
+												<li><a href="memoire-chap-3.html">Chap. 3 – Étude sur les SIEM, SOAR, XDR</a></li>
+												<li><a href="memoire-chap-4.html">Chap. 4 – Étude comparative des solutions</a></li>
+												<li><a href="memoire-chap-5.html">Chap. 5 – Mise en œuvre des solutions</a></li>
+											</ul>
+										</li>
+
+										<!-- CLOUD -->
+										<li>
+											<span class="opener">Sécurité Cloud</span>
+											<ul>
+												<li><a href="cloud-iam-principe-moindre-privilège.html">IAM &amp; Principe du Moindre Privilège</a></li>
+											</ul>
+										</li>
+
+										<!-- GOUVERNANCE -->
+										<li>
+											<span class="opener">Gouvernance &amp; Management</span>
+											<ul>
+												<li><a href="gouvernance-iso-27001-smsi.html">Gouvernance ISO 27001 – SMSI</a></li>
+												<li><a href="gouvernance-nist.html">Gouvernance NIST</a></li>
+											</ul>
+										</li>
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Contact</h2>
+									</header>
+									<p>N'hésitez pas à me contacter pour toute opportunité de stage, collaboration ou échange autour de la cybersécurité.</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="mailto:vieuxdiene47@gmail.com">vieuxdiene47@gmail.com</a></li>
+										<li class="icon solid fa-phone">77 993 03 06</li>
+										<li class="icon solid fa-map-marker-alt">Yoff Tonghor, Dakar, Sénégal</li>
+									</ul>
+								</section>
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Vieux Alia Samb. All rights reserved. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

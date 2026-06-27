@@ -1,0 +1,274 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>OSPF – Routage Dynamique – Vieux Alia Samb</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<style>
+			.project-meta { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 25px; }
+			.badge { background: #2c3e50; color: #1abc9c; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; border: 1px solid #1abc9c; }
+			.step-block { background: #f8f9fa; border-left: 4px solid #8e44ad; padding: 18px 20px; margin-bottom: 20px; border-radius: 0 6px 6px 0; }
+			.step-block h4 { color: #8e44ad; margin: 0 0 10px 0; font-size: 16px; }
+			.step-number { display: inline-block; background: #8e44ad; color: white; width: 28px; height: 28px; border-radius: 50%; text-align: center; line-height: 28px; font-weight: bold; margin-right: 10px; font-size: 14px; }
+			pre { background: #1a252f; color: #1abc9c; padding: 16px 20px; border-radius: 6px; font-size: 13px; overflow-x: auto; line-height: 1.6; }
+			pre .comment { color: #7f8c8d; }
+			pre .highlight { color: #f39c12; font-weight: bold; }
+			.diff-box { background: #f5eef8; border: 1px solid #8e44ad; border-radius: 8px; padding: 16px 20px; margin: 20px 0; }
+			.diff-box h4 { color: #6c3483; margin: 0 0 8px 0; }
+			.ospf-concept { background: #eaf4fb; border: 1px solid #2980b9; border-radius: 8px; padding: 16px 20px; margin: 20px 0; }
+			.ospf-concept h4 { color: #1a5276; margin: 0 0 8px 0; }
+			.img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 15px 0; }
+			.img-grid figure { margin: 0; }
+			figure { margin: 15px 0; }
+			figure img { width: 100%; border-radius: 6px; border: 1px solid #ddd; }
+			figcaption { text-align: center; font-size: 12px; color: #95a5a6; margin-top: 6px; }
+			.learned-box { background: #eafaf1; border: 1px solid #a9dfbf; border-radius: 8px; padding: 18px 20px; margin-top: 10px; }
+			.learned-box h4 { color: #1e8449; margin: 0 0 10px 0; }
+			.nav-pages { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ecf0f1; }
+			.nav-pages a { color: #2980b9; text-decoration: none; font-weight: bold; }
+			.nav-pages a:hover { text-decoration: underline; }
+			.adj-msg { background: #1a252f; color: #f39c12; padding: 10px 16px; border-radius: 6px; font-family: monospace; font-size: 12px; margin: 10px 0; }
+		</style>
+	</head>
+	<body class="is-preload">
+		<div id="wrapper">
+			<div id="main">
+				<div class="inner">
+
+					<header id="header">
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/vieux-alia-samb-753a443ab" target="_blank" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://github.com/Sav2507" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</header>
+
+					<p style="color:#95a5a6; font-size:13px;">
+						<a href="index.html" style="color:#2980b9;">Accueil</a> &rsaquo;
+						Réseau &rsaquo; Routage &rsaquo;
+						<strong>OSPF (Dynamique)</strong>
+					</p>
+
+					<header class="main">
+						<h1>OSPF – Routage Dynamique sur GNS3</h1>
+					</header>
+
+					<div class="project-meta">
+						<span class="badge">🛠 GNS3</span>
+						<span class="badge">🔧 Cisco IOS</span>
+						<span class="badge">📡 OSPF Area 0</span>
+						<span class="badge">🔄 Routage Dynamique</span>
+						<span class="badge">Janvier 2025</span>
+					</div>
+
+					<!-- Objectif -->
+					<h2>Objectif</h2>
+					<p>Ce TD introduit le <strong>routage dynamique avec OSPF</strong> (Open Shortest Path First). Contrairement au routage statique ou par défaut, OSPF permet aux routeurs de <em>découvrir automatiquement</em> les réseaux voisins, d'échanger leurs tables de routage et de recalculer les meilleurs chemins en temps réel. La topologie reste identique aux TDs précédents, mais la configuration est radicalement simplifiée.</p>
+
+					<!-- Concept OSPF -->
+					<div class="ospf-concept">
+						<h4>📖 Concepts clés OSPF</h4>
+						<ul>
+							<li><strong>Protocole à état de lien</strong> (Link-State) : chaque routeur connaît la topologie complète du réseau</li>
+							<li><strong>Algorithme SPF</strong> (Dijkstra) : calcule le chemin le plus court vers chaque destination</li>
+							<li><strong>Area 0</strong> (Backbone) : zone unique utilisée ici — toute l'infrastructure dans une seule zone</li>
+							<li><strong>Wildcard mask</strong> : inverse du masque de sous-réseau (<code>0.0.0.255</code> pour un /24)</li>
+							<li><strong>Adjacence</strong> : les routeurs voisins OSPF établissent une relation de voisinage (FULL)</li>
+						</ul>
+					</div>
+
+					<!-- Différence -->
+					<div class="diff-box">
+						<h4>⚡ OSPF vs Routage Statique/Défaut</h4>
+						<p>Avec les TDs précédents, chaque routeur nécessitait des routes manuelles. Avec OSPF, une seule configuration par routeur suffit :</p>
+						<pre style="margin:8px 0;"><span class="comment">! Avant (statique) : routes manuelles par réseau</span>
+ip route 192.168.2.0 255.255.255.0 10.0.0.2
+ip route 192.168.3.0 255.255.255.0 10.0.0.2
+
+<span class="comment">! Avec OSPF : déclaration des réseaux directement connectés</span>
+<span class="highlight">router ospf 1</span>
+ network 192.168.1.0 0.0.0.255 area 0
+ network 10.0.0.0 0.255.255.255 area 0
+<span class="comment">! OSPF se charge du reste automatiquement ✅</span></pre>
+					</div>
+
+					<!-- Topologie -->
+					<h2>Topologie du réseau</h2>
+					<figure>
+						<img src="images/rs-topologie.png" alt="Topologie OSPF GNS3" />
+						<figcaption>Topologie OSPF – R1, R2, R3 en Area 0, liaisons série WAN, 3 switches, 8 VPCS</figcaption>
+					</figure>
+
+					<!-- Étapes -->
+					<h2>Étapes de configuration</h2>
+
+					<div class="step-block">
+						<h4><span class="step-number">1</span>Configuration des adresses IP des VPCS</h4>
+						<p>Même adressage que les TDs précédents : 3 réseaux /24, passerelles sur les routeurs.</p>
+						<div class="img-grid">
+							<figure><img src="images/rd-pc1-ip.png" alt="PC1" /><figcaption>PC1 – 192.168.1.1/24</figcaption></figure>
+							<figure><img src="images/rd-pc2-ip.png" alt="PC2" /><figcaption>PC2 – 192.168.1.2/24</figcaption></figure>
+							<figure><img src="images/rd-pc3-ip.png" alt="PC3" /><figcaption>PC3 – 192.168.1.3/24</figcaption></figure>
+							<figure><img src="images/rd-pc4-ip.png" alt="PC4" /><figcaption>PC4 – 192.168.1.4/24</figcaption></figure>
+							<figure><img src="images/rd-pc5-ip.png" alt="PC5" /><figcaption>PC5 – 192.168.2.1/24</figcaption></figure>
+							<figure><img src="images/rd-pc6-ip.png" alt="PC6" /><figcaption>PC6 – 192.168.2.2/24</figcaption></figure>
+							<figure><img src="images/rd-pc7-ip.png" alt="PC7" /><figcaption>PC7 – 192.168.3.1/24</figcaption></figure>
+							<figure><img src="images/rd-pc8-ip.png" alt="PC8" /><figcaption>PC8 – 192.168.3.2/24</figcaption></figure>
+						</div>
+					</div>
+
+					<div class="step-block">
+						<h4><span class="step-number">2</span>Configuration de R1 – Interfaces + OSPF</h4>
+						<figure>
+							<img src="images/ospf-r1-config.png" alt="Configuration OSPF R1" />
+							<figcaption>Configuration R1 : interfaces + OSPF. Le message <code>%OSPF-5-ADJCHG: Nbr 192.168.2.100 → FULL</code> confirme l'adjacence avec R2</figcaption>
+						</figure>
+						<div class="adj-msg">*Mar 1 00:23:38.623: %OSPF-5-ADJCHG: Process 1, Nbr 192.168.2.100 on Serial0/0 from LOADING to FULL, Loading Done</div>
+						<p style="font-size:13px;color:#555;">Ce message confirme que R1 et R2 ont établi une <strong>adjacence OSPF complète</strong> — les tables de routage sont synchronisées.</p>
+					</div>
+
+					<div class="step-block">
+						<h4><span class="step-number">3</span>Configuration de R2 – Routeur central OSPF</h4>
+						<figure>
+							<img src="images/ospf-r2-config.png" alt="Configuration OSPF R2" />
+							<figcaption>Configuration R2 avec adjacences OSPF établies avec R3 (11.0.0.0) puis R1 (10.0.0.0)</figcaption>
+						</figure>
+					</div>
+
+					<div class="step-block">
+						<h4><span class="step-number">4</span>Configuration de R3 – Interfaces + OSPF</h4>
+						<div class="img-grid">
+							<figure>
+								<img src="images/ospf-r3-config1.png" alt="R3 interfaces" />
+								<figcaption>Configuration des interfaces R3</figcaption>
+							</figure>
+							<figure>
+								<img src="images/ospf-r3-config2.png" alt="R3 OSPF" />
+								<figcaption>Activation OSPF sur R3 – adjacence établie avec R2</figcaption>
+							</figure>
+						</div>
+					</div>
+					<div class="step-block">
+						<h4><span class="step-number">5</span>Tests de connectivité</h4>
+						<p>Pings depuis PC1 (réseau R1) et PC8 (réseau R3) vers les réseaux distants :</p>
+						<div class="img-grid">
+							<figure>
+								<img src="images/ospf-ping-pc1.png" alt="Ping depuis PC1" />
+								<figcaption>PC1 → PC3 (local), PC6 (via R2), PC7 (via R2+R3) ✅</figcaption>
+							</figure>
+							<figure>
+								<img src="images/ospf-ping-pc8.png" alt="Ping depuis PC8" />
+								<figcaption>PC8 → PC7 (local), PC5 (via R2), PC1 (via R2+R1) ✅</figcaption>
+							</figure>
+						</div>
+					</div>
+
+					<!-- Ce que j'ai appris -->
+					<div class="learned-box">
+						<h4>✅ Ce que j'ai appris</h4>
+						<ul>
+							<li>Comprendre le fonctionnement d'OSPF : échange LSA, base LSDB, calcul SPF (Dijkstra)</li>
+							<li>Configurer OSPF avec <code>router ospf 1</code> et déclarer les réseaux avec le <em>wildcard mask</em></li>
+							<li>Interpréter les messages d'adjacence <code>%OSPF-5-ADJCHG ... FULL</code></li>
+							<li>Distinguer OSPF (single-area) d'une configuration multi-area plus avancée</li>
+							<li>Apprécier la différence de scalabilité : OSPF s'adapte automatiquement sans reconfiguration manuelle</li>
+						</ul>
+					</div>
+
+					<div class="nav-pages">
+						<a href="reseau-routage-defaut.html">← Routage par Défaut</a>
+						<a href="reseau-eigrp.html">EIGRP →</a>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- Sidebar -->
+			<div id="sidebar">
+				<div class="inner">
+					<section id="search" class="alt">
+						<form method="post" action="#">
+							<input type="text" name="query" id="query" placeholder="Search" />
+						</form>
+					</section>
+					<nav id="menu">
+						<header class="major"><h2>Menu</h2></header>
+						<ul>
+							<li><a href="index.html">Accueil</a></li>
+							<li>
+								<span class="opener">Réseau</span>
+								<ul>
+									<li>
+										<span class="opener">Routage</span>
+										<ul>
+											<li><a href="reseau-routage-statique.html">Routage Statique</a></li>
+											<li><a href="reseau-routage-defaut.html">Routage par Défaut</a></li>
+											<li><a href="reseau-ospf.html"><strong>OSPF (Dynamique)</strong></a></li>
+											<li><a href="reseau-eigrp.html">EIGRP (Dynamique)</a></li>
+											<li><a href="reseau-ripv2.html">RIPv2 (Dynamique)</a></li>
+										</ul>
+									</li>
+									<li><span class="opener">Haute Disponibilité</span><ul><li><a href="reseau-hsrp.html">HSRP</a></li></ul></li>
+									<li>
+										<span class="opener">Sécurité L2</span>
+										<ul>
+											<li><a href="reseau-dhcp-snooping.html">DHCP Snooping</a></li>
+											<li><a href="reseau-arp-spoofing.html">ARP Spoofing</a></li>
+											<li><a href="reseau-mac-flooding.html">MAC Flooding</a></li>
+											<li><a href="reseau-vlan.html">VLAN</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Services Réseau</span>
+										<ul>
+											<li><a href="reseau-nat.html">NAT &amp; Accès Internet</a></li>
+											<li><a href="reseau-dhcp.html">DHCP sur GNS3</a></li>
+											<li><a href="reseau-radius.html">Portail Captif &amp; RADIUS</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Audit Sans-Fil &amp; MITM</span>
+										<ul>
+											<li><a href="reseau-wifi-audit.html">Audit WPA2/WPA3</a></li>
+											<li><a href="reseau-mitm.html">Attaque MITM</a></li>
+											<li><a href="reseau-wireshark.html">Wireshark</a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<span class="opener">Attaque / Défense</span>
+								<ul>
+									<li><span class="opener">Machines Vulnérables</span><ul><li><a href="#">ProFTPD</a></li><li><a href="#">Port 80</a></li></ul></li>
+									<li><span class="opener">SOC &amp; Défense</span><ul><li><a href="#">SOAR TheHive</a></li><li><a href="#">SIEM/XDR</a></li><li><a href="#">OSSEC</a></li></ul></li>
+									<li><span class="opener">CTF &amp; Compétitions</span><ul><li><a href="#">Root-Me</a></li><li><a href="#">ECOWAS CTF 2026</a></li></ul></li>
+								</ul>
+							</li>
+							<li><span class="opener">Forensics &amp; Investigation</span><ul><li><a href="#">FTK Imager</a></li><li><a href="#">Analyse SAM</a></li></ul></li>
+							<li><span class="opener">Développement</span><ul><li><a href="#">SenCadenas</a></li><li><a href="#">App Ordonnances</a></li></ul></li>
+							<li><span class="opener">Mon Mémoire</span><ul><li><a href="#">Chap. 1</a></li><li><a href="#">Chap. 2</a></li><li><a href="#">Chap. 3</a></li><li><a href="#">Chap. 4</a></li><li><a href="#">Chap. 5</a></li></ul></li>
+							<li><span class="opener">Gouvernance &amp; Management</span><ul><li><a href="#">ISO 27001</a></li><li><a href="#">Politiques</a></li></ul></li>
+							<li><span class="opener">Sécurité Cloud</span><ul><li><a href="#">IAM &amp; Moindre Privilège</a></li></ul></li>
+						</ul>
+					</nav>
+					<section>
+						<header class="major"><h2>Contact</h2></header>
+						<ul class="contact">
+							<li class="icon solid fa-envelope"><a href="mailto:vieuxdiene47@gmail.com">vieuxdiene47@gmail.com</a></li>
+							<li class="icon solid fa-phone">77 993 03 06</li>
+							<li class="icon solid fa-map-marker-alt">Yoff Tonghor, Dakar, Sénégal</li>
+						</ul>
+					</section>
+					<footer id="footer">
+						<p class="copyright">&copy; Vieux Alia Samb. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+					</footer>
+				</div>
+			</div>
+		</div>
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+	</body>
+</html>

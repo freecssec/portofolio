@@ -1,0 +1,283 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Routage Statique – Vieux Alia Samb</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<style>
+			.project-meta { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 25px; }
+			.badge { background: #2c3e50; color: #1abc9c; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; border: 1px solid #1abc9c; }
+			.step-block { background: #f8f9fa; border-left: 4px solid #2980b9; padding: 18px 20px; margin-bottom: 20px; border-radius: 0 6px 6px 0; }
+			.step-block h4 { color: #2980b9; margin: 0 0 10px 0; font-size: 16px; }
+			.step-number { display: inline-block; background: #2980b9; color: white; width: 28px; height: 28px; border-radius: 50%; text-align: center; line-height: 28px; font-weight: bold; margin-right: 10px; font-size: 14px; }
+			pre { background: #1a252f; color: #1abc9c; padding: 16px 20px; border-radius: 6px; font-size: 13px; overflow-x: auto; line-height: 1.6; }
+			pre .comment { color: #7f8c8d; }
+			.topology-box { background: #1a252f; color: #ecf0f1; padding: 20px; border-radius: 8px; font-family: monospace; font-size: 13px; line-height: 2; text-align: center; margin-bottom: 20px; }
+			.topology-box .net-label { color: #1abc9c; font-weight: bold; }
+			.topology-box .device { color: #f39c12; font-weight: bold; }
+			.screenshot-placeholder { background: #ecf0f1; border: 2px dashed #bdc3c7; border-radius: 8px; padding: 40px 20px; text-align: center; color: #95a5a6; margin: 15px 0; font-style: italic; }
+			.screenshot-placeholder span { display: block; font-size: 30px; margin-bottom: 8px; }
+			.learned-box { background: #eafaf1; border: 1px solid #a9dfbf; border-radius: 8px; padding: 18px 20px; margin-top: 10px; }
+			.learned-box h4 { color: #1e8449; margin: 0 0 10px 0; }
+			.nav-pages { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ecf0f1; }
+			.nav-pages a { color: #2980b9; text-decoration: none; font-weight: bold; }
+			.nav-pages a:hover { text-decoration: underline; }
+		</style>
+	</head>
+	<body class="is-preload">
+		<div id="wrapper">
+			<div id="main">
+				<div class="inner">
+
+					<!-- Header -->
+					<header id="header">
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/vieux-alia-samb-753a443ab" target="_blank" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://github.com/Sav2507" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</header>
+
+					<!-- Breadcrumb -->
+					<p style="color:#95a5a6; font-size:13px;">
+						<a href="index.html" style="color:#2980b9;">Accueil</a> &rsaquo;
+						Réseau &rsaquo; Routage &rsaquo;
+						<strong>Routage Statique</strong>
+					</p>
+
+					<!-- Titre -->
+					<header class="main">
+						<h1>Routage Statique sur GNS3</h1>
+					</header>
+
+					<!-- Badges -->
+					<div class="project-meta">
+						<span class="badge">🛠 GNS3</span>
+						<span class="badge">🔧 Cisco IOS</span>
+						<span class="badge">📡 Routage Statique</span>
+						<span class="badge">🖥 VPCS</span>
+						<span class="badge">Janvier 2025</span>
+					</div>
+
+					<!-- Objectif -->
+					<h2>Objectif</h2>
+					<p>Ce TD a pour but de configurer un routage statique entre plusieurs réseaux interconnectés via des routeurs Cisco dans un environnement simulé GNS3. L'objectif est de comprendre comment les tables de routage sont construites manuellement et comment les paquets sont acheminés d'un réseau à un autre sans protocole de routage dynamique.</p>
+
+					<!-- Topologie et étapes de configuration -->
+					<h2>Topologie du réseau</h2>
+					<!-- Étape 1 -->
+					<div class="step-block">
+						<h4><span class="step-number">1</span>Installation et câblage dans GNS3</h4>
+						<p>Routeur utilisé : <strong>c3725</strong> — Switch : <strong>Ethernet Switch</strong>. Pour avoir des liaisons série (WAN) entre les routeurs, activation des modules dans les slots :</p>
+						<ul>
+							<li><strong>R1 et R3</strong> → module <code>WIC-1T</code></li>
+							<li><strong>R2</strong> → module <code>WIC-2T</code> (deux liaisons série)</li>
+						</ul>
+						<p>Démarrage de tous les nœuds via <em>Start/Resume all nodes</em>.</p>
+						<figure style="margin:15px 0;"><img src="images/rs-topologie.png" alt="Topologie GNS3 – R1, R2, R3 avec 3 switches et 8 VPCS" style="width:100%;border-radius:6px;border:1px solid #ddd;" /><figcaption style="text-align:center;font-size:12px;color:#95a5a6;margin-top:6px;">Topologie GNS3 – R1, R2, R3 avec 3 switches et 8 VPCS</figcaption></figure>
+					</div>
+
+					<div class="step-block">
+						<h4><span class="step-number">2</span>Configuration des adresses IP des VPCS</h4>
+						<p>Configuration des PC via la console VPCS (format : <code>ip &lt;adresse&gt;/&lt;masque&gt; &lt;passerelle&gt;</code>) :</p>
+						<pre>PC3> ip 192.168.1.3/24 192.168.1.100
+PC4> ip 192.168.1.4/24 192.168.1.100
+PC5> ip 192.168.2.1/24 192.168.2.100
+PC6> ip 192.168.2.2/24 192.168.2.100
+PC7> ip 192.168.3.1/24 192.168.3.100
+PC8> ip 192.168.3.2/24 192.168.3.100</pre>
+						<figure style="margin:15px 0;"><img src="images/rs-pc1-ip.png" alt="Configuration IP de PC1 (192.168.1.1/24)" style="width:100%;border-radius:6px;border:1px solid #ddd;" /><figcaption style="text-align:center;font-size:12px;color:#95a5a6;margin-top:6px;">Configuration IP de PC1 (192.168.1.1/24)</figcaption></figure>
+<figure style="margin:15px 0;"><img src="images/rs-pc2-ip.png" alt="Configuration IP de PC2 (192.168.1.2/24)" style="width:100%;border-radius:6px;border:1px solid #ddd;" /><figcaption style="text-align:center;font-size:12px;color:#95a5a6;margin-top:6px;">Configuration IP de PC2 (192.168.1.2/24)</figcaption></figure>
+					</div>
+
+					<div class="step-block">
+						<h4><span class="step-number">3</span>Configuration du routeur R1</h4>
+						<figure style="margin:15px 0;"><img src="images/rs-r1-config.png" alt="Configuration complète du routeur R1" style="width:100%;border-radius:6px;border:1px solid #ddd;" /><figcaption style="text-align:center;font-size:12px;color:#95a5a6;margin-top:6px;">Configuration complète du routeur R1</figcaption></figure>
+					</div>
+
+					<div class="step-block">
+						<h4><span class="step-number">4</span>Configuration du routeur R2</h4>
+						<figure style="margin:15px 0;"><img src="images/rs-r2-config.png" alt="Configuration du routeur R2 (routeur central)" style="width:100%;border-radius:6px;border:1px solid #ddd;" /><figcaption style="text-align:center;font-size:12px;color:#95a5a6;margin-top:6px;">Configuration du routeur R2 (routeur central)</figcaption></figure>
+					</div>
+
+					<div class="step-block">
+						<h4><span class="step-number">5</span>Configuration du routeur R3</h4>
+						<figure style="margin:15px 0;"><img src="images/rs-r3-config.png" alt="Configuration du routeur R3" style="width:100%;border-radius:6px;border:1px solid #ddd;" /><figcaption style="text-align:center;font-size:12px;color:#95a5a6;margin-top:6px;">Configuration du routeur R3</figcaption></figure>
+					</div>
+
+					<div class="step-block">
+						<h4><span class="step-number">6</span>Tests de connectivité</h4>
+						<p>Vérification du routage via la commande <code>ping</code> depuis PC1 vers tous les autres PC des différents réseaux.
+						<figure style="margin:15px 0;"><img src="images/rs-ping-tests.png" alt="Tests ping depuis PC1 vers tous les réseaux ✅" style="width:100%;border-radius:6px;border:1px solid #ddd;" /><figcaption style="text-align:center;font-size:12px;color:#95a5a6;margin-top:6px;">Tests ping depuis PC1 vers tous les réseaux ✅</figcaption></figure>
+					</div>
+
+					<!-- Ce que j'ai appris -->
+					<div class="learned-box">
+						<h4>✅ Ce que j'ai appris</h4>
+						<ul>
+							<li>Comprendre la notion de route statique et de passerelle par défaut</li>
+							<li>Configurer des interfaces série et FastEthernet sur un routeur Cisco c3725</li>
+							<li>Construire manuellement une table de routage cohérente sur plusieurs routeurs</li>
+							<li>Utiliser les modules WIC-1T / WIC-2T pour les liaisons WAN série dans GNS3</li>
+							<li>Valider la connectivité inter-réseaux avec <code>ping</code> et <code>show ip route</code></li>
+						</ul>
+					</div>
+
+					<!-- Navigation -->
+					<div class="nav-pages">
+						<span></span>
+						<a href="reseau-routage-defaut.html">Routage par Défaut →</a>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- Sidebar -->
+			<div id="sidebar">
+				<div class="inner">
+					<section id="search" class="alt">
+						<form method="post" action="#">
+							<input type="text" name="query" id="query" placeholder="Search" />
+						</form>
+					</section>
+					<nav id="menu">
+						<header class="major"><h2>Menu</h2></header>
+						<ul>
+							<li><a href="index.html">Accueil</a></li>
+							<li>
+								<span class="opener">Réseau</span>
+								<ul>
+									<li>
+										<span class="opener">Routage</span>
+										<ul>
+											<li><a href="reseau-routage-statique.html"><strong>Routage Statique</strong></a></li>
+											<li><a href="reseau-routage-defaut.html">Routage par Défaut</a></li>
+											<li><a href="reseau-ospf.html">OSPF (Dynamique)</a></li>
+											<li><a href="reseau-eigrp.html">EIGRP (Dynamique)</a></li>
+											<li><a href="reseau-ripv2.html">RIPv2 (Dynamique)</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Haute Disponibilité</span>
+										<ul>
+											<li><a href="reseau-hsrp.html">HSRP – Hot Standby Routing Protocol</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Sécurité L2</span>
+										<ul>
+											<li><a href="reseau-dhcp-snooping.html">DHCP Snooping</a></li>
+											<li><a href="reseau-arp-spoofing.html">ARP Spoofing – Protection</a></li>
+											<li><a href="reseau-mac-flooding.html">MAC Flooding – Mitigation</a></li>
+											<li><a href="reseau-vlan.html">VLAN – Segmentation</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Services Réseau</span>
+										<ul>
+											<li><a href="reseau-nat.html">NAT &amp; Accès Internet</a></li>
+											<li><a href="reseau-dhcp.html">DHCP sur GNS3</a></li>
+											<li><a href="reseau-radius.html">Portail Captif &amp; RADIUS</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">Audit Sans-Fil &amp; MITM</span>
+										<ul>
+											<li><a href="reseau-wifi-audit.html">Audit WPA2/WPA3</a></li>
+											<li><a href="reseau-mitm.html">Attaque MITM sur Wi-Fi Sécurisé</a></li>
+											<li><a href="reseau-wireshark.html">Analyse de trafic Wireshark</a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<span class="opener">Attaque / Défense</span>
+								<ul>
+									<li>
+										<span class="opener">Machines Vulnérables</span>
+										<ul>
+											<li><a href="#">Exploitation ProFTPD</a></li>
+											<li><a href="#">Exploitation Port 80 (HTTP)</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">SOC &amp; Défense</span>
+										<ul>
+											<li><a href="#">Laboratoire SOAR (TheHive/Cortex)</a></li>
+											<li><a href="#">Mise en place SIEM/XDR</a></li>
+											<li><a href="#">Projet OSSEC – Attaque &amp; Défense</a></li>
+										</ul>
+									</li>
+									<li>
+										<span class="opener">CTF &amp; Compétitions</span>
+										<ul>
+											<li><a href="#">Write-ups Root-Me</a></li>
+											<li><a href="#">ECOWAS CTF 2026 – Cyberphantoms</a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<span class="opener">Forensics &amp; Investigation</span>
+								<ul>
+									<li><a href="#">Acquisition d'image – FTK Imager</a></li>
+									<li><a href="#">Analyse fichier SAM – Autopsy</a></li>
+								</ul>
+							</li>
+							<li>
+								<span class="opener">Développement</span>
+								<ul>
+									<li><a href="#">SenCadenas</a></li>
+									<li><a href="#">App Mobile – Ordonnances Numériques</a></li>
+								</ul>
+							</li>
+							<li>
+								<span class="opener">Mon Mémoire</span>
+								<ul>
+									<li><a href="#">Chap. 1 – Présentation générale</a></li>
+									<li><a href="#">Chap. 2 – Concepts généraux</a></li>
+									<li><a href="#">Chap. 3 – SIEM, SOAR, XDR</a></li>
+									<li><a href="#">Chap. 4 – Étude comparative</a></li>
+									<li><a href="#">Chap. 5 – Mise en œuvre</a></li>
+								</ul>
+							</li>
+							<li>
+								<span class="opener">Gouvernance &amp; Management</span>
+								<ul>
+									<li><a href="#">ISO 27001 – SMSI</a></li>
+									<li><a href="#">Politiques &amp; Normes de Sécurité</a></li>
+								</ul>
+							</li>
+							<li>
+								<span class="opener">Sécurité Cloud</span>
+								<ul>
+									<li><a href="#">IAM &amp; Principe du Moindre Privilège</a></li>
+								</ul>
+							</li>
+						</ul>
+					</nav>
+
+					<section>
+						<header class="major"><h2>Contact</h2></header>
+						<p>N'hésitez pas à me contacter pour toute opportunité de stage, collaboration ou échange autour de la cybersécurité.</p>
+						<ul class="contact">
+							<li class="icon solid fa-envelope"><a href="mailto:vieuxdiene47@gmail.com">vieuxdiene47@gmail.com</a></li>
+							<li class="icon solid fa-phone">77 993 03 06</li>
+							<li class="icon solid fa-map-marker-alt">Yoff Tonghor, Dakar, Sénégal</li>
+						</ul>
+					</section>
+
+					<footer id="footer">
+						<p class="copyright">&copy; Vieux Alia Samb. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+					</footer>
+				</div>
+			</div>
+
+		</div>
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+	</body>
+</html>
