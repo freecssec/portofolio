@@ -26,6 +26,30 @@
         .qr-block img { width: 90px; height: 90px; background: white; padding: 6px; border-radius: 4px; }
         .qr-block .qr-caption { color: #1abc9c; font-size: 11px; font-weight: bold; margin-top: 8px; letter-spacing: 0.3px; }
         .qr-block .qr-url { color: #95a5a6; font-size: 10px; margin-top: 2px; }
+        @media print {
+    html, body {
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        overflow: visible !important; /* On laisse le contenu visible */
+    }
+    
+    /* Si nécessaire, on réduit très légèrement la taille générale à l'impression */
+    body {
+        font-size: 13.5px; 
+    }
+
+    * {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+}
+a[href*="github.io"] {
+    color: #00bfa5 !important; /* Remplace par ton code couleur vert exact */
+    text-decoration: none;
+}
     </style>
 </head>
 <body>
@@ -70,7 +94,7 @@
         <div class="qr-block">
             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAGQAQMAAAC6caSPAAAABlBMVEX///8AAABVwtN+AAAACXBIWXMAAA7EAAAOxAGVKw4bAAACKklEQVR4nO3bu23EMAwGYB5cuPQIHsWj2aN5FI+QUoURRhIp6pEDLgEiXYqfzfn1pSL0oBgiBKJ3LGzx6W93Jw8PopX91cZ8Uf7E34CAjCCHJuj2GbwLX30QTfGtBDu9mEBARpEppKgLxGdyyujwrCBbuD9AQN5Alvx766c3CMibiY+Zz0d4G+f9Oby5QEDeQHQYjRl8eFKuUU+iV0sFEJAOxCKRh1+O7rdk8jm92FiBgHQgT+IbeR0gIH9KUibr1O4jzfsUMvgMiwLK6Q0CMoLEWO1TmeK11FlGXKsWaQ0C8lNSrC1DvXLP6Rm3OqRpKUQCBKQ3IXsqA6ImrU3i4QP5E+VoCQLSlegkTlTWLUnGUta6ZQib2UFA+hOSTGaWwtBR1i0lZCdeLxVAQDqTPZZ9ZikQJRpDduKsZfUik0FAehOKSevUOxtL16qDSBcDICAjSHvKQ1a3LE53qFkqgID0JtKVUdWUYqwyqlomL/lMHASkNznyW9m8W7+l+FUb3JYq+UFAhhDZHc11v+XGQrd23gcB+QWZOBWIck9v2p5b6H7oAgEZQKqQnXiczG9Nb60JbSpBQEaQtkst00t7edNvW4EHAelI9EIHWNcc6KRMft6qAQLSizT/mEMP2/q4PP/nNAcBGU0sg8tyOumJJPOzTAYBGUA2LRCxdhCtbFFt3kFAehLNXCNVY1vqzqi600FAehMLLRtJTSkEp8a2uZn3QUD6EgTi38UXL6YE8/3NE+EAAAAASUVORK5CYII=" alt="QR code portfolio" />
             <div class="qr-caption">SCANNER MON PORTFOLIO</div>
-            <div class="qr-url">https://freecssec.github.io/portofolio/</div>
+            <a href="https://freecssec.github.io/portofolio/">https://freecssec.github.io/portofolio/</a>
         </div>
     </div>
 
