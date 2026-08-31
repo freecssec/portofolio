@@ -1,0 +1,516 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Firewall pfSense + Suricata IPS – Portfolio Vieux Alia Samb</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<ul class="icons">
+										<li><a href="https://www.linkedin.com/in/vieux-alia-samb-753a443ab" target="_blank" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+										<li><a href="https://github.com/freecssec" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+									</ul>
+								</header>
+
+							<!-- Titre -->
+								<section>
+									<header class="main">
+										<h1>Firewall pfSense + Suricata IPS : Segmentation Réseau et Détection d'Intrusions</h1>
+										<p>SOC &amp; Défense · Ethical Hacking offensif/défensif · Kali Linux · Metasploitable2 · pfSense 2.7 · Suricata (mode IPS)</p>
+									</header>
+
+									<!-- Badges -->
+									<div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:2em;">
+										<span style="background:#1a6e9a; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">pfSense 2.7</span>
+										<span style="background:#c0392b; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">Suricata IPS</span>
+										<span style="background:#7b4fa3; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">Segmentation WAN/DMZ/LAN</span>
+										<span style="background:#2d8a4e; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">NAT / Port Forward</span>
+										<span style="background:#c97a1c; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">Metasploit</span>
+										<span style="background:#444; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">Nmap / Nikto / enum4linux</span>
+									</div>
+
+									<div class="row">
+										<div class="col-8 col-12-medium">
+											<p>Ce projet illustre la chaîne complète d'un test d'intrusion confronté à une défense périmétrique active. Une cible volontairement vulnérable (<strong>Metasploitable2</strong>) est d'abord placée derrière un pare-feu <strong>pfSense</strong> segmentant le réseau en trois zones (WAN hostile, DMZ, LAN interne), puis <strong>Suricata</strong> est déployé en mode IPS sur l'interface WAN pour détecter et bloquer activement le trafic malveillant. L'objectif n'est pas seulement de configurer ces outils, mais de <strong>rejouer les mêmes attaques avant/après</strong> leur mise en place et d'expliquer précisément quel mécanisme — règle de pare-feu (port) ou signature Suricata (contenu) — bloque chaque tentative, ou pourquoi certaines passent malgré tout.</p>
+										</div>
+										<div class="col-4 col-12-medium">
+											<div style="background:#f8f8f8; border-left:4px solid #c0392b; padding:1em 1.2em; border-radius:4px;">
+												<h4 style="margin:0 0 0.5em 0; font-size:0.9em; text-transform:uppercase; color:#888;">Environnement</h4>
+												<p style="margin:0; font-size:0.85em;"><strong>Attaquant</strong> Kali Linux (WAN)</p>
+												<p style="margin:0; font-size:0.85em;"><strong>Cible</strong> Metasploitable2 (DMZ)</p>
+												<p style="margin:0; font-size:0.85em;"><strong>Pare-feu/IPS</strong> pfSense + Suricata</p>
+												<p style="margin:0; font-size:0.85em;"><strong>Mode IPS</strong> Legacy, Block Offenders</p>
+												<p style="margin:0; font-size:0.85em;"><strong>Règles custom</strong> 4 signatures</p>
+												<p style="margin:0; font-size:0.85em;"><strong>Exploits testés</strong> vsftpd, Samba usermap</p>
+											</div>
+										</div>
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- TOPOLOGIE -->
+								<section>
+									<header class="major">
+										<h2>Topologie Réseau Segmentée</h2>
+									</header>
+									<p>Trois zones distinctes sont créées autour de pfSense : le <strong>WAN</strong> (10.10.10.0/24) où se trouve l'attaquant Kali, la <strong>DMZ</strong> (172.16.10.0/24) qui héberge la cible Metasploitable2, et le <strong>LAN</strong> (192.168.10.0/24) qui simule un réseau de clients internes légitimes. Tout le trafic inter-zones transite obligatoirement par pfSense : le sens WAN → DMZ est filtré service par service, et le sens DMZ → WAN est intégralement bloqué (anti reverse-shell).</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/00-topologie.png" alt="Topologie réseau segmentée : WAN 10.10.10.0/24 (Kali), DMZ 172.16.10.0/24 (Metasploitable2), LAN 192.168.10.0/24 (Ubuntu etudiant-1), pfSense au centre avec Suricata IPS" /></span>
+									<div class="table-wrapper">
+										<table>
+											<thead><tr><th>Machine</th><th>Rôle</th><th>OS</th><th>Adresse IP</th><th>Réseau</th></tr></thead>
+											<tbody>
+												<tr><td>kali-attaquant</td><td>Attaquant / Pentester</td><td>Kali Linux</td><td>10.10.10.10</td><td>WAN</td></tr>
+												<tr><td>metasploitable2</td><td>Serveur cible vulnérable</td><td>Ubuntu / Linux</td><td>172.16.10.10/24</td><td>DMZ</td></tr>
+												<tr><td>pfSense</td><td>Pare-feu / IPS</td><td>pfSense 2.7 + Suricata</td><td>10.10.10.254 / 172.16.10.254 / 192.168.10.254</td><td>WAN + DMZ + LAN</td></tr>
+												<tr><td>etudiant-1</td><td>Client légitime</td><td>Linux/Windows 10</td><td>192.168.10.10/24</td><td>LAN</td></tr>
+											</tbody>
+										</table>
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- T5 : CONFIGURATION PFSENSE -->
+								<section>
+									<header class="major">
+										<h2>Configuration de pfSense — Segmentation et Règles de Pare-feu</h2>
+									</header>
+									<p>Mise en place du pare-feu comme point de passage obligé entre les trois zones, avec un jeu de règles minimal (allow-list) sur le sens hostile et un NAT sélectif pour exposer certains services de la DMZ.</p>
+
+									<h3>5.1 — Installation et configuration initiale</h3>
+									<p>Les trois interfaces sont assignées et adressées depuis la console pfSense : <code>WAN (em0) → 10.10.10.254/24</code>, <code>LAN (em2) → 192.168.10.254/24</code>, <code>OPT1/DMZ (em1) → 172.16.10.254/24</code>.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t5-1-console-ip.png" alt="Console pfSense : configuration des interfaces WAN, LAN et OPT1 avec leurs adresses IPv4" /></span>
+									<p>Le dashboard confirme la prise en compte des trois interfaces actives (WAN, LAN, DMZ) avec leurs adresses respectives.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t5-1-dashboard.png" alt="Dashboard pfSense Status/Dashboard montrant les 3 interfaces WAN, LAN, DMZ actives avec leurs IP" /></span>
+
+									<h3 style="margin-top:1.5em;">5.2 — Règles de pare-feu WAN → DMZ (réseau hostile)</h3>
+									<p>Sur l'interface WAN, seuls trois services sont explicitement autorisés vers Metasploitable2 (HTTP, FTP, SSH) ; tout le reste est bloqué implicitement puis explicitement pour la démonstration.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t5-2-regles-wan-dmz.png" alt="Règles firewall WAN : autoriser HTTP (80), FTP (21), SSH (22) du WAN vers DMZ, bloquer le reste" /></span>
+									<p>Vérification depuis Kali : le <code>curl</code> sur le port 80 aboutit (règle autorisée)...</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t5-2-verif-curl.png" alt="curl http://172.16.10.10 depuis Kali retournant la page d'accueil Metasploitable2" /></span>
+									<p>...un nmap ciblé confirme le port 80 ouvert...</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t5-2-verif-nmap80.png" alt="nmap -p 80 -Pn 172.16.10.10 : port 80/tcp open http" /></span>
+									<p>...tandis que le port 445 (SMB, non autorisé par la règle) apparaît <strong>filtered</strong> — le paquet est silencieusement rejeté par pfSense (drop), sans réponse RST qui aurait révélé un port fermé côté hôte.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t5-2-verif-nmap445.png" alt="nmap -p 445 -Pn 172.16.10.10 : port 445/tcp filtered microsoft-ds" /></span>
+
+									<h3 style="margin-top:1.5em;">5.3 — Règles de pare-feu sur la DMZ</h3>
+									<p>Dans l'autre sens, la DMZ est autorisée à joindre le LAN sur le port applicatif nécessaire (3306/MySQL), mais toute connexion <strong>initiée depuis la DMZ vers le WAN est bloquée</strong> — c'est la règle anti reverse-shell : même si Metasploitable2 est compromis, il ne peut pas rappeler l'attaquant.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t5-3-regles-dmz.png" alt="Règles firewall DMZ : autoriser DMZ vers LAN:3306 (flux légitime), interdire DMZ vers WAN (anti reverse-shell)" /></span>
+									<p>Vérification : depuis Metasploitable2, un ping vers Kali (10.10.10.10) échoue à 100% — la règle anti reverse-shell est bien appliquée.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t5-3-verif-ping.png" alt="ping -c 3 10.10.10.10 depuis metasploitable2 : 100% packet loss" /></span>
+
+									<h3 style="margin-top:1.5em;">5.4 — NAT et redirection de ports</h3>
+									<p>Deux règles de Port Forward exposent sélectivement des services de la DMZ sur l'IP WAN de pfSense, sans révéler directement l'adressage interne : <code>WAN:8080 → 172.16.10.10:80</code> et <code>WAN:2222 → 172.16.10.10:22</code>.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t5-4-regles-nat.png" alt="Règles NAT Port Forward : WAN 8080 vers DMZ 80 (HTTP), WAN 2222 vers DMZ 22 (SSH)" /></span>
+									<p>Vérification depuis Kali : une requête sur <code>10.10.10.254:8080</code> atteint bien Metasploitable2 via la redirection NAT.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t5-4-verif-nat.png" alt="curl http://10.10.10.254:8080 retournant la page Metasploitable2 via la redirection NAT" /></span>
+
+									<div style="background:#f0f4ff; border-left:4px solid #1a6e9a; padding:1.2em 1.5em; border-radius:4px; margin-top:1.5em;">
+										<p style="margin:0;"><strong>Bilan T5 :</strong> la segmentation impose une allow-list stricte en entrée (3 ports seulement) et un blocage total des connexions sortantes initiées par la DMZ, tout en gardant la possibilité d'exposer sélectivement des services via NAT — le tout validé par des tests actifs (curl, nmap, ping) depuis les deux zones.</p>
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- T6 : SURICATA IPS -->
+								<section>
+									<header class="major">
+										<h2>Suricata IPS — Détection et Blocage Actif</h2>
+									</header>
+									<p>Suricata est déployé non pas en simple IDS (détection passive) mais en <strong>mode IPS</strong> : les hôtes générant une alerte sont automatiquement bloqués au niveau du pare-feu, en plus d'être journalisés.</p>
+
+									<h3>6.1 — Activation de l'inspection sur l'interface WAN</h3>
+									<p>Suricata est activé sur l'interface WAN — c'est le point d'entrée du trafic hostile, donc l'endroit le plus pertinent pour intercepter les attaques avant même qu'elles n'atteignent la DMZ.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t6-1-interface-wan.png" alt="Activation de l'inspection Suricata sur l'interface WAN (em0)" /></span>
+									<p>Les alertes sont envoyées vers le syslog système (facility LOCAL1, priorité NOTICE) pour centraliser la journalisation.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t6-1-logging.png" alt="Paramètres de logging Suricata : envoi des alertes au syslog, facility LOCAL1, priorité NOTICE" /></span>
+									<p>Le cœur du mode IPS est activé ici : <strong>Block Offenders</strong> (blocage automatique des hôtes générant une alerte), en <strong>Legacy Mode</strong> (inspection sur copie de paquets via PCAP), avec <strong>Kill States</strong> pour couper immédiatement les connexions établies de l'hôte bloqué.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t6-1-alert-block.png" alt="Paramètres Alert and Block : Block Offenders activé, IPS Mode Legacy Mode, Kill States activé" /></span>
+
+									<h3 style="margin-top:1.5em;">6.2 — Activation des règles (rulesets)</h3>
+									<p>Plusieurs catégories du ruleset Emerging Threats Open sont activées, ciblant les familles de menaces pertinentes pour ce lab : scans, exploits, malware, SNMP.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t6-2-categories-1.png" alt="Catégories de règles activées : emerging-exploit.rules et emerging-malware.rules cochées" /></span>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t6-2-categories-2.png" alt="Catégories de règles activées : emerging-scan.rules et emerging-snmp.rules cochées" /></span>
+									<p>Les règles sont mises à jour avec succès depuis la source Emerging Threats Open.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t6-2-update-rules.png" alt="Mise à jour des règles Suricata : Emerging Threats Open Rules, résultat success" /></span>
+									<p>L'interface WAN apparaît active, en mode de correspondance <code>AUTO</code> et en <code>LEGACY MODE</code>.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t6-2-interface-status.png" alt="Vue d'ensemble : interface WAN Suricata active, Pattern Match AUTO, Blocking Mode Legacy Mode" /></span>
+
+									<h3 style="margin-top:1.5em;">6.3 — Règles personnalisées et validation</h3>
+									<p>Quatre signatures sur mesure sont ajoutées pour cibler précisément les attaques attendues dans ce lab : un scan Nmap SYN (seuil de 20 paquets SYN/3s), la backdoor vsftpd 2.3.4 (CVE-2011-2523, détection du motif <code>":)"</code>), l'énumération SNMP avec la community <em>public</em>, et un seuil générique de scan de vulnérabilités.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t6-3-custom-rules.png" alt="4 règles Suricata personnalisées : SCAN Nmap SYN, EXPLOIT vsftpd 2.3.4 backdoor, SNMP community public, SCAN vulnérabilités" /></span>
+
+									<p style="margin-top:1.2em;">Chaque règle est ensuite testée individuellement contre l'interface WAN de pfSense (10.10.10.254) pour valider son déclenchement avant de passer aux tests réels sur la cible :</p>
+
+									<div class="table-wrapper">
+										<table>
+											<thead><tr><th>Test</th><th>Commande</th><th>Alerte générée</th></tr></thead>
+											<tbody>
+												<tr><td>Scan SYN</td><td><code>nmap -sS -p- --max-rate 100 10.10.10.254</code></td><td>SCAN Nmap SYN scan détecté (SID 9000001)</td></tr>
+												<tr><td>Backdoor vsftpd</td><td><code>nping --tcp -p 21 --data-string ":)" 10.10.10.254</code></td><td>EXPLOIT vsftpd 2.3.4 backdoor (SID 9000002)</td></tr>
+												<tr><td>SNMP public</td><td><code>echo "public" | nc -u -w2 10.10.10.254 161</code></td><td>SNMP community public detected (SID 9000003) + GPL SNMP access</td></tr>
+												<tr><td>Scan de vuln.</td><td><code>nmap -sS -p1-100 --max-rate 500 10.10.10.254</code></td><td>SCAN vulnérabilités détecté (SID 9000004)</td></tr>
+											</tbody>
+										</table>
+									</div>
+
+									<div class="row" style="margin-top:1em;">
+										<div class="col-6 col-12-medium">
+											<span class="image fit"><img src="images/defense-pfsense-suricata/t6-3-test-syn-cmd.png" alt="nmap -sS -p- --max-rate 100 10.10.10.254 lancé depuis Kali" /></span>
+										</div>
+										<div class="col-6 col-12-medium">
+											<span class="image fit"><img src="images/defense-pfsense-suricata/t6-3-test-syn-alert.png" alt="Alertes Suricata : SCAN Nmap SYN scan détecté, plusieurs entrées vers 10.10.10.254" /></span>
+										</div>
+										<div class="col-6 col-12-medium">
+											<span class="image fit"><img src="images/defense-pfsense-suricata/t6-3-test-vsftpd-cmd.png" alt="nping avec payload :) sur le port 21 de 10.10.10.254" /></span>
+										</div>
+										<div class="col-6 col-12-medium">
+											<span class="image fit"><img src="images/defense-pfsense-suricata/t6-3-test-vsftpd-alert.png" alt="Alertes Suricata : EXPLOIT vsftpd 2.3.4 backdoor, 5 entrées" /></span>
+										</div>
+										<div class="col-6 col-12-medium">
+											<span class="image fit"><img src="images/defense-pfsense-suricata/t6-3-test-snmp-cmd.png" alt="Requête UDP netcat avec community public vers le port 161 de 10.10.10.254" /></span>
+										</div>
+										<div class="col-6 col-12-medium">
+											<span class="image fit"><img src="images/defense-pfsense-suricata/t6-3-test-snmp-alert.png" alt="Alertes Suricata : SNMP community public detected + GPL SNMP public access udp" /></span>
+										</div>
+										<div class="col-6 col-12-medium">
+											<span class="image fit"><img src="images/defense-pfsense-suricata/t6-3-test-vuln-cmd.png" alt="nmap -sS -p1-100 --max-rate 500 10.10.10.254 : tous les ports filtrés" /></span>
+										</div>
+										<div class="col-6 col-12-medium">
+											<span class="image fit"><img src="images/defense-pfsense-suricata/t6-3-test-vuln-alert.png" alt="Alerte Suricata : SCAN vulnérabilités détecté" /></span>
+										</div>
+									</div>
+
+									<div style="background:#f0f4ff; border-left:4px solid #1a6e9a; padding:1.2em 1.5em; border-radius:4px; margin-top:1.5em;">
+										<p style="margin:0;"><strong>Bilan :</strong> les 4 règles personnalisées se déclenchent correctement contre l'interface WAN elle-même, qui ne répond d'ailleurs à aucune requête directe (100 ports scannés, tous filtrés) — signe d'un pare-feu bien durci. Suricata est prêt à être confronté à de vraies tentatives d'exploitation sur la cible réelle en DMZ.</p>
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- T7.1 : SCANS REJOUES -->
+								<section>
+									<header class="major">
+										<h2>Rejeu des Scans sur la Cible avec pfSense Actif</h2>
+									</header>
+									<p>Les mêmes techniques de reconnaissance sont rejouées, cette fois contre la vraie cible en DMZ (172.16.10.10), à travers pfSense. L'objectif est de vérifier si le pare-feu et Suricata suffisent à masquer la surface d'attaque, et de capturer systématiquement le log Suricata correspondant à chaque test.</p>
+
+									<h3>Scan A — SYN scan complet (<code>nmap -sS -p-</code>)</h3>
+									<p>Sans réponse au ping ICMP (<code>-Pn</code> nécessaire), le scan confirme les 3 ports autorisés par la règle WAN → DMZ : 21, 22 et 80.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t7-1-a1-syn-scan.png" alt="nmap -sS -p- -Pn 172.16.10.10 : ports 21/ftp, 22/ssh, 80/http ouverts" /></span>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t7-1-a2-alert.png" alt="Alertes Suricata SCAN Nmap SYN scan détecté déclenchées par le scan sur 172.16.10.10" /></span>
+
+									<h3 style="margin-top:1.5em;">Scan B — Détection de version/OS (<code>nmap -sV -O</code>)</h3>
+									<p>Le scan de version révèle les mêmes services que sans pare-feu (vsftpd 2.3.4, OpenSSH, Apache) — pfSense filtre les <em>ports</em>, pas le contenu des bannières des services qu'il laisse volontairement passer.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t7-1-b1-version-scan.png" alt="nmap -sV sur 172.16.10.10 révélant vsftpd 2.3.4, OpenSSH, Apache httpd" /></span>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t7-1-b2-alert.png" alt="Alertes Suricata : ET SCAN Nmap Scripting Engine User-Agent, NMAP OS Detection Probe, SURICATA ICMPv4 unknown code" /></span>
+
+									<h3 style="margin-top:1.5em;">Scan C — Scripts de vulnérabilités (<code>nmap --script vuln</code>)</h3>
+									<p>Le scan NSE vuln s'exécute sur les 3 ports ouverts uniquement (les autres restant filtrés) et tente plusieurs vérifications HTTP (CVE-2017-1001000, TRACE, DOM-based XSS, file-upload) sur Mutillidae.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t7-1-c1-vuln-scan.png" alt="nmap --script vuln 172.16.10.10 : ports 21/22/80 ouverts, http-trace enabled" /></span>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t7-1-c2-vuln-scan.png" alt="Résultat scripts vuln : test DOM-based XSS et file-upload-exploiter sur Mutillidae" /></span>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t7-1-c3-alert.png" alt="Alertes Suricata en rafale : SURICATA HTTP Host header ambiguous et ET SCAN Nmap Scripting Engine User-Agent" /></span>
+
+									<h3 style="margin-top:1.5em;">Scan D — Énumération SNMP (<code>onesixtyone</code>)</h3>
+									<p>Un balayage de communities SNMP est lancé sur le port 161/UDP, non filtré par la règle WAN → DMZ (celle-ci ne visait que 21/22/80, mais UDP/161 n'est pas explicitement bloqué non plus).</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t7-1-d1-onesixtyone.png" alt="onesixtyone 172.16.10.10 -c dict.txt : scan de 50 communities SNMP" /></span>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t7-1-d2-alert.png" alt="Alertes Suricata : SNMP community public detected + GPL SNMP private access udp" /></span>
+
+									<h3 style="margin-top:1.5em;">Scan E — Énumération SMB (<code>enum4linux -a</code>)</h3>
+									<p>Contrairement au SNMP, l'énumération SMB échoue entièrement : les ports 139/445 ne sont pas dans l'allow-list WAN → DMZ, donc bloqués en amont par le pare-feu avant même d'atteindre Metasploitable2.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t7-1-e-enum4linux.png" alt="enum4linux -a 172.16.10.10 : impossible de trouver le workgroup, aucune réponse nbtstat, session refusée" /></span>
+
+									<h3 style="margin-top:1.5em;">Scan F — Audit web (<code>nikto</code>)</h3>
+									<p>Le port 80 étant explicitement autorisé, Nikto s'exécute sans restriction et remonte de nombreux problèmes de configuration (en-têtes manquants, module mod_negotiation, répertoires listables, TRACE activé) — le firewall ne protège pas contre les faiblesses applicatives d'un service qu'il autorise.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t7-1-f1-nikto.png" alt="nikto -h http://172.16.10.10 : en-têtes manquants, mod_negotiation activé, /doc/ navigable, Apache 2.2.8 obsolète" /></span>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t7-1-f2-alert.png" alt="Alertes Suricata GPL EXPLOIT .htr access et ISAPI .ida/.idq access déclenchées par les tests Nikto" /></span>
+
+									<div style="background:#f0f4ff; border-left:4px solid #1a6e9a; padding:1.2em 1.5em; border-radius:4px; margin-top:1.5em;">
+										<p style="margin:0;"><strong>Bilan :</strong> pfSense réduit drastiquement la surface visible (3 ports TCP au lieu de 20+ en Partie 1), mais les services explicitement autorisés (HTTP, FTP, SSH) restent pleinement auditables — versions, vulnérabilités web, bannières. Suricata, de son côté, journalise la quasi-totalité de l'activité de reconnaissance, autorisée ou non, apportant une visibilité que le filtrage de ports seul ne donne pas.</p>
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- T7.2 : EXPLOITS -->
+								<section>
+									<header class="major">
+										<h2>Tentatives d'Exploitation avec pfSense Actif</h2>
+									</header>
+									<p>Les deux exploits utilisés en Partie 1 sont rejoués face à la défense complète. Chaque tentative permet d'identifier <strong>quel mécanisme</strong> — règle de pare-feu (port fermé) ou signature Suricata (contenu détecté) — est responsable de l'échec, ou si aucun des deux n'intervient.</p>
+
+									<h3>A — <code>exploit/multi/samba/usermap_script</code> (port 139)</h3>
+									<p>Le module cible le service Samba sur le port 139/TCP. Or ce port ne fait partie d'aucune règle d'autorisation WAN → DMZ : l'exploit échoue immédiatement, la connexion n'aboutissant jamais.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t7-2-a1-samba-cmd.png" alt="msf6 exploit(multi/samba/usermap_script) RHOSTS 172.16.10.10 : exploit lancé, échec de connexion" /></span>
+									<p>Point clé : le journal d'alertes Suricata reste <strong>vide</strong> pour cette tentative — aucune signature ne se déclenche.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t7-2-a2-alert-empty.png" alt="Alert Log View Filter vide : aucune alerte Suricata générée pour la tentative sur le port 139" /></span>
+									<div style="background:#fff4f4; border-left:4px solid #f56a6a; padding:1em 1.3em; border-radius:4px; margin:0.8em 0 1.5em 0;">
+										<p style="margin:0;"><strong>Mécanisme de blocage : règle de pare-feu uniquement.</strong> Le port 139 est fermé par pfSense avant même que le paquet n'atteigne la cible — Suricata ne voit donc rien à signaler, puisqu'aucun trafic applicatif Samba ne circule réellement.</p>
+									</div>
+
+									<h3 style="margin-top:1.5em;">B — <code>exploit/unix/ftp/vsftpd_234_backdoor</code> (port 21)</h3>
+									<p>Le port 21 étant explicitement autorisé, la connexion FTP s'établit (bannière 220 reçue, USER envoyé), mais aucune session shell n'est obtenue.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t7-2-b1-vsftpd-cmd.png" alt="msf6 exploit(unix/ftp/vsftpd_234_backdoor) : banner 220 vsFTPd 2.3.4, USER envoyé, exploit complété sans session" /></span>
+									<p>Cette fois, Suricata détecte bien le motif <code>":)"</code> caractéristique de la backdoor et journalise deux alertes.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t7-2-b2-alert.png" alt="Alertes Suricata : EXPLOIT vsftpd 2.3.4 backdoor, 2 entrées vers 172.16.10.10:21" /></span>
+									<p>Conséquence du mode IPS : l'IP de Kali est automatiquement ajoutée à la liste des hôtes bloqués par Suricata (avec l'historique des règles précédemment déclenchées : scans Nmap, sondes SNMP...).</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t7-2-b3-blocked-ip.png" alt="Liste des IP bloquées : 10.10.10.10 bloquée suite à EXPLOIT vsftpd 2.3.4 backdoor et scans précédents" /></span>
+									<p>Preuve du blocage total : même le pare-feu WAN de pfSense (10.10.10.254) ne répond plus du tout au ping depuis Kali.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t7-2-b4-ping-fail.png" alt="ping -c 4 10.10.10.254 : 100% packet loss après le blocage automatique par Suricata" /></span>
+									<div style="background:#fff4f4; border-left:4px solid #f56a6a; padding:1em 1.3em; border-radius:4px; margin:0.8em 0 1.5em 0;">
+										<p style="margin:0;"><strong>Mécanisme de blocage : signature Suricata (port pourtant autorisé).</strong> Le pare-feu laisse passer le trafic FTP légitime, mais Suricata reconnaît le contenu malveillant et bloque activement la source — la session échoue par coupure de l'état de connexion (Kill States), pas par filtrage de port.</p>
+									</div>
+
+									<h3 style="margin-top:1.5em;">C — Tentative de contournement (changement de port, LPORT 8080)</h3>
+									<p>Conformément à la consigne, le module Samba est relancé avec un <code>LPORT</code> différent (8080) pour tester si un port de sortie non standard permettrait de contourner un éventuel filtrage applicatif.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t7-2-c-port-bypass.png" alt="msf6 exploit(multi/samba/usermap_script) avec LPORT 8080 : Exploit failed, ConnectionTimeout, 172.16.10.10:139 timed out" /></span>
+									<div style="background:#fff4f4; border-left:4px solid #f56a6a; padding:1em 1.3em; border-radius:4px; margin:0.8em 0 1.5em 0;">
+										<p style="margin:0;"><strong>Le contournement échoue — et pas pour la raison attendue.</strong> Changer le <code>LPORT</code> ne change rien : le module continue de cibler le port <strong>139</strong> côté cible (RPORT, non modifié), toujours fermé par la règle WAN → DMZ. De plus, à ce stade, l'IP de Kali est déjà blacklistée par Suricata suite au test B : <strong>le blocage par IP source rend inopérant tout contournement basé sur le port</strong>, qu'il s'agisse du port de la cible ou du port d'écoute local de l'attaquant. Les deux mécanismes de défense (règle de port + blocage d'IP) sont donc complémentaires : même si l'un était contourné, l'autre resterait actif.</p>
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- T7.3 : TABLEAU COMPARATIF -->
+								<section>
+									<header class="major">
+										<h2>Tableau Comparatif Avant / Après pfSense</h2>
+									</header>
+									<p>Synthèse de l'ensemble des techniques testées, avec le résultat obtenu sans défense (Partie 1, connexion directe) puis avec pfSense + Suricata actifs (Partie 2), et le mécanisme précis expliquant le changement de comportement.</p>
+
+									<p>Preuve pour la ligne 8 (MySQL) : la connexion directe au port 3306 échoue...</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t7-3-mysql-cmd.png" alt="mysql -h 172.16.10.10 -u root --skip-ssl : ERROR 2002, Can't connect to server (115)" /></span>
+									<p>...après plusieurs tentatives ayant généré des alertes Suricata de trafic suspect vers ce port.</p>
+									<span class="image fit"><img src="images/defense-pfsense-suricata/t7-3-mysql-alert.png" alt="Alertes Suricata : ET SCAN Suspicious inbound to mySQL port 3306, 6 entrées" /></span>
+
+									<div class="table-wrapper" style="margin-top:1em;">
+										<table>
+											<thead><tr><th>#</th><th>Technique</th><th>Sans pfSense</th><th>Avec pfSense</th><th>Mécanisme de blocage</th></tr></thead>
+											<tbody>
+												<tr><td>1</td><td>nmap SYN scan (<code>-sS</code>) tous ports</td><td style="color:#c0392b;">20+ ports ouverts visibles</td><td style="color:#2d8a4e;">3 ports visibles (21/22/80)</td><td>Règle de pare-feu (allow-list WAN→DMZ) + alerte Suricata (seuil SYN)</td></tr>
+												<tr><td>2</td><td>nmap version scan (<code>-sV</code>) sur ports autorisés</td><td style="color:#c0392b;">Bannières exactes révélées</td><td style="color:#c0392b;">Bannières identiques révélées</td><td>Aucun — le firewall ne filtre pas le contenu des services autorisés</td></tr>
+												<tr><td>3</td><td>Énumération SMB (enum4linux, 139/445)</td><td style="color:#c0392b;">Users, shares, RID énumérés</td><td style="color:#2d8a4e;">Échec total, aucune réponse</td><td>Règle de pare-feu — ports 139/445 hors allow-list</td></tr>
+												<tr><td>4</td><td>Énumération SNMP (onesixtyone, 161/UDP)</td><td style="color:#c0392b;">Community "public" trouvée</td><td style="color:#c97a1c;">Community trouvée, mais tracée</td><td>Aucun blocage — port UDP non filtré ; détecté et journalisé par Suricata</td></tr>
+												<tr><td>5</td><td>Nikto scan HTTP (port 80)</td><td style="color:#c0392b;">Toutes vulnérabilités remontées</td><td style="color:#c0392b;">Résultats identiques</td><td>Aucun — HTTP autorisé, Suricata journalise mais ne bloque pas ce trafic web légitime en apparence</td></tr>
+												<tr><td>6</td><td>exploit/multi/samba/usermap_script</td><td style="color:#c0392b;">Session shell obtenue</td><td style="color:#2d8a4e;">Échec, connexion refusée</td><td>Règle de pare-feu uniquement — aucune alerte Suricata (port 139 fermé en amont)</td></tr>
+												<tr><td>7</td><td>exploit/unix/ftp/vsftpd_234_backdoor</td><td style="color:#c0392b;">Session shell obtenue</td><td style="color:#2d8a4e;">Échec, pas de session</td><td>Signature Suricata (contenu ":)") — port 21 pourtant autorisé par le firewall</td></tr>
+												<tr><td>8</td><td>Connexion MySQL directe (port 3306)</td><td style="color:#c97a1c;">Connexion root sans mot de passe possible</td><td style="color:#2d8a4e;">ERROR 2002, connexion refusée</td><td>Règle de pare-feu — port 3306 hors allow-list WAN→DMZ ; alertes ET SCAN mySQL</td></tr>
+												<tr><td>9</td><td>VNC brute force (port 5900)</td><td style="color:#c0392b;">Port accessible, brute force possible</td><td style="color:#2d8a4e;">Port fermé, aucun accès</td><td>Règle de pare-feu — port 5900 hors allow-list</td></tr>
+												<tr><td>10</td><td>Reverse shell Metasploitable2 → Kali</td><td style="color:#c0392b;">Connexion sortante réussie</td><td style="color:#2d8a4e;">Bloqué systématiquement</td><td>Règle DMZ→WAN explicitement interdite (anti reverse-shell)</td></tr>
+											</tbody>
+										</table>
+									</div>
+
+									<div style="background:#f0f4ff; border-left:4px solid #1a6e9a; padding:1.2em 1.5em; border-radius:4px; margin-top:1.5em;">
+										<p style="margin:0;"><strong>Lecture du tableau :</strong> deux mécanismes indépendants et complémentaires expliquent chaque ligne. Le <strong>pare-feu filtre par port</strong> (lignes 1, 3, 6, 8, 9, 10) : une allow-list stricte en entrée et une interdiction totale des connexions DMZ→WAN neutralisent la majorité des techniques classiques, y compris un exploit entier (Samba) sans que Suricata n'ait même à intervenir. <strong>Suricata filtre par signature de contenu</strong> (ligne 7) et journalise systématiquement (lignes 4, 5) même quand il ne bloque pas — sa valeur ajoutée apparaît précisément là où le pare-feu ne peut rien faire : un port explicitement autorisé (21/FTP) mais exploité malicieusement. Aucun des deux mécanismes seuls n'aurait suffi : le pare-feu aurait laissé passer l'exploit vsftpd, et Suricata seul (sans blocage de ports) aurait laissé la surface d'attaque bien plus large en entrée.</p>
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- CONCLUSION -->
+								<section>
+									<header class="major">
+										<h2>Conclusion</h2>
+									</header>
+									<p>Ce lab démontre, sur un cas d'usage complet d'attaque/défense, que la segmentation réseau et l'inspection de contenu répondent à deux problèmes différents et complémentaires. <strong>pfSense</strong> réduit mécaniquement la surface d'attaque exposée (allow-list stricte, blocage des connexions sortantes non désirées), neutralisant à lui seul des vecteurs entiers comme l'exploitation SMB ou un éventuel reverse-shell. <strong>Suricata en mode IPS</strong> comble l'angle mort du premier : les services volontairement exposés (ici FTP, HTTP, SSH) restent une surface d'attaque légitime, et c'est l'inspection de signature — couplée à un blocage automatique par IP source — qui neutralise l'exploitation active d'un service pourtant autorisé, comme la backdoor vsftpd. La tentative de contournement par changement de port illustre bien les limites de chaque mécanisme pris isolément : un pare-feu mal configuré resterait vulnérable à un port non filtré, mais un blocage par IP source rend cette faille sans effet une fois la source identifiée comme hostile. Une défense périmétrique robuste repose donc sur la superposition de ces deux couches, et non sur l'une au détriment de l'autre.</p>
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<section id="search" class="alt">
+								<form method="post" action="#">
+									<input type="text" name="query" id="query" placeholder="Search" />
+								</form>
+							</section>
+
+							<nav id="menu">
+								<header class="major">
+									<h2>Menu</h2>
+								</header>
+								<ul>
+									<li><a href="index.html">Accueil</a></li>
+
+									<!-- RÉSEAU -->
+									<li>
+										<span class="opener">Réseau</span>
+										<ul>
+											<li>
+												<span class="opener">Routage</span>
+												<ul>
+													<li><a href="reseau-routage-statique.html">Routage Statique</a></li>
+													<li><a href="reseau-routage-par-defaut.html">Routage par Défaut</a></li>
+													<li><a href="reseau-ospf.html">OSPF (Dynamique)</a></li>
+													<li><a href="reseau-eigrp.html">EIGRP (Dynamique)</a></li>
+													<li><a href="reseau-ripv2.html">RIPv2 (Dynamique)</a></li>
+													<li><a href="auth-protocoles-routage.html">Authentification sur les protocoles de routage</a></li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Haute Disponibilité</span>
+												<ul>
+													<li><span class="soon">HSRP – Hot Standby Routing Protocol <em>🚧 à venir</em></span></li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Sécurité L2</span>
+												<ul>
+													<li><span class="soon">DHCP Snooping <em>🚧 à venir</em></span></li>
+													<li><span class="soon">ARP Spoofing – Protection <em>🚧 à venir</em></span></li>
+													<li><span class="soon">MAC Flooding – Mitigation <em>🚧 à venir</em></span></li>
+													<li><span class="soon">VLAN – Segmentation <em>🚧 à venir</em></span></li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Services Réseau</span>
+												<ul>
+													<li><span class="soon">NAT & Accès Internet <em>🚧 à venir</em></span></li>
+													<li><span class="soon">DHCP sur GNS3 <em>🚧 à venir</em></span></li>
+													<li><span class="soon">Portail Captif & RADIUS <em>🚧 à venir</em></span></li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">Audit Sans-Fil & MITM</span>
+												<ul>
+													<li><span class="soon">Audit WPA2/WPA3 <em>🚧 à venir</em></span></li>
+													<li><span class="soon">Attaque MITM sur Wi-Fi Sécurisé <em>🚧 à venir</em></span></li>
+													<li><span class="soon">Analyse de trafic Wireshark <em>🚧 à venir</em></span></li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+
+									<!-- ATTAQUE / DÉFENSE -->
+									<li>
+										<span class="opener active">Attaque / Défense</span>
+										<ul>
+											<li>
+												<span class="opener">Machines Vulnérables</span>
+												<ul>
+													<li><span class="soon">Exploitation ProFTPD <em>🚧 à venir</em></span></li>
+													<li><span class="soon">Exploitation Port 80 (HTTP) <em>🚧 à venir</em></span></li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener active">SOC & Défense</span>
+												<ul>
+													<li><a href="defense-pfsense-suricata.html" style="font-weight:600; color:#f56a6a;">Firewall pfSense + Suricata IPS</a></li>
+													<li><span class="soon">Laboratoire SOAR (TheHive/Cortex) <em>🚧 à venir</em></span></li>
+													<li><span class="soon">Mise en place SIEM/XDR <em>🚧 à venir</em></span></li>
+													<li><span class="soon">Projet OSSEC – Attaque & Défense <em>🚧 à venir</em></span></li>
+												</ul>
+											</li>
+											<li>
+												<span class="opener">CTF & Compétitions</span>
+												<ul>
+													<li><span class="soon">Write-ups Root-Me <em>🚧 à venir</em></span></li>
+													<li><span class="soon">ECOWAS CTF 2026 – Cyberphantoms <em>🚧 à venir</em></span></li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+
+									<!-- FORENSICS -->
+									<li>
+										<span class="opener">Forensics &amp; Investigation</span>
+										<ul>
+											<li><a href="forensics-acquisition-image.html">Acquisition d'image – FTK Imager</a></li>
+											<li><a href="forensics-analyse-fichier-sam.html">Analyse fichier SAM – Autopsy</a></li>
+										</ul>
+									</li>
+
+									<!-- Programmation -->
+									<li>
+										<span class="opener">Programmation</span>
+										<ul>
+											<li><a href="sencadenas.html">SenCadenas</a></li>
+											<li><a href="e-sante.html">E-Santé</a></li>
+										</ul>
+									</li>
+
+									<!-- MÉMOIRE -->
+									<li>
+										<span class="opener">Mon Mémoire</span>
+										<ul>
+											<li><span class="soon">Chap. 1 – Présentation générale du sujet <em>🚧 à venir</em></span></li>
+											<li><span class="soon">Chap. 2 – Concepts généraux en sécurité informatique <em>🚧 à venir</em></span></li>
+											<li><span class="soon">Chap. 3 – Étude sur les SIEM, SOAR, XDR <em>🚧 à venir</em></span></li>
+											<li><span class="soon">Chap. 4 – Étude comparative des solutions <em>🚧 à venir</em></span></li>
+											<li><span class="soon">Chap. 5 – Mise en œuvre des solutions <em>🚧 à venir</em></span></li>
+										</ul>
+									</li>
+
+									<!-- CLOUD -->
+									<li>
+										<span class="opener">Sécurité Cloud</span>
+										<ul>
+											<li><a href="cloud-iam-principe-moindre-privilège.html">IAM &amp; Principe du Moindre Privilège</a></li>
+											<li><a href="cloud-vpc-securise-aws.html">Configuration d'un VPC AWS Sécurisé</a></li>
+											<li><a href="cloud-aws-flow-logs.html">AWS Flow Logs</a></li>
+											<li><a href="cloud-aws-waf.html">AWS WAF</a></li>
+											<li><a href="cloud-siem-guardduty.html">Blue Team : SIEM Cloud &amp; GuardDuty</a></li>
+										</ul>
+									</li>
+
+									<!-- GOUVERNANCE -->
+									<li>
+										<span class="opener">Gouvernance &amp; Management</span>
+										<ul>
+											<li><a href="gouvernance-iso-27001-smsi.html">Gouvernance ISO 27001 – SMSI</a></li>
+											<li><a href="gouvernance-nist.html">Gouvernance NIST</a></li>
+										</ul>
+									</li>
+								</ul>
+							</nav>
+
+							<section>
+								<header class="major">
+									<h2>Contact</h2>
+								</header>
+								<p>N'hésitez pas à me contacter pour toute opportunité de stage, collaboration ou échange autour de la cybersécurité.</p>
+								<ul class="contact">
+									<li class="icon solid fa-envelope"><a href="mailto:vieuxdiene47@gmail.com">vieuxdiene47@gmail.com</a></li>
+									<li class="icon solid fa-phone">77 993 03 06</li>
+									<li class="icon solid fa-map-marker-alt">Yoff Tonghor, Dakar, Sénégal</li>
+								</ul>
+							</section>
+
+							<footer id="footer">
+								<p class="copyright">&copy; Vieux Alia Samb. All rights reserved. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+							</footer>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
