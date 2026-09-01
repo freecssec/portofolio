@@ -2314,3 +2314,31 @@ button,
     right: 1.5rem;
   }
 }
+
+/* Custom scrollbar for the Menu panel */
+#sidebar > .inner {
+  scrollbar-width: thin;
+  scrollbar-color: #c2c6c9 #f5f6f7; }
+  #sidebar > .inner::-webkit-scrollbar {
+    width: 12px; }
+  #sidebar > .inner::-webkit-scrollbar-track {
+    background: #f5f6f7; }
+  #sidebar > .inner::-webkit-scrollbar-thumb {
+    background-color: #c2c6c9;
+    border: 3px solid #f5f6f7;
+    border-radius: 7px; }
+  #sidebar > .inner::-webkit-scrollbar-thumb:hover {
+    background-color: #9a9fa3; }
+  #sidebar > .inner::-webkit-scrollbar-button {
+    background-color: #f5f6f7;
+    display: block;
+    height: 14px;
+    width: 12px; }
+  #sidebar > .inner::-webkit-scrollbar-button:single-button:vertical:decrement {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpolygon points='5,0 10,6 0,6' fill='%239a9fa3'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center; }
+  #sidebar > .inner::-webkit-scrollbar-button:single-button:vertical:increment {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpolygon points='0,0 10,0 5,6' fill='%239a9fa3'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center; }
