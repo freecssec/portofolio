@@ -1998,6 +1998,20 @@ button,
       width: inherit; }
   #sidebar.inactive {
     margin-left: -26em; }
+
+  @media screen and (min-width: 1281px) {
+    #sidebar {
+      align-self: flex-start;
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      max-height: 100vh; }
+      #sidebar > .inner {
+        max-height: 100vh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch; } }
+
   @media screen and (max-width: 1680px) {
     #sidebar {
       width: 24em; }
@@ -2271,49 +2285,6 @@ button,
     border-top: 0;
     margin-top: 0;
     padding-top: 0; }
-
-#sidebar .menu-scroll-arrow {
-  align-items: center;
-  background: rgba(245, 106, 106, 0.11);
-  border-radius: 999px;
-  box-shadow: 0 0 0.75em rgba(0, 0, 0, 0.08);
-  color: #f56a6a;
-  cursor: pointer;
-  display: inline-flex;
-  font-size: 1.15rem;
-  height: 2.4rem;
-  justify-content: center;
-  line-height: 1;
-  opacity: 0;
-  padding: 0;
-  position: absolute;
-  right: 2.5rem;
-  bottom: 2.5rem;
-  text-decoration: none;
-  top: auto;
-  transform: translateY(0.5rem);
-  transition: opacity 0.25s ease, transform 0.25s ease, background 0.25s ease;
-  visibility: hidden;
-  width: 2.4rem;
-  z-index: 1000;
-}
-
-#sidebar .menu-scroll-arrow:hover {
-  background: rgba(245, 106, 106, 0.18);
-}
-
-#sidebar .menu-scroll-arrow.visible {
-  opacity: 1;
-  transform: translateY(0);
-  visibility: visible;
-}
-
-@media screen and (max-width: 1280px) {
-  #sidebar .menu-scroll-arrow {
-    bottom: 8rem;
-    right: 1.5rem;
-  }
-}
 
 /* Custom scrollbar for the Menu panel */
 #sidebar > .inner {
