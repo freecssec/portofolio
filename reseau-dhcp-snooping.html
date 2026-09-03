@@ -1,0 +1,315 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>DHCP Snooping – Attaque et Mitigation – Portfolio Vieux Alia Samb</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<ul class="icons">
+										<li><a href="https://www.linkedin.com/in/vieux-alia-samb-753a443ab" target="_blank" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+										<li><a href="https://github.com/freecssec" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+									</ul>
+								</header>
+
+							<!-- Titre -->
+								<section>
+									<header class="main">
+										<h1>DHCP Snooping — Neutraliser un Serveur DHCP Pirate</h1>
+										<p>Réseau · Sécurité L2 · Cisco Packet Tracer · DHCP Spoofing · DHCP Snooping · Ports Trust/Untrust</p>
+									</header>
+
+									<!-- Badges -->
+									<div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:2em;">
+										<span style="background:#1a6e9a; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">Switch 2950-24</span>
+										<span style="background:#c0392b; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">Rogue DHCP Server</span>
+										<span style="background:#7b4fa3; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">DHCP Snooping</span>
+										<span style="background:#2d8a4e; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">Trusted Port</span>
+										<span style="background:#c97a1c; color:#fff; padding:5px 14px; border-radius:20px; font-size:0.82em; font-weight:600;">Option 82</span>
+									</div>
+
+									<div class="row">
+										<div class="col-8 col-12-medium">
+											<p>Le protocole DHCP repose entièrement sur la confiance : un client diffuse une requête en broadcast sur tout le segment, et répond au premier serveur qui lui propose une adresse sans jamais vérifier si ce serveur est légitime. Un attaquant qui branche un serveur DHCP pirate sur le même réseau peut donc <strong>détourner silencieusement les postes clients</strong> : leur imposer une fausse passerelle, un faux DNS, et se positionner en homme du milieu sur tout leur trafic. Ce lab démontre d'abord cette attaque avec succès, puis la neutralise avec la fonctionnalité <strong>DHCP Snooping</strong> du commutateur, qui filtre les réponses DHCP en fonction de la confiance accordée à chaque port.</p>
+										</div>
+										<div class="col-4 col-12-medium">
+											<div style="background:#f8f8f8; border-left:4px solid #c0392b; padding:1em 1.2em; border-radius:4px;">
+												<h4 style="margin:0 0 0.5em 0; font-size:0.9em; text-transform:uppercase; color:#888;">Environnement</h4>
+												<p style="margin:0; font-size:0.85em;"><strong>Serveur légitime</strong> Router0 (1841)</p>
+												<p style="margin:0; font-size:0.85em;"><strong>Pool légitime</strong> 1.0.0.0/8</p>
+												<p style="margin:0; font-size:0.85em;"><strong>Serveur pirate</strong> Server-PT « Hacker DHCP »</p>
+												<p style="margin:0; font-size:0.85em;"><strong>Pool pirate</strong> 192.168.1.0/24</p>
+												<p style="margin:0; font-size:0.85em;"><strong>Port de confiance</strong> Fa0/3 (vers Router0)</p>
+											</div>
+										</div>
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- TOPOLOGIE -->
+								<section>
+									<header class="major">
+										<h2>Topologie</h2>
+									</header>
+									<p>Un switch central relie Router0 (qui fera office de serveur DHCP légitime) et quatre postes clients (PC0 à PC3). Un cinquième équipement, Server0, est branché sur le même switch, il sera reconfiguré au fil du lab en <strong>« Hacker DHCP Machine »</strong>, le serveur DHCP pirate.</p>
+									<span class="image fit"><img src="images/reseau-dhcp-snooping/00-topologie-initiale.png" alt="Topologie initiale : Router0, Switch0 (2950-24), PC0 à PC3, et Server0 tous reliés au switch" /></span>
+									<span class="image fit"><img src="images/reseau-dhcp-snooping/00-topologie-hacker-identifie.png" alt="Même topologie, Server0 renommé Hacker DHCP Machine" /></span>
+								</section>
+
+							<hr class="major" />
+
+							<!-- ETAPE 1 : ATTAQUE -->
+								<section>
+									<header class="major">
+										<h2>Étape 1 : Démonstration de l'Attaque (Rogue DHCP Server)</h2>
+									</header>
+
+									<h3>Mise en place du serveur DHCP légitime</h3>
+									<p>Router0 est renommé <code>DHCP</code> et reçoit une adresse sur son interface FastEthernet0/0 (<code>1.0.0.1/8</code>), qui servira de passerelle par défaut pour le pool.</p>
+									<span class="image fit"><img src="images/reseau-dhcp-snooping/r0-dhcp-config-ip.png" alt="Router0 renommé DHCP, interface fa0/0 : ip address 1.0.0.1 255.0.0.0" /></span>
+									<p>Un pool DHCP est ensuite créé (<code>ip dhcp pool satish</code>), couvrant le réseau <code>1.0.0.0/8</code> avec <code>1.0.0.1</code> comme passerelle par défaut.</p>
+									<span class="image fit"><img src="images/reseau-dhcp-snooping/r0-dhcp-pool-legitime.png" alt="ip dhcp pool satish, network 1.0.0.0 255.0.0.0, default-router 1.0.0.1" /></span>
+									<p><strong>Résultat :</strong> les postes récupèrent bien leur adresse depuis Router0, PC2 obtient <code>1.0.0.2</code> avec la passerelle <code>1.0.0.1</code>, comportement normal et attendu.</p>
+									<span class="image fit"><img src="images/reseau-dhcp-snooping/pc2-dhcp-legitime-ok.png" alt="PC2 : DHCP request successful, IPv4 1.0.0.2, gateway 1.0.0.1" /></span>
+
+									<h3 style="margin-top:1.5em;">Mise en place du serveur DHCP pirate</h3>
+									<p>Le « Hacker DHCP Machine » reçoit une IP statique sur un tout autre sous-réseau (<code>192.168.1.1/24</code>), sa propre adresse n'a pas besoin d'être dans la même plage que celle qu'il va distribuer, DHCP fonctionnant par diffusion sur le segment local.</p>
+									<span class="image fit"><img src="images/reseau-dhcp-snooping/hacker-static-ip.png" alt="Hacker DHCP Machine : IP statique 192.168.1.1/24" /></span>
+									<p>Son propre service DHCP est activé avec un pool concurrent (<code>serverPool</code>), distribuant des adresses à partir de <code>192.168.1.2</code>.</p>
+									<span class="image fit"><img src="images/reseau-dhcp-snooping/hacker-dhcp-pool-config.png" alt="Service DHCP activé sur Hacker DHCP Machine : pool serverPool, plage démarrant à 192.168.1.2/24" /></span>
+									<p><strong>Résultat :</strong> sans aucune protection sur le switch, PC0 obtient désormais son adresse depuis le serveur pirate (<code>192.168.1.2</code>) au lieu de Router0, la preuve que l'attaque fonctionne. Un attaquant en position de sniffer ou de proxy pourrait dès lors intercepter tout le trafic de ce poste en s'étant imposé comme passerelle.</p>
+									<span class="image fit"><img src="images/reseau-dhcp-snooping/pc0-dhcp-detourne-attaquant.png" alt="PC0 : DHCP request successful, mais IPv4 192.168.1.2 — adresse fournie par le serveur pirate" /></span>
+
+									<div style="background:#fff4f0; border-left:4px solid #c0392b; padding:1.2em 1.5em; border-radius:4px; margin-top:1.5em;">
+										<p style="margin:0;"><strong>Constat :</strong> aucun mécanisme natif d'Ethernet ou de DHCP n'empêche un équipement quelconque branché sur le réseau de répondre aux requêtes DHCP. La seule défense possible se situe au niveau du commutateur, qui doit décider lui-même quels ports ont le droit de faire transiter des réponses de serveur DHCP.</p>
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- ETAPE 2 : MITIGATION -->
+								<section>
+									<header class="major">
+										<h2>Étape 2 : Protection via DHCP Snooping sur le Switch</h2>
+									</header>
+									<p>Le DHCP Snooping fait la distinction entre ports <strong>trusted</strong> (autorisés à relayer des réponses de serveur DHCP typiquement le port menant vers le serveur légitime ou un routeur) et <strong>untrusted</strong> (tous les autres par défaut, y compris celui du poste pirate). Toute trame DHCP OFFER ou ACK reçue sur un port untrusted est automatiquement rejetée par le switch, quelle que soit sa légitimité apparente.</p>
+									<p>La fonctionnalité est activée globalement, puis restreinte au VLAN 1, et le port <code>Fa0/3</code>, celui qui relie le switch à Router0, le serveur légitime est explicitement déclaré <code>trust</code>.</p>
+									<span class="image fit"><img src="images/reseau-dhcp-snooping/switch-dhcp-snooping-config.png" alt="ip dhcp snooping, ip dhcp snooping vlan 1, interface fa0/3, ip dhcp snooping trust" /></span>
+
+									<p>La commande <code>show ip dhcp snooping</code> confirme la configuration effective : snooping actif sur le VLAN 1, insertion de l'option 82 activée, vérification du champ hwaddr activée, et Fa0/3 listé comme seul port de confiance (sans limite de débit).</p>
+									<span class="image fit"><img src="images/reseau-dhcp-snooping/switch-dhcp-snooping-verif.png" alt="show ip dhcp snooping : VLAN 1, option 82 activée, Fa0/3 Trusted, rate limit unlimited" /></span>
+
+									<div style="background:#f0f4ff; border-left:4px solid #1a6e9a; padding:1.2em 1.5em; border-radius:4px; margin-top:1.5em;">
+										<p style="margin:0;"><strong>Bilan :</strong> une fois cette configuration en place, toute réponse DHCP émise depuis le port du « Hacker DHCP Machine » un port untrusted par défaut sera automatiquement filtrée par le switch, quelle que soit la rapidité ou l'insistance du serveur pirate à répondre. Seules les réponses transitant par Fa0/3 (Router0, le serveur légitime) resteront acceptées. Ce lab n'a pas rejoué l'attaque après activation du snooping pour reconfirmer visuellement le blocage, mais le mécanisme de filtrage au niveau du port, indépendant du contenu du paquet DHCP est celui documenté par Cisco et validé par la sortie de <code>show ip dhcp snooping</code>. Une amélioration naturelle du lab serait de relancer exactement le même test qu'à l'étape 1 pour observer le rejet en direct.</p>
+									</div>
+								</section>
+
+							<hr class="major" />
+
+							<!-- Retour -->
+								<section>
+									<p><a href="index.html#reseau">← Retour au portfolio</a></p>
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="Search" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="index.html">Accueil</a></li>
+
+										<!-- RÉSEAU -->
+										<li>
+											<span class="opener">Réseau</span>
+											<ul>
+												<!-- Routage -->
+												<li>
+													<span class="opener">Routage</span>
+													<ul>
+														<li><a href="reseau-routage-statique.html">Routage Statique</a></li>
+														<li><a href="reseau-routage-par-defaut.html">Routage par Défaut</a></li>
+														<li><a href="reseau-ospf.html">OSPF (Dynamique)</a></li>
+														<li><a href="reseau-eigrp.html">EIGRP (Dynamique)</a></li>
+														<li><a href="reseau-ripv2.html">RIPv2 (Dynamique)</a></li>
+														<li><a href="auth-protocoles-routage.html">Authentification sur les protocoles de routage</a></li>
+													</ul>
+												</li>
+												<!-- Haute Disponibilité -->
+												<li>
+													<span class="opener">Haute Disponibilité</span>
+													<ul>
+														<li><a href="reseau-hsrp.html">HSRP – Hot Standby Routing Protocol</a></li>
+													</ul>
+												</li>
+												<!-- Sécurité L2 -->
+												<li>
+													<span class="opener">Sécurité L2</span>
+													<ul>
+														<li><a href="reseau-port-security-ssh.html">Port Security &amp; Accès SSH</a></li>
+														<li><a href="reseau-dhcp-snooping.html" style="font-weight:600; color:#f56a6a;">DHCP Snooping</a></li>
+														<li><span class="soon">ARP Spoofing – Protection <em>🚧 à venir</em></span></li>
+														<li><span class="soon">MAC Flooding – Mitigation <em>🚧 à venir</em></span></li>
+														<li><span class="soon">VLAN – Segmentation <em>🚧 à venir</em></span></li>
+													</ul>
+												</li>
+												<!-- Services Réseau -->
+												<li>
+													<span class="opener">Services Réseau</span>
+													<ul>
+														<li><span class="soon">NAT & Accès Internet <em>🚧 à venir</em></span></li>
+														<li><span class="soon">DHCP sur GNS3 <em>🚧 à venir</em></span></li>
+														<li><span class="soon">Portail Captif & RADIUS <em>🚧 à venir</em></span></li>
+													</ul>
+												</li>
+												<!-- Audit & Attaques -->
+												<li>
+													<span class="opener">Audit Sans-Fil & MITM</span>
+													<ul>
+														<li><span class="soon">Audit WPA2/WPA3 <em>🚧 à venir</em></span></li>
+														<li><span class="soon">Attaque MITM sur Wi-Fi Sécurisé <em>🚧 à venir</em></span></li>
+														<li><span class="soon">Analyse de trafic Wireshark <em>🚧 à venir</em></span></li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+
+										<!-- ATTAQUE / DÉFENSE -->
+										<li>
+											<span class="opener">Attaque / Défense</span>
+											<ul>
+												<!-- Machines vulnérables -->
+												<li>
+													<span class="opener">Machines Vulnérables</span>
+													<ul>
+														<li><span class="soon">Exploitation ProFTPD <em>🚧 à venir</em></span></li>
+														<li><span class="soon">Exploitation Port 80 (HTTP) <em>🚧 à venir</em></span></li>
+													</ul>
+												</li>
+												<!-- SOC & Défense -->
+												<li>
+													<span class="opener">SOC & Défense</span>
+													<ul>
+														<li><a href="defense-pfsense-suricata.html">Firewall pfSense + Suricata IPS</a></li>
+														<li><span class="soon">Laboratoire SOAR (TheHive/Cortex) <em>🚧 à venir</em></span></li>
+														<li><span class="soon">Mise en place SIEM/XDR <em>🚧 à venir</em></span></li>
+														<li><span class="soon">Projet OSSEC – Attaque & Défense <em>🚧 à venir</em></span></li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+
+										<!-- Forensics -->
+										<li>
+											<span class="opener">Forensics & Investigation</span>
+											<ul>
+												<li><a href="forensics-acquisition-image.html">Acquisition d'image forensique</a></li>
+												<li><a href="forensics-analyse-fichier-sam.html">Analyse fichier SAM – Autopsy</a></li>
+											</ul>
+										</li>
+
+										<!-- Programmation -->
+										<li>
+											<span class="opener">Programmation</span>
+											<ul>
+												<li><a href="sencadenas.html">SenCadenas</a></li>
+												<li><a href="e-sante.html">E-Santé</a></li>
+											</ul>
+										</li>
+
+										<!-- MÉMOIRE -->
+										<li>
+											<span class="opener">Mon Mémoire</span>
+											<ul>
+												<li><span class="soon">Chap. 1 – Présentation générale du sujet <em>🚧 à venir</em></span></li>
+												<li><span class="soon">Chap. 2 – Concepts généraux en sécurité informatique <em>🚧 à venir</em></span></li>
+												<li><span class="soon">Chap. 3 – Étude sur les SIEM, SOAR, XDR <em>🚧 à venir</em></span></li>
+												<li><span class="soon">Chap. 4 – Étude comparative des solutions <em>🚧 à venir</em></span></li>
+												<li><span class="soon">Chap. 5 – Mise en œuvre des solutions <em>🚧 à venir</em></span></li>
+											</ul>
+										</li>
+
+										<!-- CLOUD -->
+										<li>
+											<span class="opener">Sécurité Cloud</span>
+											<ul>
+												<li><a href="cloud-iam-principe-moindre-privilège.html">IAM &amp; Principe du Moindre Privilège</a></li>
+												<li><a href="cloud-vpc-securise-aws.html">Configuration d'un VPC AWS Sécurisé</a></li>
+												<li><a href="cloud-aws-flow-logs.html">AWS Flow Logs</a></li>
+												<li><a href="cloud-aws-waf.html">AWS WAF</a></li>
+												<li><a href="cloud-siem-guardduty.html">Blue Team : SIEM Cloud &amp; GuardDuty</a></li>
+											</ul>
+										</li>
+
+										<!-- GOUVERNANCE -->
+										<li>
+											<span class="opener">Gouvernance &amp; Management</span>
+											<ul>
+												<li><a href="gouvernance-iso-27001-smsi.html">Gouvernance ISO 27001 – SMSI</a></li>
+												<li><a href="gouvernance-nist.html">Gouvernance NIST</a></li>
+											</ul>
+										</li>
+									</ul>
+								</nav>
+
+								<section>
+									<header class="major">
+										<h2>Contact</h2>
+									</header>
+									<p>N'hésitez pas à me contacter pour toute opportunité de stage, collaboration ou échange autour de la cybersécurité.</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="mailto:vieuxdiene47@gmail.com">vieuxdiene47@gmail.com</a></li>
+										<li class="icon solid fa-phone">77 993 03 06</li>
+										<li class="icon solid fa-map-marker-alt">Yoff Tonghor, Dakar, Sénégal</li>
+									</ul>
+								</section>
+
+								<footer id="footer">
+									<p class="copyright">&copy; Vieux Alia Samb. All rights reserved. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
