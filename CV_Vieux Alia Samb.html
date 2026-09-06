@@ -50,6 +50,55 @@ a[href*="github.io"] {
     color: #00bfa5 !important; /* Remplace par ton code couleur vert exact */
     text-decoration: none;
 }
+
+/* Espacements condensés pour gagner de la place */
+.section {
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  border-bottom: 2px solid #0056b3;
+  padding-bottom: 2px;
+  margin-bottom: 8px;
+  color: #0056b3;
+}
+
+.project-item {
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+
+.portfolio-link {
+  font-size: 0.82rem;
+  margin-top: 4px;
+  color: #555;
+}
+
+.certif-list {
+  list-style-type: square;
+  padding-left: 18px;
+  margin: 0;
+}
+
+.certif-list li {
+  margin-bottom: 4px;
+  font-size: 0.9rem;
+}
+
+.edu-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+  font-size: 0.9rem;
+}
+
+.edu-item .date {
+  font-style: italic;
+  color: #666;
+}
     </style>
 </head>
 <body>
@@ -122,26 +171,45 @@ a[href*="github.io"] {
             </ul>
         </div>
 
-        <h3>Projets Majeurs</h3>
-        <div class="project-item">
-        <span class="bold">Sécurité Réseau Sans Fils :</span> Mise en place d'un portail captif avec Pfsense + authentification RADIUS.
-        </div>
-        <div class="project-item">
-            <span class="bold">Audit de Sécurité LAN (Pré-soutenance) :</span> Tests d'intrusion internes incluant des attaques de couche 2 (ARP Spoofing, MAC Flooding) et audit de réseaux WiFi WPA2/WPA3.
-        </div>
-        <div class="project-item">
-            <span class="bold">Infrastructure Réseau Cisco Packet Tracer/GNS3 :</span> Simulation de réseaux d'entreprise avec routage dynamique authentifié et haute disponibilité via le protocole HSRP.
-        </div>
+       <div class="section">
+  <h3 class="section-title">PROJETS MAJEURS</h3>
+  
+  <div class="project-item">
+    <strong>Sécurité Réseau & Portail Captif :</strong> Déploiement de pfSense avec authentification RADIUS et segmentation VLAN.
+  </div>
+  
+  <div class="project-item">
+    <strong>Audit LAN & Infrastructure :</strong> Attaques couche 2 (ARP Spoofing, MAC Flooding) et routage dynamique (OSPF, HSRP) sous GNS3.
+  </div>
 
-        <h3>Formation</h3>
-        <ul>
-            <li><span class="bold">Licence 3 SESINE (Sécurité Informatique)</span> – IPROSI <span class="date">En cours</span></li>
-            <li><span class="bold">FMPO</span> – Université de Dakar <span class="date">2019-2022</span></li>
-            <li><span class="bold">Baccalauréat Scientifique</span> – Privé Mame Abdou Dabakh <span class="date">2019</span></li>
-        </ul>
+  <p class="portfolio-link">
+    <em> Retrouvez le détail de mes labs et rapports d'analyse sur mon portfolio.</em>
+  </p>
+</div>
 
-        <h3>Veille & Intérêts</h3>
-        <p>Intelligence Artificielle appliquée à la Cyber, Ethical Hacking, Basketball, Mangas.</p>
-    </div>
+<div class="section">
+  <h3 class="section-title">CERTIFICATIONS</h3>
+  <ul class="certif-list">
+    <li><strong><a href="https://www.credly.com/badges/e2487b0e-20fd-4250-8a31-91f5dc68f5ce" target="_blank">Junior Cybersecurity Analyst Career Path</a></strong> — Cisco Networking Academy (2026)</li>
+    <li><strong><a href="https://www.credly.com/badges/9ce4ad0f-fbbe-4a99-8c2d-e2c49aaaeb65/public_url" target="_blank">Introduction to Cybersecurity</a></strong> — Cisco Networking Academy (2026)</li>
+    <li><strong>ISC2 Candidate</strong> — ISC2 (En cours)</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h3 class="section-title">FORMATION</h3>
+  <div class="edu-item">
+    <span class="title"><strong>Licence 3 SESINE (Sécurité Informatique)</strong> — IPROSI</span>
+    <span class="date">En cours</span>
+  </div>
+  <div class="edu-item">
+    <span class="title"><strong>FMPO</strong> — Université de Dakar</span>
+    <span class="date">2019 - 2021</span>
+  </div>
+  <div class="edu-item">
+    <span class="title"><strong>Baccalauréat Scientifique</strong> — Privé Mame Abdou Dabakh</span>
+    <span class="date">2019</span>
+  </div>
+</div>
 </body>
 </html>
